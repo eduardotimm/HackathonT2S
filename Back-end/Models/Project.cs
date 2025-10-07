@@ -10,5 +10,6 @@
         public double? Score { get; set; }
         public DateTime SubmittedAt { get; set; }
         public string? MarkdownReport { get; set; }
+        public ICollection<Rating> Ratings { get; set; } = new List<Rating>();
     }
 }
