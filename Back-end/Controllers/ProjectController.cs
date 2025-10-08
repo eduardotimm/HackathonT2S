@@ -8,7 +8,7 @@ namespace HackathonT2S.Controllers
     public class ProjectController : ControllerBase
     {
         // Endpoint para submeter URLs de repositórios
-        [HttpPost("project")]
+        [HttpPost("")]
         public IActionResult SubmitRepository([FromBody] string repositoryUrl)
         {
             // Lógica para iniciar análise assíncrona
@@ -16,7 +16,7 @@ namespace HackathonT2S.Controllers
         }
 
         // Endpoint para consultar status da análise
-        [HttpGet("project/{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetStatus(int id)
         {
             // Lógica para retornar status
@@ -24,7 +24,7 @@ namespace HackathonT2S.Controllers
         }
 
         // Endpoint para obter relatório em Markdown
-        [HttpGet("project/report/{id}")]
+        [HttpGet("report/{id}")]
         public IActionResult GetReport(int id)
         {
             // Lógica para retornar relatório
@@ -32,7 +32,7 @@ namespace HackathonT2S.Controllers
         }
 
         // Endpoint para listar todos os projetos
-        [HttpGet("projects")]
+        [HttpGet("all")]
         public IActionResult GetAll()
         {
             // Exemplo de retorno estático, substitua pela lógica real
