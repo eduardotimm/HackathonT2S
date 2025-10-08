@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../logo.svg';
 import profileIcon from '../../profile-icon.png';
-import HeaderDropdown from '../Dropdown/HeaderDropdown';
+import HeaderDropdown from '../HeaderDropdown/HeaderDropdown';
 import './Header.css';
 
 export default function Header() {
