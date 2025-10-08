@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import useDropdown from '../../hooks/useDropdown';
 import './HeaderDropdown.css';
 
-export default function HeaderDropdown({ items }) {
+export default function HeaderDropdown({ items, trigger, offset }) {
   const navigate = useNavigate();
-  const { open, setOpen, rootRef, caretRef, dropdownLeft } = useDropdown();
+  const { open, setOpen, rootRef, caretRef, dropdownLeft } = useDropdown({ offset });
 
   const defaultItems = [
     { label: 'Home', to: '/' },
-    { label: 'Projetos', disabled: true },
+    { label: 'Projetos', to: '/projects' },
   ];
   const renderedItems = Array.isArray(items) && items.length ? items : defaultItems;
 
@@ -22,9 +22,21 @@ export default function HeaderDropdown({ items }) {
 
   return (
     <div className="header-dropdown-root" ref={rootRef}>
-      <button ref={caretRef} className="logo-caret" aria-label="abrir menu" onClick={() => setOpen(o => !o)}>
-        ▾
-      </button>
+      {trigger ? (
+        // attach ref and click handler to the provided trigger element
+        React.cloneElement(trigger, {
+          ref: caretRef,
+          onClick: (e) => {
+            try { if (typeof trigger.props.onClick === 'function') trigger.props.onClick(e); } catch (_) {}
+            setOpen(o => !o);
+          },
+          'aria-label': trigger.props && trigger.props['aria-label'] ? trigger.props['aria-label'] : 'abrir menu'
+        })
+      ) : (
+        <button ref={caretRef} className="logo-caret" aria-label="abrir menu" onClick={() => setOpen(o => !o)}>
+          ▾
+        </button>
+      )}
 
       {open && (
         <div className="logo-dropdown" style={dropdownLeft ? { left: dropdownLeft } : undefined}>
