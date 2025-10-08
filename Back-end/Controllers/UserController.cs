@@ -1,79 +1,107 @@
 using Microsoft.AspNetCore.Mvc;
 using HackathonT2S.Models;
+using HackathonT2S.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
+using HackathonT2S.Dtos;
 
 namespace HackathonT2S.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("ada/[controller]")]
     public class UserController : ControllerBase
     {
-        // Usando uma lista estática em memória para simular um banco de dados.
-        // O ideal é substituir isso pela injeção do seu AppDBContext.
-        private static readonly List<User> _users = new List<User>
+        private readonly AppDbContext _context;
+
+        public UserController(AppDbContext context)
         {
-            new User { UserID = 1, Username = "admin", Email = "admin@example.com", Role = "Admin", PasswordHash = "hash_admin" },
-            new User { UserID = 2, Username = "guest", Email = "guest@example.com", Role = "User", PasswordHash = "hash_guest" }
-        };
+            _context = context;
+        }
 
         /// <summary>
         /// Lista todos os usuários.
-        /// </summary>
+        /// </summary>a
         [HttpGet]
-        public ActionResult<IEnumerable<User>> GetUsers()
+        public async Task<ActionResult<IEnumerable<UserResponseDto>>> GetUsers()
         {
-            // ATENÇÃO: Em uma aplicação real, nunca exponha o PasswordHash.
-            // Crie um DTO (Data Transfer Object) para retornar apenas os dados seguros.
-            return Ok(_users);
+            var users = await _context.Users
+                .Select(u => new UserResponseDto
+                {
+                    UserID = u.UserID,
+                    Username = u.Username,
+                    Email = u.Email,
+                    Role = u.Role
+                })
+                .ToListAsync();
+
+            return Ok(users);
         }
 
         /// <summary>
         /// Obtém um usuário específico pelo ID.
         /// </summary>
         [HttpGet("{id}")]
-        public ActionResult<User> GetUser(int id)
+        public async Task<ActionResult<UserResponseDto>> GetUser(int id)
         {
-            var user = _users.FirstOrDefault(u => u.UserID == id);
+            var user = await _context.Users.FindAsync(id);
 
             if (user == null)
             {
                 return NotFound($"Usuário com ID {id} não encontrado.");
             }
 
-            return Ok(user);
+            var userDto = new UserResponseDto
+            {
+                UserID = user.UserID,
+                Username = user.Username,
+                Email = user.Email,
+                Role = user.Role
+            };
+
+            return Ok(userDto);
         }
 
         /// <summary>
         /// Cria um novo usuário.
         /// </summary>
         [HttpPost]
-        public ActionResult<User> CreateUser([FromBody] User newUser)
+        public async Task<ActionResult<UserResponseDto>> CreateUser([FromBody] User newUser)
         {
-            // Lógica simples para gerar um novo ID.
-            newUser.UserID = _users.Any() ? _users.Max(u => u.UserID) + 1 : 1;
-            
-            // Lembre-se de gerar o hash da senha antes de salvar!
-            // newUser.PasswordHash = GerarHash(newUser.Password);
+            // IMPORTANTE: Em uma aplicação real, a senha nunca deve ser salva em texto plano.
+            // Você deve gerar um hash da senha aqui.
+            // Ex: newUser.PasswordHash = BCrypt.Net.BCrypt.HashPassword(newUser.PasswordHash);
 
-            _users.Add(newUser);
+            _context.Users.Add(newUser);
+            await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetUser), new { id = newUser.UserID }, newUser);
+            var userDto = new UserResponseDto
+            {
+                UserID = newUser.UserID,
+                Username = newUser.Username,
+                Email = newUser.Email,
+                Role = newUser.Role
+            };
+
+            return CreatedAtAction(nameof(GetUser), new { id = newUser.UserID }, userDto);
         }
 
         /// <summary>
         /// Deleta um usuário.
         /// </summary>
         [HttpDelete("{id}")]
-        public IActionResult DeleteUser(int id)
+        public async Task<IActionResult> DeleteUser(int id)
         {
-            var user = _users.FirstOrDefault(u => u.UserID == id);
+            var user = await _context.Users.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
 
-            _users.Remove(user);
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+
             return NoContent(); // Sucesso, sem conteúdo para retornar.
         }
     }
