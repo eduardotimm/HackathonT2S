@@ -9,7 +9,6 @@ namespace HackathonT2S.Models
         [Key]
         public int ReportID { get; set; }
         public int ProjectID { get; set; } // Chave estrangeira
-        public Project Project { get; set; } // Propriedade de navegação
         public DateTime GeneratedAt { get; set; }
         public string MarkdownContent { get; set; }
         public double TotalScore { get; set; }
