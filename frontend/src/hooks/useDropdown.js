@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 
-export default function useDropdown() {
+export default function useDropdown(options = {}) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef(null);
   const caretRef = useRef(null);
@@ -19,8 +19,9 @@ export default function useDropdown() {
       if (!rootRef.current || !caretRef.current) return;
       const headerRect = rootRef.current.getBoundingClientRect();
       const caretRect = caretRef.current.getBoundingClientRect();
-      const arrowOffsetInside = 20;
-      const extraShift = 8;
+  const arrowOffsetInside = 20;
+      // allow caller to override extraShift via options.offset (in px)
+      const extraShift = typeof options.offset === 'number' ? options.offset : 36;
       const caretCenter = caretRect.left - headerRect.left + caretRect.width / 2;
       const dropdownLeftValue = Math.max(0, Math.round(caretCenter - arrowOffsetInside - extraShift));
       setDropdownLeft(dropdownLeftValue + 'px');

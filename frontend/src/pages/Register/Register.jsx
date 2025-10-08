@@ -15,7 +15,12 @@ export default function Register() {
       setError("As senhas não são iguais.");
     } else {
       setError("");
-      // lógica de cadastro
+        // lógica de cadastro - simulate success by storing a user name and redirecting
+        const fakeName = email.split('@')[0] || 'Usuário';
+  if (typeof window !== 'undefined') localStorage.setItem('userName', fakeName);
+  // notify app that auth changed and navigate to projects
+  if (typeof window !== 'undefined') window.dispatchEvent(new Event('authChanged'));
+  window.location.href = '/projects';
     }
   }
 

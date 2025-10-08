@@ -12,7 +12,12 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('login', { email, password });
+    // Simulate successful login: save a userName in localStorage and redirect
+    const fakeName = email.split('@')[0] || 'Usuário';
+    if (typeof window !== 'undefined') localStorage.setItem('userName', fakeName);
+    // notify app that auth changed
+    if (typeof window !== 'undefined') window.dispatchEvent(new Event('authChanged'));
+    navigate('/');
   };
 
   return (

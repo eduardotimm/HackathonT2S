@@ -1,2 +1,5 @@
 /* Header styles are in App.css; this file can be used for Header-specific overrides */
 .header-left { position: relative }
+
+.header-right { display: flex; align-items: center; gap: 12px }
+.profile-icon { width: 36px; height: 36px; border-radius: 50%; cursor: pointer; object-fit: cover; }
