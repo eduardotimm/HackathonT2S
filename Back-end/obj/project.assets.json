@@ -22,6 +22,32 @@
           "lib/netstandard2.0/Microsoft.OpenApi.dll": {}
         }
       },
+<<<<<<< HEAD
+=======
+      "MySqlConnector/2.1.2": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/MySqlConnector.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/MySqlConnector.dll": {}
+        }
+      },
+      "Pomelo.EntityFrameworkCore.MySql/6.0.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Relational": "[6.0.7, 7.0.0)",
+          "Microsoft.Extensions.DependencyInjection": "6.0.0",
+          "MySqlConnector": "2.1.2"
+        },
+        "compile": {
+          "lib/net6.0/Pomelo.EntityFrameworkCore.MySql.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/Pomelo.EntityFrameworkCore.MySql.dll": {}
+        }
+      },
+>>>>>>> d42d4333c4eded833eaf69453b83fb956201a770
       "Swashbuckle.AspNetCore/6.2.3": {
         "type": "package",
         "dependencies": {
@@ -120,6 +146,52 @@
         "microsoft.openapi.nuspec"
       ]
     },
+<<<<<<< HEAD
+=======
+    "MySqlConnector/2.1.2": {
+      "sha512": "JVokQTUNN3WHAu9Vw8ieeq1dXTFokJiig5P0VJ4f439UxRrsPo6SaVWC8Zdm6mkPeQFhZ0/9afdWa02EY/1j/w==",
+      "type": "package",
+      "path": "mysqlconnector/2.1.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net45/MySqlConnector.dll",
+        "lib/net45/MySqlConnector.xml",
+        "lib/net461/MySqlConnector.dll",
+        "lib/net461/MySqlConnector.xml",
+        "lib/net471/MySqlConnector.dll",
+        "lib/net471/MySqlConnector.xml",
+        "lib/net5.0/MySqlConnector.dll",
+        "lib/net5.0/MySqlConnector.xml",
+        "lib/net6.0/MySqlConnector.dll",
+        "lib/net6.0/MySqlConnector.xml",
+        "lib/netcoreapp3.1/MySqlConnector.dll",
+        "lib/netcoreapp3.1/MySqlConnector.xml",
+        "lib/netstandard2.0/MySqlConnector.dll",
+        "lib/netstandard2.0/MySqlConnector.xml",
+        "lib/netstandard2.1/MySqlConnector.dll",
+        "lib/netstandard2.1/MySqlConnector.xml",
+        "logo.png",
+        "mysqlconnector.2.1.2.nupkg.sha512",
+        "mysqlconnector.nuspec"
+      ]
+    },
+    "Pomelo.EntityFrameworkCore.MySql/6.0.2": {
+      "sha512": "KvlZ800CnEuEGnxj5OT1fCKGjQXxW5kpPlCP91JqBYG+2Z3927eqXmlX6LLKUt4swqE8ZsEQ+Zkpab8bqstf4g==",
+      "type": "package",
+      "path": "pomelo.entityframeworkcore.mysql/6.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/net6.0/Pomelo.EntityFrameworkCore.MySql.dll",
+        "lib/net6.0/Pomelo.EntityFrameworkCore.MySql.xml",
+        "pomelo.entityframeworkcore.mysql.6.0.2.nupkg.sha512",
+        "pomelo.entityframeworkcore.mysql.nuspec"
+      ]
+    },
+>>>>>>> d42d4333c4eded833eaf69453b83fb956201a770
     "Swashbuckle.AspNetCore/6.2.3": {
       "sha512": "cnzQDn0Le+hInsw2SYwlOhOCPXpYi/szcvnyqZJ12v+QyrLBwAmWXBg6RIyHB18s/mLeywC+Rg2O9ndz0IUNYQ==",
       "type": "package",
@@ -204,6 +276,11 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+<<<<<<< HEAD
+=======
+      "Microsoft.EntityFrameworkCore.Tools >= 6.0.32",
+      "Pomelo.EntityFrameworkCore.MySql >= 6.0.2",
+>>>>>>> d42d4333c4eded833eaf69453b83fb956201a770
       "Swashbuckle.AspNetCore >= 6.2.3"
     ]
   },
@@ -214,11 +291,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\unisanta\\Desktop\\Hackathon T2S\\HackathonT2S\\Back-end\\HackathonT2S.csproj",
       "projectName": "HackathonT2S",
       "projectPath": "C:\\Users\\unisanta\\Desktop\\Hackathon T2S\\HackathonT2S\\Back-end\\HackathonT2S.csproj",
       "packagesPath": "C:\\Users\\unisanta\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\unisanta\\Desktop\\Hackathon T2S\\HackathonT2S\\Back-end\\obj\\",
+=======
+      "projectUniqueName": "C:\\Users\\unisanta\\Desktop\\Hackathon 2025\\Back-end\\HackathonT2S.csproj",
+      "projectName": "HackathonT2S",
+      "projectPath": "C:\\Users\\unisanta\\Desktop\\Hackathon 2025\\Back-end\\HackathonT2S.csproj",
+      "packagesPath": "C:\\Users\\unisanta\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\unisanta\\Desktop\\Hackathon 2025\\Back-end\\obj\\",
+>>>>>>> d42d4333c4eded833eaf69453b83fb956201a770
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -251,6 +336,19 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+<<<<<<< HEAD
+=======
+          "Microsoft.EntityFrameworkCore.Tools": {
+            "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[6.0.32, )"
+          },
+          "Pomelo.EntityFrameworkCore.MySql": {
+            "target": "Package",
+            "version": "[6.0.2, )"
+          },
+>>>>>>> d42d4333c4eded833eaf69453b83fb956201a770
           "Swashbuckle.AspNetCore": {
             "target": "Package",
             "version": "[6.2.3, )"

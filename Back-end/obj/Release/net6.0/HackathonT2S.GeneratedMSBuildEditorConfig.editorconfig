@@ -8,17 +8,9 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = HackathonT2S
 build_property.RootNamespace = HackathonT2S
-<<<<<<< HEAD
-build_property.ProjectDir = C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\
+build_property.ProjectDir = C:\Users\unisanta\Desktop\kuedkyfkjsegfksefke\Back-end\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end
-=======
-build_property.ProjectDir = C:\Users\unisanta\Desktop\Hackathon 2025\Back-end\
-build_property.RazorLangVersion = 6.0
-build_property.SupportLocalizedComponentNames = 
-build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\unisanta\Desktop\Hackathon 2025\Back-end
->>>>>>> d42d4333c4eded833eaf69453b83fb956201a770
+build_property.MSBuildProjectDirectory = C:\Users\unisanta\Desktop\kuedkyfkjsegfksefke\Back-end
 build_property._RazorSourceGeneratorDebug = 

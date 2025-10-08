@@ -1,11 +1,22 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "xrT8LQx3r3h2pQ1PvCPtDIq8i+fWnQlQ00nqaTFKYC5yPEBhUUEWH8FesiA+SkmeGPfuj4RGKwTZFaz53K97yg==",
   "success": true,
   "projectFilePath": "C:\\Users\\unisanta\\Desktop\\Hackathon T2S\\HackathonT2S\\Back-end\\HackathonT2S.csproj",
+=======
+  "dgSpecHash": "uQ/jhwYHlzMUOH1npjs2UktmuaJLWHgju5kJ9UZG0GZYMBjsL08ct7MqcC53jN7+W6Ao0z46863Ild9CBqGyZg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\unisanta\\Desktop\\Hackathon 2025\\Back-end\\HackathonT2S.csproj",
+>>>>>>> d42d4333c4eded833eaf69453b83fb956201a770
   "expectedPackageFiles": [
     "C:\\Users\\unisanta\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\unisanta\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+<<<<<<< HEAD
+=======
+    "C:\\Users\\unisanta\\.nuget\\packages\\mysqlconnector\\2.1.2\\mysqlconnector.2.1.2.nupkg.sha512",
+    "C:\\Users\\unisanta\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\6.0.2\\pomelo.entityframeworkcore.mysql.6.0.2.nupkg.sha512",
+>>>>>>> d42d4333c4eded833eaf69453b83fb956201a770
     "C:\\Users\\unisanta\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
     "C:\\Users\\unisanta\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
     "C:\\Users\\unisanta\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
