@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '../Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import logo from '../../logo.svg';
+import logo from '../../Logo.png';
 import HeaderDropdown from '../HeaderDropdown/HeaderDropdown';
 import './Header.css';
 
