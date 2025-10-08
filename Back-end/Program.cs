@@ -5,15 +5,16 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-//Configura��o DBContext
-builder.Services.AddDbContext<AppDBContext>(options => options.UseMySql(
-    builder.Configuration.GetConnectionString("Default Connection"),
-    new MySqlServerVersion(new Version(8,0,36))
+// 1. Pega a Connection String do appsettings.json
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+// 2. Configura o DbContext para usar MySQL com AutoDetect e resiliência
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), mySqlOptions => 
+        mySqlOptions.EnableRetryOnFailure()
     )
 );
 
-
-builder.Services.AddControllers();
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     // Adiciona esta configuração para ignorar ciclos de referência na serialização JSON
