@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "F/iJ6gt4GLfw7WGl17XHbtZ7VnKgt13Rf/+kl4zT2A4x1n8+sfobsV2ZzhQWaJKE5FmGlUvVeEH9HiAw1X6Skg==",
+  "dgSpecHash": "uQ/jhwYHlzMUOH1npjs2UktmuaJLWHgju5kJ9UZG0GZYMBjsL08ct7MqcC53jN7+W6Ao0z46863Ild9CBqGyZg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\unisanta\\source\\repos\\HackathonT2S\\HackathonT2S\\HackathonT2S.csproj",
+  "projectFilePath": "C:\\Users\\unisanta\\Desktop\\Hackathon 2025\\Back-end\\HackathonT2S.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\unisanta\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\unisanta\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.32\\microsoft.entityframeworkcore.6.0.32.nupkg.sha512",
@@ -23,8 +23,6 @@
     "C:\\Users\\unisanta\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
     "C:\\Users\\unisanta\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\unisanta\\.nuget\\packages\\mysqlconnector\\2.1.2\\mysqlconnector.2.1.2.nupkg.sha512",
-    "C:\\Users\\unisanta\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
-    "C:\\Users\\unisanta\\.nuget\\packages\\newtonsoft.json.bson\\1.0.3\\newtonsoft.json.bson.1.0.3.nupkg.sha512",
     "C:\\Users\\unisanta\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\6.0.2\\pomelo.entityframeworkcore.mysql.6.0.2.nupkg.sha512",
     "C:\\Users\\unisanta\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
     "C:\\Users\\unisanta\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
