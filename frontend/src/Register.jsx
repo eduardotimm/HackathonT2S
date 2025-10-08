@@ -23,18 +23,6 @@ export default function Register() {
       <h2>Criar Conta</h2>
       <form className="login-form" onSubmit={handleSubmit}>
         <label>
-          Nome de usuário:
-          <input
-            type="text"
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-            placeholder="Digite seu nome de usuário"
-            maxLength={40}
-            className="login-input"
-            required
-          />
-        </label>
-        <label>
           Email:
           <input
             type="email"

@@ -6,7 +6,7 @@ import Login from './Login';
 import Register from './Register';
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import CentralForm from './CentralForm';
-import NovaPagina from './NovaPagina';
+import Dashboard from './Perfil';
 
 function Home() {
   const navigate = useNavigate();
@@ -35,14 +35,14 @@ function Home() {
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/nova-pagina" element={<NovaPagina />} />
-      </Routes>
-    </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/perfil" element={<Dashboard />} />
+        </Routes>
+      </BrowserRouter>
   );
 }
 

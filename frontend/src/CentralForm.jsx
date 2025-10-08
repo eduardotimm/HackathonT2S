@@ -4,37 +4,52 @@ import "./CentralForm.css";
 
 export default function CentralForm() {
   const navigate = useNavigate();
+  const [url, setUrl] = React.useState("");
+  const [file, setFile] = React.useState(null);
+
+  const handleUrlChange = (e) => {
+    setUrl(e.target.value);
+  };
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
   return (
     <div className="central-container">
       <input
         type="text"
-        className="url-input"
-        placeholder="Digite sua Url"
+        className="input"
+        placeholder="Digite o nome do projeto"
         maxLength={200}
       />
+      <input
+        type="text"
+        className={`input${file ? ' input-disabled' : ''}`}
+        placeholder="Digite sua Url"
+        maxLength={200}
+        value={url}
+        onChange={handleUrlChange}
+        disabled={!!file}
+      />
       <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '24px', marginTop: '24px' }}>
-        <label className="file-label">
-          <input type="file" className="file-input" />
+  <label className={`file-label${url ? ' file-label-disabled' : ''}`}> 
+          <input
+            type="file"
+            className="file-input"
+            onChange={handleFileChange}
+            disabled={!!url}
+          />
           <img
             src="https://cdn-icons-png.flaticon.com/512/60/60740.png"
             alt="Anexar arquivo"
             className="file-icon"
           />
-          <span>Anexar arquivo</span>
+          <span className="file-label-text">Anexar arquivo</span>
         </label>
         <button
           className="ok-btn"
-          style={{
-            padding: '12px 32px',
-            fontSize: '1.1rem',
-            borderRadius: '8px',
-            background: '#646cff',
-            color: '#fff',
-            border: 'none',
-            cursor: 'pointer',
-            fontWeight: 'bold'
-          }}
-          onClick={() => navigate('/nova-pagina')}
+          onClick={() => navigate('/dashboard')}
         >
           OK
         </button>

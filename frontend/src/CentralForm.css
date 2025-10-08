@@ -1,3 +1,17 @@
+.input-disabled {
+  background: #f0f0f0;
+  cursor: not-allowed;
+}
+
+.file-label-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.file-label-disabled .file-label-text {
+  color: #aaa;
+  cursor: not-allowed;
+}
 .central-container {
   display: flex;
   flex-direction: column;
@@ -7,7 +21,7 @@
   gap: 32px;
 }
 
-.url-input {
+.input {
   width: 400px;
   max-width: 90vw;
   height: 40px;
@@ -40,4 +54,15 @@
 .file-icon {
   width: 24px;
   height: 24px;
+}
+ .ok-btn {
+  padding: 12px 32px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  background: #646cff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
 }
