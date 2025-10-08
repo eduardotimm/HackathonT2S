@@ -49,7 +49,6 @@ export default function CentralForm() {
         </label>
         <button
           className="ok-btn"
-          onClick={() => navigate('/dashboard')}
         >
           OK
         </button>

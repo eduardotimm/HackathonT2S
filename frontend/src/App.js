@@ -6,7 +6,6 @@ import Login from './Login';
 import Register from './Register';
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import CentralForm from './CentralForm';
-import Dashboard from './Perfil';
 
 function Header() {
   const navigate = useNavigate();
@@ -84,7 +83,6 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/perfil" element={<Dashboard />} />
         </Routes>
       </div>
     </BrowserRouter>
