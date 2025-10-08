@@ -7,6 +7,12 @@
   background: #eef2ff;
   cursor: pointer;
 }
+.t2s-file-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
 .t2s-file-label.disabled {
   background: #f1f5f9;
   cursor: not-allowed;
@@ -14,4 +20,9 @@
 }
 .t2s-file-input { display: none; }
 .t2s-file-icon { width: 22px; height: 22px; }
-.t2s-file-text { font-weight: 600; color: #1f2937 }
+.t2s-file-text {
+  font-weight: 600;
+  color: #1f2937;
+  text-align: center;
+  width: 100%;
+}

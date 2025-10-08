@@ -1,12 +1,14 @@
 import React from 'react';
+import Button from '../Button/Button';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import logo from '../../logo.svg';
-import profileIcon from '../../profile-icon.png';
-import HeaderDropdown from '../Dropdown/HeaderDropdown';
+import HeaderDropdown from '../HeaderDropdown/HeaderDropdown';
 import './Header.css';
 
 export default function Header() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <header className="custom-header">
@@ -14,15 +16,17 @@ export default function Header() {
         <img src={logo} className="custom-logo" alt="logo" onClick={() => navigate('/')} />
         <HeaderDropdown />
       </div>
-      <div className="header-right">
-        <img
-          src={profileIcon}
-          alt="Perfil/Login"
-          className="profile-icon"
-          style={{ width: '40px', height: '40px', borderRadius: '50%', cursor: 'pointer' }}
-          onClick={() => navigate('/login')}
-        />
-      </div>
+      {/* ...botão antigo removido, apenas Button do projeto permanece... */}
+        <div className="header-right">
+        {!(location.pathname === '/login' || location.pathname === '/register') && (
+          <Button
+            label="Entrar"
+            onClick={() => navigate('/login')}
+            variant="primary"
+            size="md"
+          />
+        )}
+        </div>
     </header>
   );
 }
