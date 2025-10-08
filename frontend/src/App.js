@@ -1,6 +1,10 @@
 
+
+
 import logo from './logo.svg';
 import './App.css';
+import CentralForm from './CentralForm';
+import profileIcon from './profile-icon.png'; // Adicione o ícone na pasta src
 
 function App() {
   return (
@@ -10,15 +14,16 @@ function App() {
           <img src={logo} className="custom-logo" alt="logo" />
         </div>
         <div className="header-right">
-          <button className="custom-nav-btn" onClick={() => { /* Navegação futura */ }}>
-            Ir para outra página
-          </button>
+          <img
+            src={profileIcon}
+            alt="Perfil/Login"
+            className="profile-icon"
+            style={{ width: '40px', height: '40px', borderRadius: '50%', cursor: 'pointer' }}
+          />
         </div>
       </header>
       <main className="custom-main">
-        <button className="custom-center-btn" onClick={() => { /* Navegação ou anexo futuro */ }}>
-          Anexar arquivo / Ir para outra página
-        </button>
+        <CentralForm />
       </main>
     </div>
   );
