@@ -1,3 +1,4 @@
+
 .login-container {
   display: flex;
   flex-direction: column;
@@ -5,79 +6,88 @@
   justify-content: center;
   min-height: 80vh;
   gap: 24px;
+  padding: 24px;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
   gap: 18px;
-  width: 320px;
-  max-width: 90vw;
-  background: #f8f8f8;
-  padding: 24px;
+  width: 380px;
+  max-width: 96vw;
+  background: #141414;
+  padding: 28px;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.04);
 }
 
 .login-form label { display: block; }
 
+
 .login-input {
   box-sizing: border-box;
-  width: 340px;
-  max-width: 95%;
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1; /* mais claro sobre fundo escuro do card */
   font-size: 1rem;
-  margin: 6px auto 0;
+  margin: 6px 0 0;
 }
 
 /* regra mais específica para inputs que usam também a classe .t2s-input (TextInput) */
 .login-form .t2s-input.login-input {
-  width: 340px !important;
+  width: 100% !important;
   box-sizing: border-box;
   max-width: 100%;
-  margin: 6px auto 0;
+  margin: 6px 0 0;
 }
+
 
 .login-btn-group {
   display: flex;
-  flex-direction: row;
-  gap: 16px;
   justify-content: center;
   margin-top: 12px;
 }
 
+.create-link {
+  display: inline;
+  margin-left: 4px;
+  padding: 0 2px;
+  background: transparent;
+  color: #9ec5ff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
 .login-btn {
-  background: #646cff;
+  background: linear-gradient(90deg,#646cff,#5058f0);
   color: #fff;
-  padding: 10px 0;
+  padding: 12px 24px;
   border: none;
-  border-radius: 6px;
-  font-size: 1.1rem;
-  font-weight: bold;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  font-weight: 700;
   cursor: pointer;
-  width: 50%;
-  transition: background 0.2s;
+  min-width: 220px;
+  transition: filter 0.12s ease;
 }
 
 .login-btn:hover {
   background: #535bf2;
 }
 
-.create-btn {
-  background: #22c55e;
-  color: #fff;
-  padding: 10px 0;
-  border: none;
-  border-radius: 6px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  cursor: pointer;
-  width: 50%;
-  transition: background 0.2s;
-}
+.login-btn:hover { filter: brightness(0.95); }
 
-.create-btn:hover {
-  background: #16a34a;
+.login-footer {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  color: #bdbdbd;
+  font-size: 14px;
+  margin-top: 8px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  align-items: center;
 }

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import TextInput from '../../components/TextInput/TextInput';
 import Button from '../../components/Button/Button';
+import LinkText from '../../components/Link/LinkText';
 import './Login.css';
 
 export default function Login() {
@@ -47,8 +48,12 @@ export default function Login() {
           />
         </label>
         <div className="login-btn-group">
-          <Button label="Login" type="submit" className="login-btn" />
-          <Button label="Criar uma conta" type="button" className="create-btn" onClick={() => navigate('/register')} variant="secondary" />
+          <Button label="Continuar ►" type="submit" className="login-btn" />
+        </div>
+
+        <div className="login-footer">
+          <span>Não possui uma conta?&nbsp;</span>
+          <LinkText text="Registre-se" to="/register" className="create-link" />
         </div>
       </form>
     </div>
