@@ -8,7 +8,7 @@
         public string MarkdownContent { get; set; } = string.Empty;
         public double TotalScore { get; set; }
         public ICollection<Rating> Ratings { get; set; } = new List<Rating>();
+    }
 
 
-}    }    }
 }
