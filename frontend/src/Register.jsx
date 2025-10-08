@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import './Login.css';
 
 export default function Register() {
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
@@ -22,18 +21,7 @@ export default function Register() {
     <div className="login-container">
       <h2>Criar Conta</h2>
       <form className="login-form" onSubmit={handleSubmit}>
-        <label>
-          Nome de usuário:
-          <input
-            type="text"
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-            placeholder="Digite seu nome de usuário"
-            maxLength={40}
-            className="login-input"
-            required
-          />
-        </label>
+        {/* Campo de nome de usuário removido */}
         <label>
           Email:
           <input
