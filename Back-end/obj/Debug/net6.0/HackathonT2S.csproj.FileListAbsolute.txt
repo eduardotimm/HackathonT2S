@@ -1,27 +1,37 @@
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\bin\Debug\net6.0\appsettings.Development.json
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\bin\Debug\net6.0\appsettings.json
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\bin\Debug\net6.0\HackathonT2S.exe
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\bin\Debug\net6.0\HackathonT2S.deps.json
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\bin\Debug\net6.0\HackathonT2S.runtimeconfig.json
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\bin\Debug\net6.0\HackathonT2S.dll
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\bin\Debug\net6.0\ref\HackathonT2S.dll
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\bin\Debug\net6.0\HackathonT2S.pdb
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\bin\Debug\net6.0\Microsoft.OpenApi.dll
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\obj\Debug\net6.0\HackathonT2S.csproj.AssemblyReference.cache
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\obj\Debug\net6.0\HackathonT2S.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\obj\Debug\net6.0\HackathonT2S.AssemblyInfoInputs.cache
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\obj\Debug\net6.0\HackathonT2S.AssemblyInfo.cs
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\obj\Debug\net6.0\HackathonT2S.csproj.CoreCompileInputs.cache
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\obj\Debug\net6.0\HackathonT2S.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\obj\Debug\net6.0\HackathonT2S.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\obj\Debug\net6.0\staticwebassets.build.json
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\obj\Debug\net6.0\staticwebassets.development.json
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\obj\Debug\net6.0\scopedcss\bundle\HackathonT2S.styles.css
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\obj\Debug\net6.0\HackathonT2S.csproj.CopyComplete
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\obj\Debug\net6.0\HackathonT2S.dll
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\obj\Debug\net6.0\ref\HackathonT2S.dll
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\obj\Debug\net6.0\HackathonT2S.pdb
-C:\Users\unisanta\source\repos\HackathonT2S\HackathonT2S\obj\Debug\net6.0\HackathonT2S.genruntimeconfig.cache
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\bin\Debug\net6.0\appsettings.Development.json
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\bin\Debug\net6.0\appsettings.json
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\bin\Debug\net6.0\HackathonT2S.exe
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\bin\Debug\net6.0\HackathonT2S.deps.json
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\bin\Debug\net6.0\HackathonT2S.runtimeconfig.json
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\bin\Debug\net6.0\HackathonT2S.dll
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\bin\Debug\net6.0\ref\HackathonT2S.dll
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\bin\Debug\net6.0\HackathonT2S.pdb
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\bin\Debug\net6.0\Humanizer.dll
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\bin\Debug\net6.0\Microsoft.OpenApi.dll
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\bin\Debug\net6.0\MySqlConnector.dll
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\bin\Debug\net6.0\Pomelo.EntityFrameworkCore.MySql.dll
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\bin\Debug\net6.0\System.Diagnostics.DiagnosticSource.dll
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\obj\Debug\net6.0\HackathonT2S.csproj.AssemblyReference.cache
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\obj\Debug\net6.0\HackathonT2S.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\obj\Debug\net6.0\HackathonT2S.AssemblyInfoInputs.cache
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\obj\Debug\net6.0\HackathonT2S.AssemblyInfo.cs
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\obj\Debug\net6.0\HackathonT2S.csproj.CoreCompileInputs.cache
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\obj\Debug\net6.0\HackathonT2S.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\obj\Debug\net6.0\HackathonT2S.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\obj\Debug\net6.0\staticwebassets.build.json
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\obj\Debug\net6.0\staticwebassets.development.json
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\obj\Debug\net6.0\scopedcss\bundle\HackathonT2S.styles.css
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\obj\Debug\net6.0\HackathonT2S.csproj.CopyComplete
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\obj\Debug\net6.0\HackathonT2S.dll
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\obj\Debug\net6.0\ref\HackathonT2S.dll
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\obj\Debug\net6.0\HackathonT2S.pdb
+C:\Users\unisanta\Desktop\Hackathon T2S\HackathonT2S\Back-end\obj\Debug\net6.0\HackathonT2S.genruntimeconfig.cache

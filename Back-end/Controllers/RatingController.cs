@@ -28,7 +28,7 @@ namespace HackathonT2S.Controllers
         }
 
         // Endpoint para submeter uma avaliação de projeto
-        [HttpPost("rating")]
+        [HttpPost("")]
         public IActionResult SubmitRating([FromBody] Rating rating)
         {
             // Lógica para salvar a avaliação (Rating) do projeto

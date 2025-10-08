@@ -17,7 +17,7 @@ namespace HackathonT2S.Controllers
         }
 
         // Endpoint para listar todos os relatórios
-        [HttpGet("reports")]
+        [HttpGet("all")]
         public IActionResult GetAllReports()
         {
             // Exemplo de retorno estático, substitua pela lógica real

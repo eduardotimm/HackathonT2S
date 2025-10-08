@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\unisanta\\source\\repos\\HackathonT2S\\HackathonT2S\\HackathonT2S.csproj": {}
+    "C:\\Users\\unisanta\\Desktop\\Hackathon T2S\\HackathonT2S\\Back-end\\HackathonT2S.csproj": {}
   },
   "projects": {
-    "C:\\Users\\unisanta\\source\\repos\\HackathonT2S\\HackathonT2S\\HackathonT2S.csproj": {
+    "C:\\Users\\unisanta\\Desktop\\Hackathon T2S\\HackathonT2S\\Back-end\\HackathonT2S.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\unisanta\\source\\repos\\HackathonT2S\\HackathonT2S\\HackathonT2S.csproj",
+        "projectUniqueName": "C:\\Users\\unisanta\\Desktop\\Hackathon T2S\\HackathonT2S\\Back-end\\HackathonT2S.csproj",
         "projectName": "HackathonT2S",
-        "projectPath": "C:\\Users\\unisanta\\source\\repos\\HackathonT2S\\HackathonT2S\\HackathonT2S.csproj",
+        "projectPath": "C:\\Users\\unisanta\\Desktop\\Hackathon T2S\\HackathonT2S\\Back-end\\HackathonT2S.csproj",
         "packagesPath": "C:\\Users\\unisanta\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\unisanta\\source\\repos\\HackathonT2S\\HackathonT2S\\obj\\",
+        "outputPath": "C:\\Users\\unisanta\\Desktop\\Hackathon T2S\\HackathonT2S\\Back-end\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -44,21 +44,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "Microsoft.EntityFrameworkCore.Design": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[6.0.32, )"
-            },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
               "version": "[6.0.32, )"
-            },
-            "Newtonsoft.Json.Bson": {
-              "target": "Package",
-              "version": "[1.0.3, )"
             },
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
