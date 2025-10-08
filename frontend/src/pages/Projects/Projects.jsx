@@ -4,6 +4,8 @@ import './Projects.css';
 
 export default function Projects() {
   const [projects] = useState([]);
+  const storedName = typeof window !== 'undefined' ? localStorage.getItem('userName') : null;
+  const ownerName = storedName || 'Você';
 
   return (
     <div className="projects-page">
@@ -13,7 +15,7 @@ export default function Projects() {
       </div>
 
       <div className="projects-container">
-        <ProjectList projects={projects} />
+        <ProjectList projects={projects} ownerName={ownerName} />
       </div>
     </div>
   );
