@@ -25,7 +25,7 @@ export default function Login() {
             type="email"
             value={email}
             onChange={setEmail}
-            placeholder="Digite seu email"
+            placeholder="Digite seu e-mail"
             maxLength={80}
             className="login-input"
             ariaLabel="email"
