@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import './Login.css';
+import TextInput from '../../components/TextInput/TextInput';
+import Button from '../../components/Button/Button';
+import './Register.css';
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -23,10 +25,10 @@ export default function Register() {
       <form className="login-form" onSubmit={handleSubmit}>
         <label>
           Email:
-          <input
+          <TextInput
             type="email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={setEmail}
             placeholder="Digite seu email"
             maxLength={80}
             className="login-input"
@@ -35,10 +37,10 @@ export default function Register() {
         </label>
         <label>
           Senha:
-          <input
+          <TextInput
             type="password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={setPassword}
             placeholder="Digite sua senha"
             maxLength={40}
             className="login-input"
@@ -47,10 +49,10 @@ export default function Register() {
         </label>
         <label>
           Confirmar senha:
-          <input
+          <TextInput
             type="password"
             value={confirm}
-            onChange={e => setConfirm(e.target.value)}
+            onChange={setConfirm}
             placeholder="Confirme sua senha"
             maxLength={40}
             className="login-input"
@@ -62,7 +64,7 @@ export default function Register() {
         </small>
         {error && <div style={{ color: "red", marginBottom: "8px" }}>{error}</div>}
         <div className="login-btn-group">
-          <button className="login-btn" type="submit">Criar conta</button>
+          <Button label="Criar conta" type="submit" className="login-btn" />
         </div>
       </form>
     </div>

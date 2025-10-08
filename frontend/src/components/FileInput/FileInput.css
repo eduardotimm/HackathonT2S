@@ -1,0 +1,17 @@
+.t2s-file-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #eef2ff;
+  cursor: pointer;
+}
+.t2s-file-label.disabled {
+  background: #f1f5f9;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+.t2s-file-input { display: none; }
+.t2s-file-icon { width: 22px; height: 22px; }
+.t2s-file-text { font-weight: 600; color: #1f2937 }

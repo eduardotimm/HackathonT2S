@@ -1,17 +1,19 @@
-.input-disabled {
+.input-disabled, .t2s-input:disabled {
   background: #f0f0f0;
   cursor: not-allowed;
 }
 
-.file-label-disabled {
+.file-label-disabled, .t2s-file-label.disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-.file-label-disabled .file-label-text {
+.file-label-disabled .file-label-text,
+.t2s-file-label.disabled .t2s-file-text {
   color: #aaa;
   cursor: not-allowed;
 }
+
 .central-container {
   display: flex;
   flex-direction: column;
@@ -21,7 +23,7 @@
   gap: 32px;
 }
 
-.input {
+.input, .t2s-input {
   width: 400px;
   max-width: 90vw;
   height: 40px;
@@ -31,7 +33,7 @@
   border: 1px solid #ccc;
 }
 
-.file-label {
+.file-label, .t2s-file-label {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -43,19 +45,18 @@
   transition: background 0.2s;
 }
 
-.file-label:hover {
+.file-label:hover, .t2s-file-label:hover {
   background: #e0e0e0;
 }
 
-.file-input {
-  display: none;
-}
+.file-input, .t2s-file-input { display: none; }
 
-.file-icon {
+.file-icon, .t2s-file-icon {
   width: 24px;
   height: 24px;
 }
- .ok-btn {
+
+.ok-btn, .t2s-btn {
   padding: 12px 32px;
   font-size: 1.1rem;
   border-radius: 8px;
@@ -65,4 +66,12 @@
   cursor: pointer;
   font-weight: bold;
   transition: background 0.2s;
+}
+
+.cf-row {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  align-items: center;
+  margin-top: 24px;
 }
