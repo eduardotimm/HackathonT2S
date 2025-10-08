@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿﻿using Microsoft.AspNetCore.Mvc;
 using HackathonT2S.Models;
 
 namespace HackathonT2S.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("ada/[controller]")]
     public class ReportController : ControllerBase
     {
         // Endpoint para obter relatório de análise em Markdown

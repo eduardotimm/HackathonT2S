@@ -76,14 +76,5 @@ namespace HackathonT2S.Controllers
             _users.Remove(user);
             return NoContent(); // Sucesso, sem conteúdo para retornar.
         }
-        
-        [HttpGet("all")]
-        public IActionResult GetAllUsers()
-        {
-            // Retorna todos os usuários existentes na lista estática
-            return Ok(_users);
-        }
-    }        // Endpoint para listar todos os usuários
-        
-
+    }
 }

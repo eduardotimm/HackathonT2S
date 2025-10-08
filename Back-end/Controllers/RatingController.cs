@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿﻿using Microsoft.AspNetCore.Mvc;
 using HackathonT2S.Models;
 
 namespace HackathonT2S.Controllers
@@ -37,7 +37,7 @@ namespace HackathonT2S.Controllers
         }
 
         // Endpoint para obter todas as avaliações de um projeto
-        [HttpGet("project/rating")]
+        [HttpGet("project/{projectId}/ratings")]
         public IActionResult GetRatingsByProject(int projectId)
         {
             // Exemplo de retorno estático, substitua pela lógica real
