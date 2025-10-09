@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './ProjectList.css';
+import DownloadButton from '../DownloadButton/DownloadButton';
 
 export default function ProjectList({ projects = [], onSearch = () => {}, onSort = () => {}, ownerName }) {
   const [expandedId, setExpandedId] = useState(null);
@@ -10,25 +11,6 @@ export default function ProjectList({ projects = [], onSearch = () => {}, onSort
     setExpandedId(expandedId === id ? null : id);
   };
 
-  const downloadMd = async (projectId) => {
-    try {
-      const res = await fetch(`https://localhost:7135/ada/projects/${projectId}/download-md`);
-      if (!res.ok) throw new Error(await res.text());
-      const text = await res.text();
-      const blob = new Blob([text], { type: 'text/markdown' });
-      const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  // filename will be set when invoking download from the button click handler
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-    } catch (err) {
-      console.error('Erro ao baixar .md', err);
-      alert('Erro ao baixar .md: ' + err.message);
-    }
-  };
 
   return (
     <div className="project-list-card">
@@ -64,30 +46,7 @@ export default function ProjectList({ projects = [], onSearch = () => {}, onSort
                   <li className="project-item-expanded">
                     <div className="expanded-left"></div>
                     <div className="expanded-right">
-                      <button className="download-md" onClick={async (e) => {
-                        e.stopPropagation();
-                        // sanitize project title for filename
-                        const sanitize = (s) => s ? s.replace(/[^a-z0-9\-_. ]/gi, '').replace(/\s+/g, '_') : 'project';
-                        const filename = `Relatorio-${sanitize(p.title)}.md`;
-                        try {
-                          // fetch content
-                          const res = await fetch(`https://localhost:7135/ada/projects/${p.id}/download-md`);
-                          if (!res.ok) throw new Error(await res.text());
-                          const text = await res.text();
-                          const blob = new Blob([text], { type: 'text/markdown' });
-                          const url = URL.createObjectURL(blob);
-                          const a = document.createElement('a');
-                          a.href = url;
-                          a.download = filename;
-                          document.body.appendChild(a);
-                          a.click();
-                          a.remove();
-                          URL.revokeObjectURL(url);
-                        } catch (err) {
-                          console.error('Erro ao baixar .md', err);
-                          alert('Erro ao baixar .md: ' + err.message);
-                        }
-                      }}>Relatorio-{p.title}.md</button>
+                      <DownloadButton projectId={p.id} projectTitle={p.title} />
                     </div>
                   </li>
                 )}
