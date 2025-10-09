@@ -64,7 +64,7 @@ export default function CentralForm() {
         })
         .then((data) => {
           console.log('Projeto criado:', data);
-          navigate('/');
+          navigate('/', { state: { message: `Projeto "${data.name}" criado com sucesso!` } });
         })
         .catch((err) => {
           console.error('Erro ao criar projeto:', err);

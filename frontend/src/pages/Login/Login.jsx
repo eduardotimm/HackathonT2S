@@ -4,6 +4,7 @@ import TextInput from '../../components/TextInput/TextInput';
 import Button from '../../components/Button/Button';
 import LinkText from '../../components/Link/LinkText';
 import './Login.css';
+import { api } from '../../services/api'; // Importa o serviço de API
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -17,20 +18,7 @@ export default function Login() {
     setError(""); // Limpa erros anteriores
 
     try {
-      const response = await fetch('/ada/user/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText || "Falha no login. Verifique suas credenciais.");
-      }
-
-      const userData = await response.json();
+      const userData = await api.login(email, password);
 
       // Salva os dados do usuário no localStorage para manter a sessão
       if (typeof window !== 'undefined') {

@@ -1,4 +1,4 @@
-﻿﻿using Microsoft.AspNetCore.Mvc;
+﻿﻿﻿﻿using Microsoft.AspNetCore.Mvc;
 using HackathonT2S.Data;
 using HackathonT2S.Dtos;
 using System.Threading.Tasks;
@@ -12,7 +12,7 @@ namespace HackathonT2S.Controllers
 {
     [ApiController]
     [Authorize] // << Adicionado: Agora todas as ações de projeto exigem login.
-    [Route("ada/[controller]")]
+    [Route("ada/users/{userId}/projects")] // Rota base para projetos de um usuário
     public class ProjectController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -25,8 +25,8 @@ namespace HackathonT2S.Controllers
         /// <summary>
         /// Cria um novo projeto a partir da URL de um repositório.
         /// </summary>
-        [HttpPost("/ada/users/{userId}/projects")] // Rota mais RESTful
-        public async Task<ActionResult<ProjectResponseDto>> CreateProject(int userId, [FromBody] CreateProjectRequestDto request)
+        [HttpPost] // A rota agora é simplesmente POST para /ada/users/{userId}/projects
+        public async Task<ActionResult<ProjectResponseDto>> CreateProjectForUser(int userId, [FromBody] CreateProjectRequestDto request)
         {
             var user = await _context.Users.FindAsync(userId);
             if (user == null)
@@ -66,7 +66,7 @@ namespace HackathonT2S.Controllers
         /// <summary>
         /// Obtém um projeto específico pelo ID.
         /// </summary>
-        [HttpGet("{id}")]
+        [HttpGet("/ada/projects/{id}")] // Rota global para buscar um projeto por ID
         public async Task<ActionResult<ProjectResponseDto>> GetProjectById(int id)
         {
             var project = await _context.Projects
@@ -96,7 +96,7 @@ namespace HackathonT2S.Controllers
         /// <summary>
         /// Lista todos os projetos.
         /// </summary>
-        [HttpGet("all")]
+        [HttpGet("/ada/projects/all")] // Rota global para buscar todos os projetos
         public async Task<ActionResult<IEnumerable<ProjectResponseDto>>> GetAllProjects()
         {
             var projects = await _context.Projects
@@ -120,8 +120,8 @@ namespace HackathonT2S.Controllers
         /// <summary>
         /// Lista todos os projetos de um usuário específico.
         /// </summary>
-        [HttpGet("/ada/users/{userId}/projects")]
-        public async Task<ActionResult<IEnumerable<ProjectResponseDto>>> GetProjectsByUser(int userId)
+        [HttpGet] // A rota agora é simplesmente GET para /ada/users/{userId}/projects
+        public async Task<ActionResult<IEnumerable<ProjectResponseDto>>> GetProjectsForUser(int userId)
         {
             var user = await _context.Users.FindAsync(userId);
             if (user == null)
