@@ -5,6 +5,7 @@ import './Register.css';
 
 export default function Register() {
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [error, setError] = useState("");
@@ -16,8 +17,9 @@ export default function Register() {
     } else {
       setError("");
         // lógica de cadastro - simulate success by storing a user name and redirecting
-        const fakeName = email.split('@')[0] || 'Usuário';
-  if (typeof window !== 'undefined') localStorage.setItem('userName', fakeName);
+        // prefer a supplied username, otherwise fall back to the email local-part
+        const savedName = username && username.trim() ? username.trim() : (email.split('@')[0] || 'Usuário');
+  if (typeof window !== 'undefined') localStorage.setItem('userName', savedName);
   // notify app that auth changed and navigate to projects
   if (typeof window !== 'undefined') window.dispatchEvent(new Event('authChanged'));
   window.location.href = '/projects';
@@ -28,6 +30,19 @@ export default function Register() {
     <div className="login-container">
       <h2>Criar Conta</h2>
       <form className="login-form" onSubmit={handleSubmit}>
+        <label>
+          Nome de usuário:
+          <TextInput
+            type="text"
+            value={username}
+            onChange={setUsername}
+            placeholder="Escolha um nome de usuário"
+            maxLength={30}
+            className="login-input"
+            required
+          />
+        </label>
+
         <label>
           Email:
           <TextInput
