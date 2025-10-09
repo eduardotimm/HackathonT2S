@@ -75,32 +75,3 @@ export default function Header() {
     </header>
   );
 }
-
-.notification-popup {
-  position: fixed;
-  top: 80px; /* Abaixo do header */
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 12px 24px;
-  border-radius: 8px;
-  color: white;
-  font-weight: 500;
-  z-index: 1000;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  animation: fadeInDown 0.5s ease-out;
-}
-
-.notification-popup.success {
-  background-color: #28a745; /* Verde para sucesso */
-}
-
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -20px);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-}
