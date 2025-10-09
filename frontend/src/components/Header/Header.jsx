@@ -24,6 +24,7 @@ export default function Header() {
     <header className="custom-header">
       <div className="header-left">
         <img src={logo} className="custom-logo" alt="logo" onClick={() => navigate('/')} />
+        <span className="header-label" onClick={() => navigate('/')} aria-label="HaTi">HaTi.Ai</span>
         <HeaderDropdown />
       </div>
       {/* ...botão antigo removido, apenas Button do projeto permanece... */}

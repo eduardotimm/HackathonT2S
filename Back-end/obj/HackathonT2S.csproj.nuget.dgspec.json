@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\unisanta\\Desktop\\Hack\\hackathont2s\\Back-end\\HackathonT2S.csproj": {}
+    "C:\\Users\\unisanta\\Desktop\\dadad\\HackathonT2S\\Back-end\\HackathonT2S.csproj": {}
   },
   "projects": {
-    "C:\\Users\\unisanta\\Desktop\\Hack\\hackathont2s\\Back-end\\HackathonT2S.csproj": {
+    "C:\\Users\\unisanta\\Desktop\\dadad\\HackathonT2S\\Back-end\\HackathonT2S.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\unisanta\\Desktop\\Hack\\hackathont2s\\Back-end\\HackathonT2S.csproj",
+        "projectUniqueName": "C:\\Users\\unisanta\\Desktop\\dadad\\HackathonT2S\\Back-end\\HackathonT2S.csproj",
         "projectName": "HackathonT2S",
-        "projectPath": "C:\\Users\\unisanta\\Desktop\\Hack\\hackathont2s\\Back-end\\HackathonT2S.csproj",
+        "projectPath": "C:\\Users\\unisanta\\Desktop\\dadad\\HackathonT2S\\Back-end\\HackathonT2S.csproj",
         "packagesPath": "C:\\Users\\unisanta\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\unisanta\\Desktop\\Hack\\hackathont2s\\Back-end\\obj\\",
+        "outputPath": "C:\\Users\\unisanta\\Desktop\\dadad\\HackathonT2S\\Back-end\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
