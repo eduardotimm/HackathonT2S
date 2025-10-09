@@ -8,17 +8,42 @@ import './Login.css';
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simulate successful login: save a userName in localStorage and redirect
-    const fakeName = email.split('@')[0] || 'Usuário';
-    if (typeof window !== 'undefined') localStorage.setItem('userName', fakeName);
-    // notify app that auth changed
-    if (typeof window !== 'undefined') window.dispatchEvent(new Event('authChanged'));
-    navigate('/');
+    setError(""); // Limpa erros anteriores
+
+    try {
+      const response = await fetch('/ada/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText || "Falha no login. Verifique suas credenciais.");
+      }
+
+      const userData = await response.json();
+
+      // Salva os dados do usuário no localStorage para manter a sessão
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('user', JSON.stringify(userData));
+        // Dispara um evento para que outras partes da aplicação (como o Header) saibam que o login ocorreu
+        window.dispatchEvent(new Event('authChanged'));
+      }
+
+      navigate('/'); // Redireciona para a página inicial
+    } catch (err) {
+      console.error("Erro no login:", err);
+      setError(err.message);
+    }
   };
 
   return (
@@ -53,6 +78,7 @@ export default function Login() {
             name="password"
           />
         </label>
+        {error && <p className="error-message">{error}</p>}
         <div className="login-btn-group">
           <Button label="Continuar ►" type="submit" className="login-btn" />
         </div>

@@ -80,10 +80,8 @@ namespace HackathonT2S.Controllers
             {
                 Username = request.Username,
                 Email = request.Email,
-                // IMPORTANTE: Em uma aplicação real, a senha nunca deve ser salva em texto plano.
-                // Você deve gerar um hash da senha aqui.
-                // Ex: PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
-                PasswordHash = request.Password, // Placeholder - SUBSTITUIR POR HASH
+                // A senha é transformada em um "hash" seguro. Nunca armazene senhas em texto plano.
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
                 Role = "User" // Define um papel padrão
             };
 
@@ -99,6 +97,36 @@ namespace HackathonT2S.Controllers
             };
 
             return CreatedAtAction(nameof(GetUser), new { id = newUser.UserID }, userDto);
+        }
+
+        /// <summary>
+        /// Autentica um usuário e retorna um token.
+        /// </summary>
+        [HttpPost("login")]
+        public async Task<ActionResult<LoginResponseDto>> Login([FromBody] LoginRequestDto request)
+        {
+            // 1. Encontra o usuário pelo e-mail
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
+
+            // 2. Verifica se o usuário existe e se a senha está correta
+            if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+            {
+                // Usamos uma mensagem genérica para não informar se o e-mail existe ou não.
+                return Unauthorized("E-mail ou senha inválidos.");
+            }
+
+            // 3. Gera o token (neste exemplo, apenas retornamos os dados do usuário)
+            // Em uma implementação completa, aqui você geraria um JWT (JSON Web Token).
+            var loginResponse = new LoginResponseDto
+            {
+                UserID = user.UserID,
+                Username = user.Username,
+                Email = user.Email,
+                Role = user.Role,
+                // Token = "seu_jwt_gerado_aqui" // Exemplo de como seria com JWT
+            };
+
+            return Ok(loginResponse);
         }
 
 
