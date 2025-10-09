@@ -46,7 +46,8 @@ export default function CentralForm() {
 
       const token = localStorage.getItem('token');
 
-      fetch(`https://localhost:7135/ada/users/${userId}/projects`, {
+      // Usando uma URL relativa para que o proxy do package.json seja utilizado
+      fetch(`/ada/users/${userId}/projects`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -67,7 +67,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// Comentar esta linha desativa o redirecionamento forçado para HTTPS durante o desenvolvimento.
+// app.UseHttpsRedirection();
 
 app.UseCors(MyAllowSpecificOrigins);
 
