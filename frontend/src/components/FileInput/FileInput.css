@@ -10,7 +10,9 @@
   transition: all 0.3s ease;
 }
 
-.t2s-file-label:hover {
+.t2s-file-label:hover:not(.disabled) {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   background: #f1f5f9;
   border-color: #cbd5e1;
 }
