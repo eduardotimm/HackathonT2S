@@ -1,4 +1,4 @@
-﻿﻿using Microsoft.AspNetCore.Mvc;
+﻿﻿﻿﻿using Microsoft.AspNetCore.Mvc;
 using HackathonT2S.Models;
 using HackathonT2S.Data;
 using System.Threading.Tasks;
@@ -6,10 +6,12 @@ using HackathonT2S.Dtos;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HackathonT2S.Controllers
 {
     [ApiController]
+    [Authorize] // << Adicionado aqui: só usuários autenticados podem acessar este controller
     [Route("ada/[controller]")]
     public class ReportController : ControllerBase
     {

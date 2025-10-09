@@ -1,5 +1,8 @@
 using HackathonT2S.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -28,6 +31,25 @@ builder.Services.AddCors(options =>
                       });
 });
 
+// 3. Configuração da autenticação JWT
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        };
+    });
+
+// Adiciona o serviço de autorização, que funciona em conjunto com a autenticação
+builder.Services.AddAuthorization();
+
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     // Adiciona esta configuração para ignorar ciclos de referência na serialização JSON
@@ -48,6 +70,9 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors(MyAllowSpecificOrigins);
+
+// Adiciona o middleware de autenticação. É importante que ele venha ANTES do UseAuthorization.
+app.UseAuthentication();
 
 app.UseAuthorization();
 

@@ -118,6 +118,17 @@
   align-items: center;
 }
 
+.error-message {
+  color: #ef4444; /* Vermelho para erros */
+  background-color: #fee2e2;
+  border: 1px solid #fca5a5;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
 @media (max-width: 600px) {
   .login-container { padding: 16px; gap: 12px; }
   .login-form { padding: 18px; border-radius: 10px; max-width: 100%; }

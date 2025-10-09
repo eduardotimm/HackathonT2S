@@ -2,10 +2,16 @@ import React, { useState } from 'react';
 import './ProjectList.css';
 import DownloadButton from '../DownloadButton/DownloadButton';
 
+function getLoggedInUser() {
+  if (typeof window === 'undefined') return null;
+  const userString = localStorage.getItem('user');
+  return userString ? JSON.parse(userString) : null;
+}
+
 export default function ProjectList({ projects = [], onSearch = () => {}, onSort = () => {}, ownerName }) {
   const [expandedId, setExpandedId] = useState(null);
-  const stored = (typeof window !== 'undefined' && localStorage.getItem('userName')) || null;
-  const displayName = ownerName || stored || 'Você';
+  const loggedInUser = getLoggedInUser();
+  const displayName = ownerName || loggedInUser?.username || 'Você';
 
   const toggleExpand = (id) => {
     setExpandedId(expandedId === id ? null : id);

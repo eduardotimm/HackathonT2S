@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nicho\\OneDrive\\Área de Trabalho\\Hacka\\HackathonT2S\\Back-end\\HackathonT2S.csproj": {}
+    "C:\\Users\\unisanta\\Desktop\\Hack\\hackathont2s\\Back-end\\HackathonT2S.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nicho\\OneDrive\\Área de Trabalho\\Hacka\\HackathonT2S\\Back-end\\HackathonT2S.csproj": {
+    "C:\\Users\\unisanta\\Desktop\\Hack\\hackathont2s\\Back-end\\HackathonT2S.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nicho\\OneDrive\\Área de Trabalho\\Hacka\\HackathonT2S\\Back-end\\HackathonT2S.csproj",
+        "projectUniqueName": "C:\\Users\\unisanta\\Desktop\\Hack\\hackathont2s\\Back-end\\HackathonT2S.csproj",
         "projectName": "HackathonT2S",
-        "projectPath": "C:\\Users\\nicho\\OneDrive\\Área de Trabalho\\Hacka\\HackathonT2S\\Back-end\\HackathonT2S.csproj",
-        "packagesPath": "C:\\Users\\nicho\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nicho\\OneDrive\\Área de Trabalho\\Hacka\\HackathonT2S\\Back-end\\obj\\",
+        "projectPath": "C:\\Users\\unisanta\\Desktop\\Hack\\hackathont2s\\Back-end\\HackathonT2S.csproj",
+        "packagesPath": "C:\\Users\\unisanta\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\unisanta\\Desktop\\Hack\\hackathont2s\\Back-end\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\nicho\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\unisanta\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -38,18 +38,20 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.300"
+        }
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[6.0.29, )"
+            },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
@@ -71,29 +73,10 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.36, 6.0.36]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[6.0.36, 6.0.36]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.36, 6.0.36]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[6.0.36, 6.0.36]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -102,7 +85,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\6.0.108\\RuntimeIdentifierGraph.json"
         }
       }
     }

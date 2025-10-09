@@ -25,8 +25,18 @@ export default function CentralForm() {
   const handleOk = () => {
     console.log({ projectName, description, url, file });
 
+    // Pega os dados do usuário do localStorage
+    const userString = localStorage.getItem('user');
+    if (!userString) {
+      alert("Você precisa estar logado para criar um projeto.");
+      navigate('/login'); // Redireciona para o login
+      return;
+    }
+
+    const user = JSON.parse(userString);
+    const userId = user.userID; // Usa o ID do usuário logado
+
     // Só aceita URL preenchida e não arquivo
-    const userId = 1; // TODO: substituir pelo ID do usuário autenticado
     if (url && !file) {
       const payload = {
         name: projectName,
@@ -34,10 +44,13 @@ export default function CentralForm() {
         description: description
       };
 
+      const token = localStorage.getItem('token');
+
       fetch(`https://localhost:7135/ada/users/${userId}/projects`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` // Adiciona o token de autorização
         },
         body: JSON.stringify(payload)
       })

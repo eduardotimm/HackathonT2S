@@ -11,11 +11,19 @@ export default function Header() {
   const navigate = useNavigate();
   const location = useLocation();
   const [storedName, setStoredName] = useState(typeof window !== 'undefined' ? localStorage.getItem('userName') : null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     function onAuthChange() {
       setStoredName(typeof window !== 'undefined' ? localStorage.getItem('userName') : null);
+      const userString = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
+      setUser(userString ? JSON.parse(userString) : null);
     }
+
+    // Executa na primeira vez que o componente carrega
+    onAuthChange();
+
+    // Ouve por mudanças na autenticação
     window.addEventListener('authChanged', onAuthChange);
     return () => window.removeEventListener('authChanged', onAuthChange);
   }, []);
@@ -32,19 +40,24 @@ export default function Header() {
       {/* ...botão antigo removido, apenas Button do projeto permanece... */}
         <div className="header-right">
           {/* if user is logged (we keep userName in localStorage) show profile icon */}
-          {storedName ? (
+          {user ? (
             <HeaderDropdown
               trigger={(
                 <img
                   src={profileIcon}
                   alt="perfil"
                   className="profile-icon"
-                  title={storedName}
+                  title={user.username}
                 />
               )}
               items={[
                 { label: 'Conta', to: '/projects' },
-                { label: 'Sair', onClick: () => { localStorage.removeItem('userName'); window.dispatchEvent(new Event('authChanged')); navigate('/'); } },
+                { label: 'Sair', onClick: () => {
+                  localStorage.removeItem('user');
+                  localStorage.removeItem('token');
+                  window.dispatchEvent(new Event('authChanged'));
+                  navigate('/');
+                } },
               ]}
               offset={260}
             />
