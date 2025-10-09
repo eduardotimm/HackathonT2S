@@ -4,6 +4,7 @@ import './CentralForm.css';
 import TextInput from '../../components/TextInput/TextInput';
 import FileInput from '../../components/FileInput/FileInput';
 import Button from '../../components/Button/Button';
+import { api } from '../../services/api';
 
 export default function CentralForm() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export default function CentralForm() {
     if (f) setUrl('');
   };
 
-  const handleOk = () => {
+  const handleOk = async () => {
     console.log({ projectName, description, url, file });
 
     // Pega os dados do usuário do localStorage
@@ -44,32 +45,15 @@ export default function CentralForm() {
         description: description
       };
 
-      const token = localStorage.getItem('token');
+      try {
+        const data = await api.createProject(userId, payload);
+        console.log('Projeto criado:', data);
+        navigate('/', { state: { message: `Projeto "${data.name}" criado com sucesso!` } });
+      } catch (err) {
+        console.error('Erro ao criar projeto:', err);
+        alert('Erro ao criar projeto: ' + err.message);
+      }
 
-      // Usando uma URL relativa para que o proxy do package.json seja utilizado
-      fetch(`/ada/users/${userId}/projects`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}` // Adiciona o token de autorização
-        },
-        body: JSON.stringify(payload)
-      })
-        .then(async (res) => {
-          if (!res.ok) {
-            const text = await res.text();
-            throw new Error(`${res.status} ${text}`);
-          }
-          return res.json();
-        })
-        .then((data) => {
-          console.log('Projeto criado:', data);
-          navigate('/', { state: { message: `Projeto "${data.name}" criado com sucesso!` } });
-        })
-        .catch((err) => {
-          console.error('Erro ao criar projeto:', err);
-          alert('Erro ao criar projeto: ' + err.message);
-        });
     } else {
       // comportamento atual (navegar de volta)
       navigate('/');

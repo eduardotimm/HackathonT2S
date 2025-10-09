@@ -4,6 +4,7 @@ import TextInput from '../../components/TextInput/TextInput';
 import Button from '../../components/Button/Button';
 import LinkText from '../../components/Link/LinkText';
 import './Register.css';
+import { api } from '../../services/api';
 
 export default function Register() {
   const [username, setUsername] = useState("");
@@ -17,22 +18,7 @@ export default function Register() {
     setError(""); // Limpa erros anteriores
 
     try {
-      const response = await fetch('/ada/user', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, email, password }),
-      });
-
-      // Se a resposta não for OK (ex: 400, 409, 500), trata como um erro
-      if (!response.ok) {
-        // Tenta ler a mensagem de erro do corpo da resposta
-        const errorData = await response.text();
-        // O `errorData` pode ser um JSON ou texto simples. `response.text()` é mais seguro.
-        throw new Error(errorData || `Erro ${response.status}: ${response.statusText}`);
-      }
-
+      await api.register(username, email, password);
       // Se chegou aqui, o usuário foi criado com sucesso
       // Você pode redirecionar para o login ou logar o usuário diretamente
       navigate('/login');
@@ -40,7 +26,7 @@ export default function Register() {
     } catch (err) {
       // Captura tanto erros de rede (fetch falhou) quanto os erros que lançamos acima
       console.error("Falha no registro:", err);
-      setError(err.message);
+      setError(err.message || "Não foi possível conectar ao servidor. Tente novamente mais tarde.");
     }
   };
 
