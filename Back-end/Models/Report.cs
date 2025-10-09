@@ -12,5 +12,8 @@ namespace HackathonT2S.Models
         public DateTime GeneratedAt { get; set; }
         public string MarkdownContent { get; set; }
         public double TotalScore { get; set; }
+
+        // Propriedade de navegação: Um relatório pertence a um projeto.
+        public Project Project { get; set; }
     }
 }

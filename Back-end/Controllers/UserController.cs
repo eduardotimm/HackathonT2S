@@ -23,7 +23,7 @@ namespace HackathonT2S.Controllers
         /// <summary>
         /// Lista todos os usuários.
         /// </summary>a
-        [HttpGet]
+        [HttpGet] 
         public async Task<ActionResult<IEnumerable<UserResponseDto>>> GetUsers()
         {
             var users = await _context.Users
@@ -67,11 +67,25 @@ namespace HackathonT2S.Controllers
         /// Cria um novo usuário.
         /// </summary>
         [HttpPost]
-        public async Task<ActionResult<UserResponseDto>> CreateUser([FromBody] User newUser)
+        public async Task<ActionResult<UserResponseDto>> CreateUser([FromBody] CreateUserRequestDto request)
         {
-            // IMPORTANTE: Em uma aplicação real, a senha nunca deve ser salva em texto plano.
-            // Você deve gerar um hash da senha aqui.
-            // Ex: newUser.PasswordHash = BCrypt.Net.BCrypt.HashPassword(newUser.PasswordHash);
+            // 1. Validação: Verifica se o e-mail já está em uso.
+            if (await _context.Users.AnyAsync(u => u.Email == request.Email))
+            {
+                return Conflict("Este e-mail já está em uso.");
+            }
+
+            // 2. Mapeamento do DTO para o Modelo de Domínio
+            var newUser = new User
+            {
+                Username = request.Username,
+                Email = request.Email,
+                // IMPORTANTE: Em uma aplicação real, a senha nunca deve ser salva em texto plano.
+                // Você deve gerar um hash da senha aqui.
+                // Ex: PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
+                PasswordHash = request.Password, // Placeholder - SUBSTITUIR POR HASH
+                Role = "User" // Define um papel padrão
+            };
 
             _context.Users.Add(newUser);
             await _context.SaveChangesAsync();
@@ -86,6 +100,7 @@ namespace HackathonT2S.Controllers
 
             return CreatedAtAction(nameof(GetUser), new { id = newUser.UserID }, userDto);
         }
+
 
         /// <summary>
         /// Deleta um usuário.

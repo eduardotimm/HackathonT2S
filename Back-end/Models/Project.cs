@@ -1,4 +1,6 @@
-﻿namespace HackathonT2S.Models
+﻿using System.Collections.Generic;
+
+namespace HackathonT2S.Models
 {
     public class Project
     {
@@ -11,5 +13,10 @@
         public string Status { get; set; } = "Pendente";
         public DateTime SubmittedAt { get; set; }
         public DateTime LastUpdatedAt { get; set; }
+
+        // Propriedades de navegação
+        public User User { get; set; }
+        public ICollection<Report> Reports { get; set; } = new List<Report>();
+        public ICollection<Rating> Ratings { get; set; } = new List<Rating>();
     }
 }

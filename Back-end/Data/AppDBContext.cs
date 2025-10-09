@@ -28,6 +28,12 @@ namespace HackathonT2S.Data
                 .HasMany(p => p.Reports)
                 .WithOne(r => r.Project)
                 .HasForeignKey(r => r.ProjectID);
+
+            // Configura o relacionamento um-para-muitos: Um Project pode ter vários Ratings.
+            modelBuilder.Entity<Project>()
+                .HasMany(p => p.Ratings) // Um projeto pode ter muitas avaliações
+                .WithOne(r => r.Project) // Uma avaliação pertence a um projeto
+                .HasForeignKey(r => r.ProjectID);
         }
     }
 }

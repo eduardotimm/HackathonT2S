@@ -40,5 +40,10 @@
         // Pontuação total calculada
         public double TotalScore { get; set; }
 
+        // Propriedade de navegação
+        public Project Project { get; set; }
+
+        // Data de criação da avaliação
+        public DateTime CreatedAt { get; set; }
     }
 }

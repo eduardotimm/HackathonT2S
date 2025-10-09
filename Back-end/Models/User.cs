@@ -1,4 +1,6 @@
-﻿namespace HackathonT2S.Models
+﻿using System.Collections.Generic;
+
+namespace HackathonT2S.Models
 {
     public class User
     {
@@ -7,5 +9,8 @@
         public string Email { get; set; } = string.Empty;
         public string PasswordHash { get; set; } = string.Empty; // Armazene o hash da senha
         public string Role { get; set; } = "User";
+
+        // Propriedade de navegação: Um usuário pode ter vários projetos.
+        public ICollection<Project> Projects { get; set; } = new List<Project>();
     }
 }
