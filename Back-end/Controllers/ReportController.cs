@@ -1,5 +1,11 @@
 ﻿﻿using Microsoft.AspNetCore.Mvc;
 using HackathonT2S.Models;
+using HackathonT2S.Data;
+using System.Threading.Tasks;
+using HackathonT2S.Dtos;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace HackathonT2S.Controllers
 {
@@ -7,25 +13,71 @@ namespace HackathonT2S.Controllers
     [Route("ada/[controller]")]
     public class ReportController : ControllerBase
     {
-        // Endpoint para obter relatório de análise em Markdown
-        [HttpGet("project/report/{id}")]
-        public IActionResult GetReport(int id)
+        private readonly AppDbContext _context;
+
+        public ReportController(AppDbContext context)
         {
-            // Lógica para buscar e retornar o relatório do projeto
-            var markdownReport = "# Relatório de Análise\nPontuação: ...";
-            return Ok(markdownReport);
+            _context = context;
         }
 
-        // Endpoint para listar todos os relatórios
-        [HttpGet("all")]
-        public IActionResult GetAllReports()
+        /// <summary>
+        /// Cria um novo relatório para um projeto.
+        /// </summary>
+        [HttpPost("/ada/projects/{projectId}/reports")]
+        public async Task<ActionResult<ReportResponseDto>> CreateReport(int projectId, [FromBody] CreateReportRequestDto request)
         {
-            // Exemplo de retorno estático, substitua pela lógica real
-            var reports = new[]
+            if (!await _context.Projects.AnyAsync(p => p.ProjectID == projectId))
             {
-                new Report { ReportID = 1, ProjectID = 1, GeneratedAt = DateTime.Now, MarkdownContent = "# Relatório Projeto A", TotalScore = 85.5 },
-                new Report { ReportID = 2, ProjectID = 2, GeneratedAt = DateTime.Now, MarkdownContent = "# Relatório Projeto B", TotalScore = 92.0 }
+                return NotFound($"Projeto com ID {projectId} não encontrado.");
+            }
+
+            var newReport = new Report
+            {
+                ProjectID = projectId,
+                MarkdownContent = request.MarkdownContent,
+                TotalScore = request.TotalScore,
+                GeneratedAt = DateTime.UtcNow
             };
+
+            _context.Reports.Add(newReport);
+            await _context.SaveChangesAsync();
+
+            var responseDto = new ReportResponseDto
+            {
+                ReportID = newReport.ReportID,
+                ProjectID = newReport.ProjectID,
+                GeneratedAt = newReport.GeneratedAt,
+                MarkdownContent = newReport.MarkdownContent,
+                TotalScore = newReport.TotalScore
+            };
+
+            return CreatedAtAction(nameof(GetReportsByProject), new { projectId = newReport.ProjectID }, responseDto);
+        }
+
+        /// <summary>
+        /// Obtém todos os relatórios de um projeto específico.
+        /// </summary>
+        [HttpGet("/ada/projects/{projectId}/reports")]
+        public async Task<ActionResult<IEnumerable<ReportResponseDto>>> GetReportsByProject(int projectId)
+        {
+            if (!await _context.Projects.AnyAsync(p => p.ProjectID == projectId))
+            {
+                return NotFound($"Projeto com ID {projectId} não encontrado.");
+            }
+
+            var reports = await _context.Reports
+                .Where(r => r.ProjectID == projectId)
+                .Select(r => new ReportResponseDto
+                {
+                    ReportID = r.ReportID,
+                    ProjectID = r.ProjectID,
+                    GeneratedAt = r.GeneratedAt,
+                    MarkdownContent = r.MarkdownContent,
+                    TotalScore = r.TotalScore
+                })
+                .OrderByDescending(r => r.GeneratedAt) // Mostra os mais recentes primeiro
+                .ToListAsync();
+
             return Ok(reports);
         }
     }
