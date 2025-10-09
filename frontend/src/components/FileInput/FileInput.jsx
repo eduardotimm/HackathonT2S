@@ -30,7 +30,20 @@ export default function FileInput({
         {...rest}
       />
       <div className="t2s-file-content">
-        <img src="https://cdn-icons-png.flaticon.com/512/60/60740.png" alt="upload" className="t2s-file-icon" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="t2s-file-icon"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3.375 3.375 0 0 1 19.5 6.625l-8.95 8.95a1.5 1.5 0 0 1-2.122-2.122l6.815-6.815-6.815 6.815a1.5 1.5 0 0 1-2.122-2.122l6.815-6.815"
+          />
+        </svg>
         <span className="t2s-file-text">{label || 'Anexar arquivo'}</span>
       </div>
     </label>
