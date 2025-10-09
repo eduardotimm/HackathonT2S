@@ -8,6 +8,7 @@ import Button from '../../components/Button/Button';
 export default function CentralForm() {
   const navigate = useNavigate();
   const [projectName, setProjectName] = React.useState('');
+  const [description, setDescription] = React.useState('');
   const [url, setUrl] = React.useState("");
   const [file, setFile] = React.useState(null);
 
@@ -22,8 +23,43 @@ export default function CentralForm() {
   };
 
   const handleOk = () => {
-    console.log({ projectName, url, file });
-    navigate('/');
+    console.log({ projectName, description, url, file });
+
+    // Só aceita URL preenchida e não arquivo
+    const userId = 1; // TODO: substituir pelo ID do usuário autenticado
+    if (url && !file) {
+      const payload = {
+        name: projectName,
+        repoURL: url,
+        description: description
+      };
+
+      fetch(`https://localhost:7135/ada/users/${userId}/projects`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      })
+        .then(async (res) => {
+          if (!res.ok) {
+            const text = await res.text();
+            throw new Error(`${res.status} ${text}`);
+          }
+          return res.json();
+        })
+        .then((data) => {
+          console.log('Projeto criado:', data);
+          navigate('/');
+        })
+        .catch((err) => {
+          console.error('Erro ao criar projeto:', err);
+          alert('Erro ao criar projeto: ' + err.message);
+        });
+    } else {
+      // comportamento atual (navegar de volta)
+      navigate('/');
+    }
   };
 
   return (
@@ -37,6 +73,13 @@ export default function CentralForm() {
         onChange={setProjectName}
         placeholder="Digite o nome do projeto"
         maxLength={200}
+      />
+
+      <TextInput
+        value={description}
+        onChange={setDescription}
+        placeholder="Descrição do projeto"
+        maxLength={1000}
       />
 
       <TextInput
