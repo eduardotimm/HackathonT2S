@@ -4,6 +4,9 @@ import './Projects.css';
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
+  const [rawProjects, setRawProjects] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortOption, setSortOption] = useState('recent');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -23,13 +26,15 @@ export default function Projects() {
         return res.json();
       })
       .then((data) => {
-        // mapear para o formato esperado pelo ProjectList
+        // mapear para o formato esperado pelo ProjectList e manter a data ISO para ordenação
         const mapped = (data || []).map(p => ({
           id: p.projectID,
           title: p.name,
           subtitle: p.description,
-          meta: formatDate(p.submittedAt)
+          meta: formatDate(p.submittedAt),
+          submittedAtIso: p.submittedAt
         }));
+        setRawProjects(mapped);
         setProjects(mapped);
       })
       .catch((err) => {
@@ -61,7 +66,32 @@ export default function Projects() {
         ) : error ? (
           <div className="project-error">Erro: {error}</div>
         ) : (
-          <ProjectList projects={projects} ownerName={ownerName} />
+          (() => {
+            // aplicar filtro por nome
+            const term = searchTerm.trim().toLowerCase();
+            let filtered = rawProjects.filter(p => {
+              if (!term) return true;
+              return (p.title || '').toLowerCase().includes(term) || (p.subtitle || '').toLowerCase().includes(term);
+            });
+
+            // aplicar ordenação
+            if (sortOption === 'recent') {
+              filtered = filtered.sort((a, b) => new Date(b.submittedAtIso) - new Date(a.submittedAtIso));
+            } else if (sortOption === 'old') {
+              filtered = filtered.sort((a, b) => new Date(a.submittedAtIso) - new Date(b.submittedAtIso));
+            } else if (sortOption === 'name') {
+              filtered = filtered.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+            }
+
+            return (
+              <ProjectList
+                projects={filtered}
+                ownerName={ownerName}
+                onSearch={(v) => setSearchTerm(v)}
+                onSort={(v) => setSortOption(v)}
+              />
+            );
+          })()
         )}
       </div>
     </div>
