@@ -7,6 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
+using System.Diagnostics;
+using System.IO;
+using System.Text.Json;
 
 namespace HackathonT2S.Controllers
 {
@@ -16,10 +19,13 @@ namespace HackathonT2S.Controllers
     public class ProjectController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly IConfiguration _configuration;
 
         public ProjectController(AppDbContext context)
+        public ProjectController(AppDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -48,6 +54,9 @@ namespace HackathonT2S.Controllers
             _context.Projects.Add(newProject);
             await _context.SaveChangesAsync();
 
+            // Dispara a análise do Python em segundo plano, sem travar a resposta para o usuário
+            _ = Task.Run(() => TriggerPythonAnalysis(newProject.RepoURL, newProject.ProjectID));
+
             var responseDto = new ProjectResponseDto
             {
                 ProjectID = newProject.ProjectID,
@@ -61,6 +70,64 @@ namespace HackathonT2S.Controllers
             };
 
             return CreatedAtAction(nameof(GetProjectById), new { id = newProject.ProjectID }, responseDto);
+        }
+
+        private async Task TriggerPythonAnalysis(string repoUrl, int projectId)
+        {
+            // ATENÇÃO: Chaves hardcoded. Ideal para testes rápidos, mas em produção,
+            // o ideal é usar a configuração (IConfiguration) para ler de um local seguro.
+            var pythonExecutable = "python";
+            var githubToken = "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"; // Token do GitHub
+            
+            // O caminho para o script orquestrador da IA
+            var scriptPath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", "AI", "src", "main.py"));
+
+            // A validação abaixo foi mantida para o caso de você voltar a usar a configuração.
+            if (string.IsNullOrEmpty(pythonExecutable) || string.IsNullOrEmpty(githubToken))
+            {
+                Console.WriteLine("[.NET ERROR] Caminho do Python ou token do GitHub não configurado nos segredos.");
+                return;
+            }
+
+            if (!System.IO.File.Exists(scriptPath))
+            {
+                Console.WriteLine($"[.NET ERROR] Script Python não encontrado em: {scriptPath}");
+                return;
+            }
+
+            var processStartInfo = new ProcessStartInfo
+            {
+                FileName = pythonExecutable,
+                // Passamos a URL e o token como argumentos de linha de comando
+                Arguments = $"\"{scriptPath}\" \"{repoUrl}\" --token \"{githubToken}\"",
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true,
+            };
+
+            Console.WriteLine($"[.NET] Executando análise: {processStartInfo.FileName} {processStartInfo.Arguments}");
+
+            using var process = Process.Start(processStartInfo);
+            if (process == null)
+            {
+                Console.WriteLine("[.NET ERROR] Não foi possível iniciar o processo do Python.");
+                return;
+            }
+
+            // Captura a saída padrão (o JSON) e a saída de erro do script
+            string result = await process.StandardOutput.ReadToEndAsync();
+            string error = await process.StandardError.ReadToEndAsync();
+
+            await process.WaitForExitAsync();
+
+            if (process.ExitCode == 0 && !string.IsNullOrWhiteSpace(result))
+            {
+                Console.WriteLine($"[.NET SUCCESS] Análise recebida para o projeto {projectId}:\n{result}");
+                // PRÓXIMO PASSO: Aqui você pode desserializar o 'result' (JSON) 
+                // e salvar as métricas no banco de dados, associadas ao projectId.
+            }
+            else { Console.WriteLine($"[.NET ERROR] O script Python falhou para o projeto {projectId}:\n{error}"); }
         }
 
         /// <summary>

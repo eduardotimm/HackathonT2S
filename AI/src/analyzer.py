@@ -117,26 +117,26 @@ def analisar_projeto(fonte: str, github_token: str = None) -> dict:
         return _analisar_pasta_local(fonte)
 
 # --- Bloco de Teste ATUALIZADO ---
-if __name__ == '__main__':
-    # --- Teste 1: Análise Remota ---
-    GITHUB_PAT = "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"
-    URL_TESTE = "https://github.com/smogon/pokemon-showdown"
-    print(f"--- 1. Testando Análise Remota para: {URL_TESTE} ---")
-    if GITHUB_PAT:
-        metricas_remotas = analisar_projeto(URL_TESTE, github_token=GITHUB_PAT)
-        if metricas_remotas:
-            print("   - ✅ Sucesso! Métricas remotas extraídas.")
-    else:
-        print("   - AVISO: Pular teste remoto. GITHUB_PAT não configurado.")
+# if __name__ == '__main__':
+#     # --- Teste 1: Análise Remota ---
+#     GITHUB_PAT = "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"
+#     URL_TESTE = "https://github.com/smogon/pokemon-showdown"
+#     print(f"--- 1. Testando Análise Remota para: {URL_TESTE} ---")
+#     if GITHUB_PAT:
+#         metricas_remotas = analisar_projeto(URL_TESTE, github_token=GITHUB_PAT)
+#         if metricas_remotas:
+#             print("   - ✅ Sucesso! Métricas remotas extraídas.")
+#     else:
+#         print("   - AVISO: Pular teste remoto. GITHUB_PAT não configurado.")
 
-    # --- Teste 2: Análise Local ---
-    CAMINHO_LOCAL_TESTE = "C:/temp/pokemon-showdown-local" 
-    print(f"\n--- 2. Testando Análise Local para: {CAMINHO_LOCAL_TESTE} ---")
-    if os.path.isdir(CAMINHO_LOCAL_TESTE):
-        metricas_locais = analisar_projeto(CAMINHO_LOCAL_TESTE)
-        if metricas_locais:
-            print("   - ✅ Sucesso! Métricas locais extraídas.")
-            print(f"      - Total de Arquivos: {metricas_locais.get('total_arquivos')}")
-            print(f"      - Contagem de Testes: {metricas_locais.get('contagem_testes')}")
-    else:
-        print(f"   - AVISO: Pular teste local. O diretório '{CAMINHO_LOCAL_TESTE}' não foi encontrado.")
+#     # --- Teste 2: Análise Local ---
+#     CAMINHO_LOCAL_TESTE = "C:/temp/pokemon-showdown-local" 
+#     print(f"\n--- 2. Testando Análise Local para: {CAMINHO_LOCAL_TESTE} ---")
+#     if os.path.isdir(CAMINHO_LOCAL_TESTE):
+#         metricas_locais = analisar_projeto(CAMINHO_LOCAL_TESTE)
+#         if metricas_locais:
+#             print("   - ✅ Sucesso! Métricas locais extraídas.")
+#             print(f"      - Total de Arquivos: {metricas_locais.get('total_arquivos')}")
+#             print(f"      - Contagem de Testes: {metricas_locais.get('contagem_testes')}")
+#     else:
+#         print(f"   - AVISO: Pular teste local. O diretório '{CAMINHO_LOCAL_TESTE}' não foi encontrado.")
