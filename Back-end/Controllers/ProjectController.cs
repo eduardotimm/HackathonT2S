@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿﻿using Microsoft.AspNetCore.Mvc;
 using HackathonT2S.Data;
 using HackathonT2S.Dtos;
 using System.Threading.Tasks;
@@ -6,10 +6,12 @@ using HackathonT2S.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HackathonT2S.Controllers
 {
     [ApiController]
+    [Authorize] // << Adicionado: Agora todas as ações de projeto exigem login.
     [Route("ada/[controller]")]
     public class ProjectController : ControllerBase
     {

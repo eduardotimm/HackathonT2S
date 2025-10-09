@@ -35,6 +35,8 @@ export default function Login() {
       // Salva os dados do usuário no localStorage para manter a sessão
       if (typeof window !== 'undefined') {
         localStorage.setItem('user', JSON.stringify(userData));
+        // Salva o token separadamente para facilitar o acesso
+        localStorage.setItem('token', userData.token);
         // Dispara um evento para que outras partes da aplicação (como o Header) saibam que o login ocorreu
         window.dispatchEvent(new Event('authChanged'));
       }

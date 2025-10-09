@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using HackathonT2S.Dtos;
+using HackathonT2S.Services;
 
 namespace HackathonT2S.Controllers
 {
@@ -14,10 +15,12 @@ namespace HackathonT2S.Controllers
     public class UserController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly TokenService _tokenService;
 
-        public UserController(AppDbContext context)
+        public UserController(AppDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _tokenService = new TokenService(configuration);
         }
 
         /// <summary>
@@ -115,15 +118,16 @@ namespace HackathonT2S.Controllers
                 return Unauthorized("E-mail ou senha inválidos.");
             }
 
-            // 3. Gera o token (neste exemplo, apenas retornamos os dados do usuário)
-            // Em uma implementação completa, aqui você geraria um JWT (JSON Web Token).
+            // 3. Gera o token JWT
+            var token = _tokenService.GenerateToken(user);
+
             var loginResponse = new LoginResponseDto
             {
                 UserID = user.UserID,
                 Username = user.Username,
                 Email = user.Email,
                 Role = user.Role,
-                // Token = "seu_jwt_gerado_aqui" // Exemplo de como seria com JWT
+                Token = token // Retorna o token para o cliente
             };
 
             return Ok(loginResponse);

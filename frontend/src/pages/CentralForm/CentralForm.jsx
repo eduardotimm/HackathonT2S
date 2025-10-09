@@ -44,10 +44,13 @@ export default function CentralForm() {
         description: description
       };
 
+      const token = localStorage.getItem('token');
+
       fetch(`https://localhost:7135/ada/users/${userId}/projects`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` // Adiciona o token de autorização
         },
         body: JSON.stringify(payload)
       })
