@@ -2,6 +2,8 @@ using HackathonT2S.Data;
 using Microsoft.EntityFrameworkCore;
 
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,6 +16,17 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         mySqlOptions.EnableRetryOnFailure()
     )
 );
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:3000") // URL do seu front-end
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+                      });
+});
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
@@ -33,6 +46,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();
 

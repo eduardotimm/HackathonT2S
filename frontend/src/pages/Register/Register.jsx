@@ -1,135 +1,92 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import TextInput from '../../components/TextInput/TextInput';
 import Button from '../../components/Button/Button';
+import LinkText from '../../components/Link/LinkText';
 import './Register.css';
 
 export default function Register() {
-  const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirm, setConfirm] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [fieldErrors, setFieldErrors] = useState({});
+  const navigate = useNavigate();
 
-  async function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // client-side validation
-    const errs = {};
-    if (!username || username.trim().length < 3) errs.username = 'Nome de usuário deve ter ao menos 3 caracteres.';
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email || !emailPattern.test(email)) errs.email = 'Email inválido.';
-    if (!password || password.length < 8) errs.password = 'Senha deve ter ao menos 8 caracteres.';
-    if (password !== confirm) errs.confirm = 'As senhas não são iguais.';
-    setFieldErrors(errs);
-    if (Object.keys(errs).length) return;
-    setError("");
-    setLoading(true);
-
-    // build payload
-    const payload = {
-      username: username && username.trim() ? username.trim() : undefined,
-      email: email,
-      password: password,
-    };
+    setError(""); // Limpa erros anteriores
 
     try {
-      const res = await fetch('http://localhost:5135/ada/User', {
+      const response = await fetch('/ada/user', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, email, password }),
       });
 
-      if (res.ok) {
-        const data = await res.json();
-        // response returns UserResponseDto with Username
-        const savedName = (data && (data.username || data.Username)) || (username && username.trim()) || (email.split('@')[0] || 'Usuário');
-        if (typeof window !== 'undefined') localStorage.setItem('userName', savedName);
-        if (typeof window !== 'undefined') window.dispatchEvent(new Event('authChanged'));
-        window.location.href = '/projects';
-      } else {
-        // try to parse error message
-        let errText = '';
-        try { errText = await res.text(); } catch (_) { errText = `Status ${res.status}`; }
-        if (res.status === 409) setError('Este e-mail já está em uso.');
-        else setError(errText || `Erro ao registrar (status ${res.status})`);
+      // Se a resposta não for OK (ex: 400, 409, 500), trata como um erro
+      if (!response.ok) {
+        // Tenta ler a mensagem de erro do corpo da resposta
+        const errorData = await response.text();
+        // O `errorData` pode ser um JSON ou texto simples. `response.text()` é mais seguro.
+        throw new Error(errorData || `Erro ${response.status}: ${response.statusText}`);
       }
+
+      // Se chegou aqui, o usuário foi criado com sucesso
+      // Você pode redirecionar para o login ou logar o usuário diretamente
+      navigate('/login');
+
     } catch (err) {
-      setError('Falha ao conectar com o servidor.');
-      console.error('Registration error', err);
+      // Captura tanto erros de rede (fetch falhou) quanto os erros que lançamos acima
+      console.error("Falha no registro:", err);
+      setError(err.message);
     }
-    finally {
-      setLoading(false);
-    }
-  }
+  };
 
   return (
-    <div className="login-container">
-      <h2>Criar Conta</h2>
-      <form className="login-form" onSubmit={handleSubmit}>
+    <div className="register-container">
+      <h2>Registro</h2>
+      <form className="register-form" onSubmit={handleSubmit}>
         <label>
           Nome de usuário:
           <TextInput
-            type="text"
             value={username}
             onChange={setUsername}
-            placeholder="Escolha um nome de usuário"
-            maxLength={30}
-            className="login-input"
+            placeholder="Digite seu nome de usuário"
             required
-            disabled={loading}
+            name="username"
           />
         </label>
-        {fieldErrors.username && <div style={{ color: 'red', marginTop: 6 }}>{fieldErrors.username}</div>}
-
         <label>
           Email:
           <TextInput
             type="email"
             value={email}
             onChange={setEmail}
-            placeholder="Digite seu email"
-            maxLength={80}
-            className="login-input"
+            placeholder="Digite seu e-mail"
             required
-            disabled={loading}
+            name="email"
           />
         </label>
-        {fieldErrors.email && <div style={{ color: 'red', marginTop: 6 }}>{fieldErrors.email}</div>}
         <label>
           Senha:
           <TextInput
             type="password"
             value={password}
             onChange={setPassword}
-            placeholder="Digite sua senha"
-            maxLength={40}
-            className="login-input"
+            placeholder="Mínimo de 6 caracteres"
             required
-            disabled={loading}
+            name="password"
           />
         </label>
-        {fieldErrors.password && <div style={{ color: 'red', marginTop: 6 }}>{fieldErrors.password}</div>}
-        <label>
-          Confirmar senha:
-          <TextInput
-            type="password"
-            value={confirm}
-            onChange={setConfirm}
-            placeholder="Confirme sua senha"
-            maxLength={40}
-            className="login-input"
-            required
-            disabled={loading}
-          />
-        </label>
-        {fieldErrors.confirm && <div style={{ color: 'red', marginTop: 6 }}>{fieldErrors.confirm}</div>}
-        <small style={{ color: "#555", marginBottom: "8px", display: "block" }}>
-          A senha deve conter letra maiúscula, minúscula, número e caractere especial.
-        </small>
-        {error && <div style={{ color: "red", marginBottom: "8px" }}>{error}</div>}
-        <div className="login-btn-group">
-          <Button label={loading ? 'Criando...' : 'Criar conta'} type="submit" className="login-btn" disabled={loading} />
+        {error && <p className="error-message">{error}</p>}
+        <div className="register-btn-group">
+          <Button label="Registrar ►" type="submit" className="register-btn" />
+        </div>
+        <div className="register-footer">
+          <span>Já possui uma conta?&nbsp;</span>
+          <LinkText text="Faça login" to="/login" className="login-link" />
         </div>
       </form>
     </div>

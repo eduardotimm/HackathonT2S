@@ -23,8 +23,8 @@ namespace HackathonT2S.Controllers
         /// <summary>
         /// Lista todos os usuários.
         /// </summary>a
-        [HttpGet] 
-        public async Task<ActionResult<IEnumerable<UserResponseDto>>> GetUsers()
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<UserResponseDto>>> GetUsers() 
         {
             var users = await _context.Users
                 .Select(u => new UserResponseDto
