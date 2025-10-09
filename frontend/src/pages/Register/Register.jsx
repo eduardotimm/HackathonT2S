@@ -34,7 +34,7 @@ export default function Register() {
     };
 
     try {
-      const res = await fetch('https://localhost:7135/ada/User', {
+      const res = await fetch('http://localhost:5135/ada/User', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
