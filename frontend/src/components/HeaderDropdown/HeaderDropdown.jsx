@@ -10,6 +10,7 @@ export default function HeaderDropdown({ items, trigger, offset }) {
   const defaultItems = [
     { label: 'Home', to: '/' },
     { label: 'Projetos', to: '/projects' },
+    { label: 'Dashboard', to: '/dashboard' },
   ];
   const renderedItems = Array.isArray(items) && items.length ? items : defaultItems;
 

@@ -44,8 +44,6 @@ export default function Header() {
               )}
               items={[
                 { label: 'Conta', to: '/projects' },
-                { label: 'Idioma', onClick: () => alert('Trocar idioma (placeholder)') },
-                { label: 'Tema', onClick: () => alert('Alternar tema (placeholder)') },
                 { label: 'Sair', onClick: () => { localStorage.removeItem('userName'); window.dispatchEvent(new Event('authChanged')); navigate('/'); } },
               ]}
               offset={260}

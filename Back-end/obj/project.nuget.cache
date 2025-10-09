@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "g+ylzCEVodA=",
+  "dgSpecHash": "+sFKakISdyw=",
   "success": true,
-  "projectFilePath": "C:\\Users\\linda\\Desktop\\Hackathont2s\\Back-end\\HackathonT2S.csproj",
+  "projectFilePath": "C:\\Users\\linda\\Desktop\\hackathon\\HackathonT2S\\Back-end\\HackathonT2S.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\linda\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\linda\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.28\\microsoft.entityframeworkcore.6.0.28.nupkg.sha512",

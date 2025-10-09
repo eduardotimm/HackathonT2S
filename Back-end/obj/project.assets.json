@@ -1041,11 +1041,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\linda\\Desktop\\Hackathont2s\\Back-end\\HackathonT2S.csproj",
+      "projectUniqueName": "C:\\Users\\linda\\Desktop\\hackathon\\HackathonT2S\\Back-end\\HackathonT2S.csproj",
       "projectName": "HackathonT2S",
-      "projectPath": "C:\\Users\\linda\\Desktop\\Hackathont2s\\Back-end\\HackathonT2S.csproj",
+      "projectPath": "C:\\Users\\linda\\Desktop\\hackathon\\HackathonT2S\\Back-end\\HackathonT2S.csproj",
       "packagesPath": "C:\\Users\\linda\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\linda\\Desktop\\Hackathont2s\\Back-end\\obj\\",
+      "outputPath": "C:\\Users\\linda\\Desktop\\hackathon\\HackathonT2S\\Back-end\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
