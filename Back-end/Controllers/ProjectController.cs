@@ -114,5 +114,36 @@ namespace HackathonT2S.Controllers
 
             return Ok(projects);
         }
+
+        /// <summary>
+        /// Lista todos os projetos de um usuário específico.
+        /// </summary>
+        [HttpGet("/ada/users/{userId}/projects")]
+        public async Task<ActionResult<IEnumerable<ProjectResponseDto>>> GetProjectsByUser(int userId)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null)
+            {
+                return NotFound($"Usuário com não encontrado.");
+            }
+
+            var projects = await _context.Projects
+                .Where(p => p.UserID == userId)
+                .Include(p => p.User)
+                .Select(p => new ProjectResponseDto
+                {
+                    ProjectID = p.ProjectID,
+                    UserID = p.UserID,
+                    UserName = p.User.Username,
+                    Name = p.Name,
+                    Description = p.Description,
+                    RepoURL = p.RepoURL,
+                    Status = p.Status,
+                    SubmittedAt = p.SubmittedAt
+                })
+                .ToListAsync();
+
+            return Ok(projects);
+        }
     }
 }
