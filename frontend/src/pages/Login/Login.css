@@ -10,16 +10,24 @@
 }
 
 .login-form {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 18px;
-  width: 380px;
-  max-width: 96vw;
-  background: #141414;
-  padding: 28px;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-  border: 1px solid rgba(255,255,255,0.04);
+  width: min(420px, 92vw);
+  margin: 0 auto;
+  background: white;
+  padding: clamp(12px, 4vw, 24px);
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e9ecef;
+}
+
+.login-container h2 {
+  font-size: 2.25rem;
+  margin: 0;
+  color: #ffffff;
+  font-weight: 700;
 }
 
 .social-area {
@@ -47,9 +55,10 @@
   width: 100%;
   padding: 10px 12px;
   border-radius: 8px;
-  border: 1px solid #cbd5e1; /* mais claro sobre fundo escuro do card */
-  font-size: 1rem;
+  border: 1px solid #cbd5e1;
+  font-size: clamp(0.92rem, 2.2vw, 1rem);
   margin: 6px 0 0;
+  color: #343a40;
 }
 
 /* regra mais específica para inputs que usam também a classe .t2s-input (TextInput) */
@@ -107,4 +116,20 @@
   flex-wrap: nowrap;
   white-space: nowrap;
   align-items: center;
+}
+
+@media (max-width: 600px) {
+  .login-container { padding: 16px; gap: 12px; }
+  .login-form { padding: 18px; border-radius: 10px; max-width: 100%; }
+  .login-container h2 { font-size: 1.75rem; }
+  .login-btn { min-width: auto; width: 100%; }
+  .create-link { font-size: 0.95rem; }
+}
+
+@media (max-width: 768px) {
+  .login-container { padding: 18px; }
+  .login-form { padding: 20px; max-width: 100%; border-radius: 10px; }
+  .login-container h2 { font-size: 1.9rem; }
+  .login-input { font-size: 0.98rem; }
+  .login-btn { width: 100%; padding: clamp(10px, 2.5vw, 16px); }
 }

@@ -18,15 +18,17 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #f5f5f5;
+  background: #282c34; /* restored header color as page background */
+  color: #fff;
 }
 
 .custom-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 32px;
-  background: #282c34;
+  padding: 16px 12px; /* bring items closer to center */
+  position: relative; /* allow absolute positioning of header children */
+  background: transparent;
   height: 64px;
   min-height: 64px;
   max-height: 64px;
@@ -109,14 +111,14 @@
 }
 
 .custom-nav-btn {
-  background: #61dafb;
-  color: #282c34;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  font-size: 16px;
+  background: transparent;
+  color: inherit;
+  border: 1px solid rgba(0,0,0,0.12);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 15px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .custom-main {

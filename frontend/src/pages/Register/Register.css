@@ -5,25 +5,25 @@
     justify-content: center;
     min-height: 80vh;
     padding: 2rem;
-    background-color: #f8f9fa; /* Cor de fundo suave */
+    background-color: transparent; /* inherit page background */
 }
 
 .register-form {
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: 1.25rem; /* Espaçamento entre os elementos do formulário */
     background: white;
-    padding: 2.5rem;
+    padding: clamp(12px, 4vw, 24px);
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    width: 100%;
-    max-width: 420px; /* Largura máxima do formulário */
+    width: min(420px, 92vw);
     border: 1px solid #e9ecef;
 }
 
 .register-container h2 {
     font-size: 2.25rem;
-    color: #343a40;
+    color: #ffffff; /* white title to contrast with app background */
     margin-bottom: 1.5rem;
     font-weight: 600;
 }
@@ -47,8 +47,8 @@
 
 .register-btn {
     width: 100%;
-    padding: 0.8rem;
-    font-size: 1rem;
+    padding: clamp(10px, 2.5vw, 14px);
+    font-size: clamp(0.95rem, 2vw, 1rem);
 }
 
 .register-footer {
@@ -56,6 +56,18 @@
     text-align: center;
     font-size: 0.9rem;
     color: #6c757d;
+}
+
+@media (max-width: 600px) {
+    .register-container { padding: 16px; }
+    .register-form { padding: 18px; border-radius: 10px; max-width: 100%; }
+    .register-container h2 { font-size: 1.6rem; color: #ffffff; }
+}
+
+@media (max-width: 768px) {
+    .register-form { padding: 20px; max-width: 100%; }
+    .register-container h2 { font-size: 1.85rem; }
+    .register-btn { width: 100%; }
 }
 
 .error-message {

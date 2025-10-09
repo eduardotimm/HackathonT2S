@@ -28,6 +28,10 @@ export default function CentralForm() {
 
   return (
     <div className="central-container">
+      <header className="home-hero">
+        <h1 className="hero-title">Avalie seu código em segundos</h1>
+        <p className="hero-sub">Cole a URL do seu repositório ou envie um arquivo. Receba uma nota automática com insights de qualidade.</p>
+      </header>
       <TextInput
         value={projectName}
         onChange={setProjectName}

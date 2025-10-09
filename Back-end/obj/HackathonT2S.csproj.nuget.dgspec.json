@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\unisanta\\Desktop\\Hack\\hackathont2s\\Back-end\\HackathonT2S.csproj": {}
+    "C:\\Users\\linda\\Desktop\\Hackathont2s\\Back-end\\HackathonT2S.csproj": {}
   },
   "projects": {
-    "C:\\Users\\unisanta\\Desktop\\Hack\\hackathont2s\\Back-end\\HackathonT2S.csproj": {
+    "C:\\Users\\linda\\Desktop\\Hackathont2s\\Back-end\\HackathonT2S.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\unisanta\\Desktop\\Hack\\hackathont2s\\Back-end\\HackathonT2S.csproj",
+        "projectUniqueName": "C:\\Users\\linda\\Desktop\\Hackathont2s\\Back-end\\HackathonT2S.csproj",
         "projectName": "HackathonT2S",
-        "projectPath": "C:\\Users\\unisanta\\Desktop\\Hack\\hackathont2s\\Back-end\\HackathonT2S.csproj",
-        "packagesPath": "C:\\Users\\unisanta\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\unisanta\\Desktop\\Hack\\hackathont2s\\Back-end\\obj\\",
+        "projectPath": "C:\\Users\\linda\\Desktop\\Hackathont2s\\Back-end\\HackathonT2S.csproj",
+        "packagesPath": "C:\\Users\\linda\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\linda\\Desktop\\Hackathont2s\\Back-end\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\unisanta\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\linda\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -38,7 +38,13 @@
           "warnAsError": [
             "NU1605"
           ]
-        }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net6.0": {
@@ -65,7 +71,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -77,7 +84,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\6.0.108\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -10,6 +10,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // Simulate successful login: save a userName in localStorage and redirect

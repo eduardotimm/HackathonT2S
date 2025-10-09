@@ -1,19 +1,53 @@
 .project-list-card {
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.06);
+  background: rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.04);
   padding: 18px;
   border-radius: 10px;
-  color: #000;
+  color: #fff;
 }
 .project-list-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px }
-.project-list-header h3 { margin: 0; font-size: 1.25rem; color:#000 }
+.project-list-header h3 { margin: 0; font-size: 1.25rem; color:#fff }
 .project-list-controls { display:flex; gap:8px; align-items:center }
-.project-search { background: #f6f7f8; border: 1px solid rgba(0,0,0,0.08); padding: 10px 12px; border-radius: 8px; color: #000; min-width: 260px }
-.project-sort { background: #f6f7f8; border: 1px solid rgba(0,0,0,0.08); padding: 10px; border-radius: 8px; color: #000 }
+.project-search { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.04); padding: 10px 12px; border-radius: 8px; color: #fff; min-width: 260px }
+.project-sort { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.04); padding: 10px; border-radius: 8px; color: #fff }
+
+/* Accent color for selects/options */
+:root { --accent: #646cff; }
+
+.project-sort {
+  background: rgba(255,255,255,0.03);
+  color: #e6eef6;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Attempt to style option highlight on supported browsers */
+.project-sort option { background: #fff; color: #111; }
+.project-sort option:checked, .project-sort option:focus, .project-sort option:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Windows/Edge specific: ensure dropdown uses accent when focused */
+.project-sort:focus { outline: 2px solid rgba(100,108,255,0.18); }
 .project-list-body { padding-top: 8px; }
-.project-empty { text-align:center; padding: 28px 0; color: rgba(0,0,0,0.6) }
+.project-empty { text-align:center; padding: 28px 0; color: rgba(255,255,255,0.6) }
 .project-items { list-style: none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px }
-.project-item { display:flex; justify-content:space-between; align-items:center; padding:12px; border-radius:8px; background: #fafafa; border:1px solid rgba(0,0,0,0.06); color:#000 }
+.project-item { display:flex; justify-content:space-between; align-items:center; padding:12px; border-radius:8px; background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.02); color:#fff }
 .project-item-title { font-weight:600 }
-.project-item-sub { font-size:0.9rem; color: rgba(0,0,0,0.6) }
-.project-item-right { font-size:0.85rem; color: rgba(0,0,0,0.6) }
+.project-item-sub { font-size:0.9rem; color: rgba(255,255,255,0.7) }
+.project-item-right { font-size:0.85rem; color: rgba(255,255,255,0.7) }
+
+@media (max-width: 768px) {
+  .project-list-controls { flex-direction: column; align-items: stretch; gap: 10px; }
+  .project-search { min-width: 100%; }
+  .project-sort { width: 100%; }
+  .project-list-header { flex-direction: column; align-items: flex-start; gap: 8px }
+}
+
+@media (max-width: 420px) {
+  .project-search { min-width: 100%; font-size: 0.95rem }
+  .project-item { padding: 10px }
+  .project-list-card { padding: 12px }
+}

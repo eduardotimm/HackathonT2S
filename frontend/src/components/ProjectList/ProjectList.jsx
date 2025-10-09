@@ -1,11 +1,13 @@
 import React from 'react';
 import './ProjectList.css';
 
-export default function ProjectList({ projects = [], onSearch = () => {}, onSort = () => {}, ownerName = 'Você' }) {
+export default function ProjectList({ projects = [], onSearch = () => {}, onSort = () => {}, ownerName }) {
+  const stored = (typeof window !== 'undefined' && localStorage.getItem('userName')) || null;
+  const displayName = ownerName || stored || 'Você';
   return (
     <div className="project-list-card">
       <div className="project-list-header">
-        <h3>{`Projetos de ${ownerName}`}</h3>
+        <h3>{`Projetos de ${displayName}`}</h3>
         <div className="project-list-controls">
           <input className="project-search" placeholder="Buscar projetos..." onChange={e => onSearch(e.target.value)} />
           <select className="project-sort" onChange={e => onSort(e.target.value)}>

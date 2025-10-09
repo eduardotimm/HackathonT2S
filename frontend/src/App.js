@@ -4,6 +4,8 @@ import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Projects from './pages/Projects/Projects';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import PublicRoute from './routes/PublicRoute';
+import PrivateRoute from './routes/PrivateRoute';
 import CentralForm from './pages/CentralForm/CentralForm';
 import Header from './components/Header/Header';
 
@@ -22,9 +24,21 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/projects" element={<Projects />} />
+          <Route path="/login" element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          } />
+          <Route path="/register" element={
+            <PublicRoute>
+              <Register />
+            </PublicRoute>
+          } />
+          <Route path="/projects" element={
+            <PrivateRoute>
+              <Projects />
+            </PrivateRoute>
+          } />
         </Routes>
       </div>
     </BrowserRouter>

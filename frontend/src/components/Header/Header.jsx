@@ -24,9 +24,11 @@ export default function Header() {
     <header className="custom-header">
       <div className="header-left">
         <img src={logo} className="custom-logo" alt="logo" onClick={() => navigate('/')} />
-        <span className="header-label" onClick={() => navigate('/')} aria-label="HaTi">HaTi.Ai</span>
+        <span className="header-label" onClick={() => navigate('/')} aria-label="HaTi">Hati</span>
         <HeaderDropdown />
       </div>
+      
+      
       {/* ...botão antigo removido, apenas Button do projeto permanece... */}
         <div className="header-right">
           {/* if user is logged (we keep userName in localStorage) show profile icon */}

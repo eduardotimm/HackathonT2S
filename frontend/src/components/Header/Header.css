@@ -1,5 +1,5 @@
 /* Header styles are in App.css; this file can be used for Header-specific overrides */
-.header-left { position: relative }
+.header-left { position: absolute; left: 20%; top: 50%; transform: translateY(-50%); }
 
 .header-label {
 	margin-left: 0px;
@@ -7,7 +7,7 @@
 	font-weight: 600;
 	font-size: 1.5rem;
 	cursor: pointer;
-	color: #fff;
+	color: inherit;
 	align-self: center;
 }
 
@@ -18,8 +18,16 @@
 .header-label:hover,
 .header-label:focus {
 	transform: translateY(-2px) scale(1.06);
-	color: #fff;
+	color: inherit;
 }
 
-.header-right { display: flex; align-items: center; gap: 12px }
+.header-right { position: absolute; right: 20%; top: 50%; transform: translateY(-50%); display: flex; align-items: center; gap: 12px; }
 .profile-icon { width: 36px; height: 36px; border-radius: 50%; cursor: pointer; object-fit: cover; }
+
+/* removed center icons */
+
+@media (max-width: 600px) {
+	.header-left { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); }
+	.header-right { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); }
+	.header-label { font-size: 1.15rem; }
+}
