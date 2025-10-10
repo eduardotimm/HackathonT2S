@@ -4,7 +4,12 @@ import { Navigate } from 'react-router-dom';
 export default function PublicRoute({ children, redirectTo = '/' }) {
   let logged = null;
   try {
-    logged = typeof window !== 'undefined' ? localStorage.getItem('userName') : null;
+    // Verifica chaves mais confiáveis: 'user' (objeto serializado) ou 'token'.
+    const userString = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
+    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+    // Mantém compatibilidade com eventuais armazenamentos antigos em 'userName'
+    const userName = typeof window !== 'undefined' ? localStorage.getItem('userName') : null;
+    logged = userString || token || userName;
   } catch (e) {
     logged = null;
   }

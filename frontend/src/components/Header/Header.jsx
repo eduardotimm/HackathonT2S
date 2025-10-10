@@ -64,11 +64,23 @@ export default function Header() {
           ) : (
             !(location.pathname === '/login' || location.pathname === '/register') && (
               <Button
-                label="Entrar"
-                onClick={() => navigate('/login')}
-                variant="primary"
-                size="md"
-              />
+                  label="Entrar"
+                  onClick={() => {
+                    try {
+                      navigate('/login');
+                      // Fallback: força a navegação via location se o router não mudar a rota em 150ms
+                      setTimeout(() => {
+                        if (window.location.pathname !== '/login') {
+                          window.location.href = '/login';
+                        }
+                      }, 150);
+                    } catch (e) {
+                      window.location.href = '/login';
+                    }
+                  }}
+                  variant="primary"
+                  size="md"
+                />
             )
           )}
         </div>

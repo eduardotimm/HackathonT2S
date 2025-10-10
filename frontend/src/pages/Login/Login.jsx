@@ -18,13 +18,20 @@ export default function Login() {
     setError(""); // Limpa erros anteriores
 
     try {
+      console.log('[Login] Enviando requisição de login para:', email);
       const userData = await api.login(email, password);
+      console.log('[Login] Resposta do login:', userData);
 
       // Salva os dados do usuário no localStorage para manter a sessão
       if (typeof window !== 'undefined') {
         localStorage.setItem('user', JSON.stringify(userData));
-        // Salva o token separadamente para facilitar o acesso
-        localStorage.setItem('token', userData.token);
+        // Salva o token separadamente para facilitar o acesso (aceita 'token' ou 'Token')
+        const tokenValue = userData.token || userData.Token || userData.TokenValue || userData.accessToken;
+        if (tokenValue) {
+          localStorage.setItem('token', tokenValue);
+        } else {
+          console.warn('[Login] Nenhum token retornado na resposta de login. userData:', userData);
+        }
         // Dispara um evento para que outras partes da aplicação (como o Header) saibam que o login ocorreu
         window.dispatchEvent(new Event('authChanged'));
       }

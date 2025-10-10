@@ -28,6 +28,7 @@
   align-items: center;
   padding: 16px 12px; /* bring items closer to center */
   position: relative; /* allow absolute positioning of header children */
+  z-index: 1000; /* garante que o header fique acima do conteúdo principal */
   background: transparent;
   height: 64px;
   min-height: 64px;
