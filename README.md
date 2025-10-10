@@ -13,6 +13,31 @@
 - **Interface Reativa:** Frontend construído em React para uma experiência de usuário fluida e dinâmica.
 
 ---
+### Justificativa da Escolha da IA (Google Gemini)
+
+A escolha pelo **Google Gemini 2.5 Pro** foi uma decisão estratégica baseada em três pilares: **Escalabilidade, Custo-Eficiência e Capacidade Técnica**. O Gemini oferece uma janela de contexto de até 1 milhão de tokens, o que prepara o ADAS para futuras análises de bases de código muito maiores. Além disso, o generoso nível gratuito oferecido pelo Google AI Studio viabilizou o desenvolvimento do projeto sem custos, um fator crucial em um ambiente de hackathon e para estudantes. Por fim, sua capacidade de seguir instruções complexas e gerar saídas em formato JSON estruturado foi fundamental para a arquitetura de nossa solução.
+
+---
+## ⚠️ Estado Atual e Limitações (MVP)
+
+Esta versão foi desenvolvida como um **MVP (Produto Mínimo Viável)** dentro do prazo do hackathon. Como tal, focamos no fluxo principal de análise, e há diversas áreas para melhoria que reconhecemos:
+
+- **Estratégia de Validação:** A validação dos resultados da IA é atualmente qualitativa. Uma estratégia formal de validação (ex: comparação com avaliações humanas) não foi implementada.
+- **Gestão de Custo e Desempenho:** O controle de custos de tokens e a medição de latência da API de IA não foram implementados.
+- **Tratamento de Dados (Contexto do LLM):** A versão atual envia um resumo dos dados para a IA (ex: primeiros 4000 caracteres do README). Uma estratégia mais robusta para lidar com o limite de tokens em repositórios muito grandes (como RAG) é um próximo passo.
+- **Segurança da IA:** Mecanismos de segurança avançados como `guardrails` para validar a saída da IA e defesa contra injeção de prompt não foram implementados.
+- **Processamento Síncrono:** Para garantir a entrega do núcleo funcional no prazo do hackathon, a análise é executada de forma síncrona. A arquitetura, no entanto, foi projetada para a futura implementação de um sistema de filas para processamento assíncrono.
+- **Dashboard e Ranking:** Os resultados das análises já estão sendo persistidos no banco de dados, criando a base de dados necessária para a funcionalidade de dashboard. A camada de visualização (frontend) para exibir o ranking e o histórico não foi implementada neste MVP.
+---
+## 🗺️ Roadmap de Evolução
+
+Com a base do MVP estabelecida, o plano de evolução do ADAS inclui:
+
+- **[ ] Implementar um Framework de Validação:** Criar um sistema para comparar os resultados da IA com um gabarito de avaliações humanas, permitindo o cálculo de métricas de acurácia.
+- **[ ] Otimizar Custo e Performance:** Integrar um sistema de cache (como Redis) para evitar reanálises de projetos já avaliados e implementar um controle de uso de tokens.
+- **[ ] Processamento Avançado de Código:** Utilizar a técnica de **RAG (Retrieval-Augmented Generation)** para permitir que a IA analise o conteúdo completo de múltiplos arquivos de código-fonte de forma eficiente.
+- **[ ] Implementar Guardrails de Segurança:** Adicionar uma camada para validar e sanitizar as saídas da IA, garantindo que as respostas sejam sempre seguras e no formato esperado.
+---
 
 ## 🚀 Tecnologias Utilizadas
 
