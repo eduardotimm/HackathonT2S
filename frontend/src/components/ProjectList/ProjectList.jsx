@@ -102,7 +102,7 @@ export default function ProjectList({ projects = [], onSearch = () => {}, onSort
 
                       {analysisDetails[p.id] && analysisDetails[p.id].error && <div className="analysis-error">{analysisDetails[p.id].error}</div>}
 
-                      <DownloadButton projectId={p.id} projectTitle={p.title} />
+                      <DownloadButton analysisDetails={analysisDetails[p.id]} />
                     </div>
                     {showJustification && analysisDetails[p.id] && (
                       <div className="justification-details">
