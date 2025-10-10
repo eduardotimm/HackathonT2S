@@ -3,7 +3,8 @@ import './App.css';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Projects from './pages/Projects/Projects';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Dashboards from './pages/Dashboards/Dashboards';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import PublicRoute from './routes/PublicRoute';
 import PrivateRoute from './routes/PrivateRoute';
 import CentralForm from './pages/CentralForm/CentralForm';
@@ -39,6 +40,8 @@ function App() {
               <Projects />
             </PrivateRoute>
           } />
+          <Route path="/dashboards" element={<Dashboards />} />
+          <Route path="/dashboard" element={<Navigate to="/dashboards" replace />} />
         </Routes>
       </div>
     </BrowserRouter>
