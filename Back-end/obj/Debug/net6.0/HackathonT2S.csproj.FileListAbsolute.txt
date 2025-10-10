@@ -199,6 +199,7 @@ C:\Users\linda\Desktop\hackathon\HackathonT2S\Back-end\obj\Debug\net6.0\refint\H
 C:\Users\linda\Desktop\hackathon\HackathonT2S\Back-end\obj\Debug\net6.0\HackathonT2S.pdb
 C:\Users\linda\Desktop\hackathon\HackathonT2S\Back-end\obj\Debug\net6.0\HackathonT2S.genruntimeconfig.cache
 C:\Users\linda\Desktop\hackathon\HackathonT2S\Back-end\obj\Debug\net6.0\ref\HackathonT2S.dll
+<<<<<<< HEAD
 C:\Users\unisanta\Desktop\Hack\hackathont2s\Back-end\bin\Debug\net6.0\BCrypt.Net-Next.dll
 C:\Users\unisanta\Desktop\Hack\hackathont2s\Back-end\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\unisanta\Desktop\Hack\hackathont2s\Back-end\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
@@ -262,3 +263,5 @@ C:\Users\linda\Desktop\ss\hackathont2s\Back-end\obj\Debug\net6.0\refint\Hackatho
 C:\Users\linda\Desktop\ss\hackathont2s\Back-end\obj\Debug\net6.0\HackathonT2S.pdb
 C:\Users\linda\Desktop\ss\hackathont2s\Back-end\obj\Debug\net6.0\HackathonT2S.genruntimeconfig.cache
 C:\Users\linda\Desktop\ss\hackathont2s\Back-end\obj\Debug\net6.0\ref\HackathonT2S.dll
+=======
+>>>>>>> 9ad2466040eca92aa9214bb966492767414f6383
