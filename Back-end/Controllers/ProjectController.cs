@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
-using System.Diagnostics;
-using System.IO;
 using System.Text.Json;
+using System.Net.Http;
+using System.Text;
 
 namespace HackathonT2S.Controllers
 {
@@ -20,12 +20,13 @@ namespace HackathonT2S.Controllers
     {
         private readonly AppDbContext _context;
         private readonly IConfiguration _configuration;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public ProjectController(AppDbContext context)
-        public ProjectController(AppDbContext context, IConfiguration configuration)
+        public ProjectController(AppDbContext context, IConfiguration configuration, IHttpClientFactory httpClientFactory)
         {
             _context = context;
             _configuration = configuration;
+            _httpClientFactory = httpClientFactory;
         }
 
         /// <summary>
@@ -74,60 +75,50 @@ namespace HackathonT2S.Controllers
 
         private async Task TriggerPythonAnalysis(string repoUrl, int projectId)
         {
-            // ATENÇÃO: Chaves hardcoded. Ideal para testes rápidos, mas em produção,
-            // o ideal é usar a configuração (IConfiguration) para ler de um local seguro.
-            var pythonExecutable = "python";
-            var githubToken = "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"; // Token do GitHub
-            
-            // O caminho para o script orquestrador da IA
-            var scriptPath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", "AI", "src", "main.py"));
-
-            // A validação abaixo foi mantida para o caso de você voltar a usar a configuração.
-            if (string.IsNullOrEmpty(pythonExecutable) || string.IsNullOrEmpty(githubToken))
+            try
             {
-                Console.WriteLine("[.NET ERROR] Caminho do Python ou token do GitHub não configurado nos segredos.");
-                return;
+                // URL da nossa nova API Python
+                var pythonApiUrl = "http://localhost:5001/analyze";
+
+                // Chaves de API (ainda hardcoded para simplificar, mas poderiam vir da configuração)
+                var githubToken = "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";
+                var googleApiKey = "AIzaSyDF7SRy6wemtyV8CBzv0amkd4LQARXDRUs";
+
+                if (string.IsNullOrEmpty(githubToken) || string.IsNullOrEmpty(googleApiKey))
+                {
+                    Console.WriteLine("[.NET ERROR] Chaves de API do GitHub ou Google não configuradas.");
+                    return;
+                }
+
+                var client = _httpClientFactory.CreateClient();
+                var payload = new
+                {
+                    source = repoUrl,
+                    github_token = githubToken,
+                    google_api_key = googleApiKey
+                };
+
+                var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
+
+                Console.WriteLine($"[.NET] Enviando requisição de análise para: {pythonApiUrl}");
+                var response = await client.PostAsync(pythonApiUrl, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseBody = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"[.NET SUCCESS] Análise recebida para o projeto {projectId}:\n{responseBody}");
+                    // PRÓXIMO PASSO: Desserializar o JSON e salvar no banco de dados.
+                }
+                else
+                {
+                    var errorBody = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"[.NET ERROR] A API Python retornou um erro para o projeto {projectId}. Status: {response.StatusCode}\nDetalhes: {errorBody}");
+                }
             }
-
-            if (!System.IO.File.Exists(scriptPath))
+            catch (Exception ex)
             {
-                Console.WriteLine($"[.NET ERROR] Script Python não encontrado em: {scriptPath}");
-                return;
+                Console.WriteLine($"[.NET CRITICAL] Falha ao comunicar com a API Python: {ex.Message}");
             }
-
-            var processStartInfo = new ProcessStartInfo
-            {
-                FileName = pythonExecutable,
-                // Passamos a URL e o token como argumentos de linha de comando
-                Arguments = $"\"{scriptPath}\" \"{repoUrl}\" --token \"{githubToken}\"",
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                UseShellExecute = false,
-                CreateNoWindow = true,
-            };
-
-            Console.WriteLine($"[.NET] Executando análise: {processStartInfo.FileName} {processStartInfo.Arguments}");
-
-            using var process = Process.Start(processStartInfo);
-            if (process == null)
-            {
-                Console.WriteLine("[.NET ERROR] Não foi possível iniciar o processo do Python.");
-                return;
-            }
-
-            // Captura a saída padrão (o JSON) e a saída de erro do script
-            string result = await process.StandardOutput.ReadToEndAsync();
-            string error = await process.StandardError.ReadToEndAsync();
-
-            await process.WaitForExitAsync();
-
-            if (process.ExitCode == 0 && !string.IsNullOrWhiteSpace(result))
-            {
-                Console.WriteLine($"[.NET SUCCESS] Análise recebida para o projeto {projectId}:\n{result}");
-                // PRÓXIMO PASSO: Aqui você pode desserializar o 'result' (JSON) 
-                // e salvar as métricas no banco de dados, associadas ao projectId.
-            }
-            else { Console.WriteLine($"[.NET ERROR] O script Python falhou para o projeto {projectId}:\n{error}"); }
         }
 
         /// <summary>

@@ -20,6 +20,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     )
 );
 
+// Adiciona o IHttpClientFactory para fazer chamadas HTTP de forma eficiente
+builder.Services.AddHttpClient();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
