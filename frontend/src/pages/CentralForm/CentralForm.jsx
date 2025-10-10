@@ -4,7 +4,6 @@ import './CentralForm.css';
 import TextInput from '../../components/TextInput/TextInput';
 import FileInput from '../../components/FileInput/FileInput';
 import Button from '../../components/Button/Button';
-import { api } from '../../services/api';
 
 export default function CentralForm() {
   const navigate = useNavigate();
@@ -12,6 +11,10 @@ export default function CentralForm() {
   const [description, setDescription] = React.useState('');
   const [url, setUrl] = React.useState("");
   const [file, setFile] = React.useState(null);
+  const [showModal, setShowModal] = React.useState(false);
+  const [modalContent, setModalContent] = React.useState({ title: '', body: '' });
+  const [mdText, setMdText] = React.useState('');
+  const [showMdPreview, setShowMdPreview] = React.useState(false);
 
   const handleUrlChange = (value) => {
     setUrl(value);
@@ -26,18 +29,8 @@ export default function CentralForm() {
   const handleOk = async () => {
     console.log({ projectName, description, url, file });
 
-    // Pega os dados do usuário do localStorage
-    const userString = localStorage.getItem('user');
-    if (!userString) {
-      alert("Você precisa estar logado para criar um projeto.");
-      navigate('/login'); // Redireciona para o login
-      return;
-    }
-
-    const user = JSON.parse(userString);
-    const userId = user.userID; // Usa o ID do usuário logado
-
     // Só aceita URL preenchida e não arquivo
+    const userId = 1; // TODO: substituir pelo ID do usuário autenticado
     if (url && !file) {
       const payload = {
         name: projectName,
@@ -45,19 +38,61 @@ export default function CentralForm() {
         description: description
       };
 
-      try {
-        const data = await api.createProject(userId, payload);
-        console.log('Projeto criado:', data);
-        navigate('/', { state: { message: `Projeto "${data.name}" criado com sucesso!` } });
-      } catch (err) {
-        console.error('Erro ao criar projeto:', err);
-        alert('Erro ao criar projeto: ' + err.message);
-      }
+      const token = localStorage.getItem('token');
 
+      fetch(`https://localhost:7135/ada/users/${userId}/projects`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` // Adiciona o token de autorização
+        },
+        body: JSON.stringify(payload)
+      })
+        .then(async (res) => {
+          if (!res.ok) {
+            const text = await res.text();
+            throw new Error(`${res.status} ${text}`);
+          }
+          return res.json();
+        })
+        .then((data) => {
+          console.log('Projeto criado:', data);
+          navigate('/');
+        })
+        .catch((err) => {
+          console.error('Erro ao criar projeto:', err);
+          alert('Erro ao criar projeto: ' + err.message);
+        });
     } else {
       // comportamento atual (navegar de volta)
       navigate('/');
     }
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    navigate('/');
+  };
+
+  const handleCopyMd = async () => {
+    try {
+      await navigator.clipboard.writeText(mdText);
+      alert('Conteúdo copiado para a área de transferência.');
+    } catch (e) {
+      alert('Não foi possível copiar: ' + e.message);
+    }
+  };
+
+  const handleDownloadMd = () => {
+    const blob = new Blob([mdText], { type: 'text/markdown' });
+    const urlBlob = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = urlBlob;
+    a.download = (projectName || 'report') + '.md';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(urlBlob);
   };
 
   return (
@@ -69,21 +104,21 @@ export default function CentralForm() {
       <TextInput
         value={projectName}
         onChange={setProjectName}
-        placeholder="Digite o nome do projeto"
+        placeholder="Digite sua Url"
         maxLength={200}
       />
 
       <TextInput
         value={description}
         onChange={setDescription}
-        placeholder="Descrição do projeto"
+        placeholder="Digite o nome do Projeto"
         maxLength={1000}
       />
 
       <TextInput
         value={url}
         onChange={handleUrlChange}
-        placeholder="Digite sua Url"
+        placeholder="Digite a descrição do Projeto"
         maxLength={200}
         disabled={!!file}
         className={file ? 'input-disabled' : ''}
@@ -93,6 +128,19 @@ export default function CentralForm() {
         <FileInput onChange={handleFileChange} disabled={!!url} />
         <Button label="OK" onClick={handleOk} />
       </div>
+
+      {showMdPreview && (
+        <div className="md-preview" aria-live="polite">
+          <div dangerouslySetInnerHTML={{ __html: mdToHtml(mdText) }} />
+          <div className="md-actions">
+            <button className="md-copy-btn" onClick={handleCopyMd}>Copiar</button>
+            <button className="md-download-btn" onClick={handleDownloadMd}>Baixar .md</button>
+          </div>
+        </div>
+      )}
+      <Modal show={showModal} onClose={closeModal} title={modalContent.title}>
+        <p>{modalContent.body}</p>
+      </Modal>
     </div>
   );
 }

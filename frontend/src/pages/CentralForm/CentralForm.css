@@ -112,3 +112,33 @@
   .hero-sub { font-size: 16px; }
   .input, .t2s-input { width: 100%; max-width: 100%; }
 }
+
+/* Markdown preview panel */
+.md-preview {
+  width: min(800px, 92vw);
+  max-width: 100%;
+  background: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #e6e6e6;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  color: #222;
+  text-align: left;
+}
+
+.md-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.md-download-btn, .md-copy-btn {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background: #fafafa;
+  cursor: pointer;
+}
+
+.md-download-btn:hover, .md-copy-btn:hover { background: #f0f0f0; }

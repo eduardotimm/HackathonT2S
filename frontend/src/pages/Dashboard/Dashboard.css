@@ -1,0 +1,96 @@
+.dashboard-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 28px 32px;
+  color: #fff;
+  align-items: center;
+}
+
+.dashboard-hero {
+  text-align: center;
+  padding: 8px 12px 0 12px;
+  background: transparent; /* remove box */
+  color: inherit;
+  border-radius: 0;
+}
+
+.dashboard-title {
+  font-size: 56px;
+  margin: 8px 0 0 0;
+  font-weight: 800;
+}
+
+.dashboard-sub {
+  margin-top: 8px;
+  opacity: 0.95;
+}
+
+.dashboard-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+
+.dashboard-controls {
+  width: 100%;
+  margin: 0 0 6px 0;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center; /* center controls as a group */
+}
+
+.dashboard-search {
+  flex: 0 0 260px; /* smaller fixed width */
+  max-width: 70%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.dashboard-sort {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  flex: 0 0 auto;
+}
+
+.repo-dashboard {
+  background: #fff;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.repo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.repo-header h2 { margin: 0; }
+
+.repo-dashboards {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.dash-card {
+  flex: 0 1 220px; /* prefer fixed-ish width, allow wrap */
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #f0f0f0;
+  background: #ffffff;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.dash-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.07);
+}
