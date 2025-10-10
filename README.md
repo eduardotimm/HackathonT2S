@@ -17,7 +17,7 @@
 ## 🚀 Tecnologias Utilizadas
 
 - **Frontend:** React
-- **Backend:** .NET 8, Entity Framework Core
+- **Backend:** .NET 6.0, Entity Framework Core
 - **Serviço de IA:** Python, Flask, Google Gemini API
 - **Banco de Dados:** MySQL
 
@@ -29,7 +29,7 @@ Para executar o projeto completo, você precisará ter três terminais abertos, 
 
 ### Pré-requisitos
 
-- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+- [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
 - [Node.js e npm](https://nodejs.org/)
 - [Python 3.10+](https://www.python.org/downloads/)
 - [MySQL](https://dev.mysql.com/downloads/installer/) (ou outro servidor de banco de dados compatível)
