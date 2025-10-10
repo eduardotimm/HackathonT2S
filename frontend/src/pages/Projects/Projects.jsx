@@ -7,7 +7,19 @@ export default function Projects() {
   const storedName = typeof window !== 'undefined' ? localStorage.getItem('userName') : null;
   const ownerName = storedName || 'Você';
 
-  const { projects, loading, error, searchTerm, setSearchTerm, sortOption, setSortOption } = useProjects({ userId: 1 });
+  // Tenta obter o usuário logado do localStorage. O backend retorna um objeto 'user' no login.
+  let userId = null;
+  try {
+    const userString = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
+    if (userString) {
+      const parsed = JSON.parse(userString);
+      userId = parsed?.userID || parsed?.UserID || parsed?.id || parsed?.userId || null;
+    }
+  } catch (e) {
+    userId = null;
+  }
+
+  const { projects, loading, error, searchTerm, setSearchTerm, sortOption, setSortOption } = useProjects({ userId });
 
   return (
     <div className="projects-page">

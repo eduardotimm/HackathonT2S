@@ -7,7 +7,8 @@
         public string UserName { get; set; } // Nome do dono do projeto
         public string Name { get; set; }
         public string? Description { get; set; }
-        public string RepoURL { get; set; }
+    public string RepoURL { get; set; }
+    public string? LocalPath { get; set; }
         public string Status { get; set; }
         public DateTime SubmittedAt { get; set; }
     }

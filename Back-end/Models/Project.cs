@@ -9,7 +9,9 @@ namespace HackathonT2S.Models
         public int UserID { get; set; }
         public string Name { get; set; } = string.Empty;
         public string? Description { get; set; } = string.Empty;
-        public string RepoURL { get; set; } = string.Empty;
+    public string RepoURL { get; set; } = string.Empty;
+    // Caminho absoluto ou relativo no disco onde o projeto reside (opcional)
+    public string? LocalPath { get; set; }
         public string Status { get; set; } = "Pendente";
         public DateTime SubmittedAt { get; set; }
         public DateTime LastUpdatedAt { get; set; }

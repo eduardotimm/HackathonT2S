@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export default function useProjects({ userId = 1, apiBase = 'https://localhost:7135' } = {}) {
+export default function useProjects({ userId = null, apiBase = '' } = {}) {
   const [rawProjects, setRawProjects] = useState([]);
   const [projects, setProjects] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -9,9 +9,26 @@ export default function useProjects({ userId = 1, apiBase = 'https://localhost:7
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    // Se não tivermos userId válido, não tentamos buscar e mostramos erro para o usuário
+    if (!userId) {
+      setRawProjects([]);
+      setLoading(false);
+      setError('Usuário não autenticado. Faça login para ver seus projetos.');
+      return;
+    }
+
     setLoading(true);
     const url = `${apiBase}/ada/users/${userId}/projects`;
-    fetch(url)
+    // Inclui token de autorização se disponível
+    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+    const headers = {
+      'Content-Type': 'application/json'
+    };
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    fetch(url, { headers })
       .then(async (res) => {
         if (!res.ok) {
           const text = await res.text();

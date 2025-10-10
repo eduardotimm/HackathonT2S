@@ -1,7 +1,6 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
     "C:\\Users\\linda\\Desktop\\ss\\hackathont2s\\Back-end\\HackathonT2S.csproj": {}
   },
   "projects": {
@@ -13,29 +12,12 @@
         "projectPath": "C:\\Users\\linda\\Desktop\\ss\\hackathont2s\\Back-end\\HackathonT2S.csproj",
         "packagesPath": "C:\\Users\\linda\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\linda\\Desktop\\ss\\hackathont2s\\Back-end\\obj\\",
-=======
-    "C:\\Users\\nicho\\OneDrive\\Área de Trabalho\\Hacka\\HackathonT2S\\Back-end\\HackathonT2S.csproj": {}
-  },
-  "projects": {
-    "C:\\Users\\nicho\\OneDrive\\Área de Trabalho\\Hacka\\HackathonT2S\\Back-end\\HackathonT2S.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\nicho\\OneDrive\\Área de Trabalho\\Hacka\\HackathonT2S\\Back-end\\HackathonT2S.csproj",
-        "projectName": "HackathonT2S",
-        "projectPath": "C:\\Users\\nicho\\OneDrive\\Área de Trabalho\\Hacka\\HackathonT2S\\Back-end\\HackathonT2S.csproj",
-        "packagesPath": "C:\\Users\\nicho\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nicho\\OneDrive\\Área de Trabalho\\Hacka\\HackathonT2S\\Back-end\\obj\\",
->>>>>>> 9ad2466040eca92aa9214bb966492767414f6383
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-<<<<<<< HEAD
           "C:\\Users\\linda\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-          "C:\\Users\\nicho\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> 9ad2466040eca92aa9214bb966492767414f6383
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -68,6 +50,14 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[6.0.29, )"
+            },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
@@ -94,24 +84,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.36, 6.0.36]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[6.0.36, 6.0.36]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.36, 6.0.36]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[6.0.36, 6.0.36]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -120,11 +92,7 @@
               "privateAssets": "all"
             }
           },
-<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304\\RuntimeIdentifierGraph.json"
-=======
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305\\RuntimeIdentifierGraph.json"
->>>>>>> 9ad2466040eca92aa9214bb966492767414f6383
         }
       }
     }

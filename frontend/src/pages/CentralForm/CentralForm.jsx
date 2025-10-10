@@ -12,6 +12,7 @@ export default function CentralForm() {
   const [description, setDescription] = React.useState('');
   const [url, setUrl] = React.useState("");
   const [file, setFile] = React.useState(null);
+  const [supportsDirectory, setSupportsDirectory] = React.useState(true);
 
   const handleUrlChange = (value) => {
     setUrl(value);
@@ -19,9 +20,19 @@ export default function CentralForm() {
   };
 
   const handleFileChange = (f) => {
+    console.log('File input changed:', f);
     setFile(f || null);
     if (f) setUrl('');
   };
+
+  React.useEffect(() => {
+    try {
+      const input = document.createElement('input');
+      setSupportsDirectory('webkitdirectory' in input || 'mozdirectory' in input || 'directory' in input);
+    } catch (e) {
+      setSupportsDirectory(false);
+    }
+  }, []);
 
   const handleOk = async () => {
     console.log({ projectName, description, url, file });
@@ -55,7 +66,37 @@ export default function CentralForm() {
       }
 
     } else {
-      // comportamento atual (navegar de volta)
+      // Se temos arquivos (pasta) selecionados, envie como multipart/form-data
+      if (file && Array.isArray(file) && file.length > 0) {
+        const formData = new FormData();
+        formData.append('name', projectName || '(Upload de pasta)');
+        formData.append('description', description || '');
+        // Adiciona cada arquivo mantendo o path fornecido pelo browser quando disponível
+        file.forEach((f) => {
+          // Muitos browsers suportam `webkitRelativePath` no File object
+          if (f.webkitRelativePath) {
+            // inclui o caminho relativo como parte do nome do campo para tentar preservar estrutura
+            formData.append('files', f, f.webkitRelativePath);
+          } else {
+            formData.append('files', f, f.name);
+          }
+        });
+
+        try {
+          const userString = localStorage.getItem('user');
+          const user = JSON.parse(userString);
+          const userId = user.userID;
+          const response = await api.uploadProjectFolder(userId, formData);
+          console.log('Upload criado:', response);
+          navigate('/', { state: { message: `Projeto "${response.name}" criado com sucesso!` } });
+        } catch (err) {
+          console.error('Erro ao enviar pasta:', err);
+          alert('Erro ao enviar pasta: ' + err.message);
+        }
+        return;
+      }
+
+      // comportamento padrão quando não tem URL nem arquivos
       navigate('/');
     }
   };
@@ -90,7 +131,12 @@ export default function CentralForm() {
       />
 
       <div className="cf-row">
-        <FileInput onChange={handleFileChange} disabled={!!url} />
+        <FileInput onChange={handleFileChange} disabled={!!url} multiple={true} directory={true} label={file ? `${file.length} arquivos selecionados` : 'Anexar pasta'} />
+        {!supportsDirectory && (
+          <div style={{ color: '#f2b233', marginLeft: '12px' }}>
+            Seu navegador pode não suportar seleção de pastas. Use Chrome/Edge para anexar pastas.
+          </div>
+        )}
         <Button label="OK" onClick={handleOk} />
       </div>
     </div>

@@ -39,6 +39,9 @@ namespace HackathonT2S.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("LocalPath")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("longtext");

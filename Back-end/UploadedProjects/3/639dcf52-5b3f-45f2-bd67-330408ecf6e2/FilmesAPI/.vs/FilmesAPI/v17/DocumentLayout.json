@@ -1,0 +1,139 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\linda\\Desktop\\FilmesAPI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4E9582EF-9903-4A5E-9A5C-79CDDCE36E24}|FilmesAPI\\FilmesAPI.csproj|c:\\users\\linda\\desktop\\filmesapi\\filmesapi\\controllers\\filmecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E9582EF-9903-4A5E-9A5C-79CDDCE36E24}|FilmesAPI\\FilmesAPI.csproj|solutionrelative:filmesapi\\controllers\\filmecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E9582EF-9903-4A5E-9A5C-79CDDCE36E24}|FilmesAPI\\FilmesAPI.csproj|c:\\users\\linda\\desktop\\filmesapi\\filmesapi\\profiles\\filmeprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E9582EF-9903-4A5E-9A5C-79CDDCE36E24}|FilmesAPI\\FilmesAPI.csproj|solutionrelative:filmesapi\\profiles\\filmeprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E9582EF-9903-4A5E-9A5C-79CDDCE36E24}|FilmesAPI\\FilmesAPI.csproj|c:\\users\\linda\\desktop\\filmesapi\\filmesapi\\controllers\\enderecocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E9582EF-9903-4A5E-9A5C-79CDDCE36E24}|FilmesAPI\\FilmesAPI.csproj|solutionrelative:filmesapi\\controllers\\enderecocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E9582EF-9903-4A5E-9A5C-79CDDCE36E24}|FilmesAPI\\FilmesAPI.csproj|c:\\users\\linda\\desktop\\filmesapi\\filmesapi\\data\\dtos\\readfilmedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E9582EF-9903-4A5E-9A5C-79CDDCE36E24}|FilmesAPI\\FilmesAPI.csproj|solutionrelative:filmesapi\\data\\dtos\\readfilmedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E9582EF-9903-4A5E-9A5C-79CDDCE36E24}|FilmesAPI\\FilmesAPI.csproj|c:\\users\\linda\\desktop\\filmesapi\\filmesapi\\data\\dtos\\readsessaodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E9582EF-9903-4A5E-9A5C-79CDDCE36E24}|FilmesAPI\\FilmesAPI.csproj|solutionrelative:filmesapi\\data\\dtos\\readsessaodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E9582EF-9903-4A5E-9A5C-79CDDCE36E24}|FilmesAPI\\FilmesAPI.csproj|c:\\users\\linda\\desktop\\filmesapi\\filmesapi\\data\\dtos\\readcinemadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E9582EF-9903-4A5E-9A5C-79CDDCE36E24}|FilmesAPI\\FilmesAPI.csproj|solutionrelative:filmesapi\\data\\dtos\\readcinemadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E9582EF-9903-4A5E-9A5C-79CDDCE36E24}|FilmesAPI\\FilmesAPI.csproj|c:\\users\\linda\\desktop\\filmesapi\\filmesapi\\data\\dtos\\readenderecodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E9582EF-9903-4A5E-9A5C-79CDDCE36E24}|FilmesAPI\\FilmesAPI.csproj|solutionrelative:filmesapi\\data\\dtos\\readenderecodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FilmeProfile.cs",
+              "DocumentMoniker": "C:\\Users\\linda\\Desktop\\FilmesAPI\\FilmesAPI\\Profiles\\FilmeProfile.cs",
+              "RelativeDocumentMoniker": "FilmesAPI\\Profiles\\FilmeProfile.cs",
+              "ToolTip": "C:\\Users\\linda\\Desktop\\FilmesAPI\\FilmesAPI\\Profiles\\FilmeProfile.cs",
+              "RelativeToolTip": "FilmesAPI\\Profiles\\FilmeProfile.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-22T22:59:22.631Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FilmeController.cs",
+              "DocumentMoniker": "C:\\Users\\linda\\Desktop\\FilmesAPI\\FilmesAPI\\Controllers\\FilmeController.cs",
+              "RelativeDocumentMoniker": "FilmesAPI\\Controllers\\FilmeController.cs",
+              "ToolTip": "C:\\Users\\linda\\Desktop\\FilmesAPI\\FilmesAPI\\Controllers\\FilmeController.cs",
+              "RelativeToolTip": "FilmesAPI\\Controllers\\FilmeController.cs",
+              "ViewState": "AQIAABkAAAAAAAAAAAAgwE8AAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-12T01:35:53.336Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ReadSessaoDTO.cs",
+              "DocumentMoniker": "C:\\Users\\linda\\Desktop\\FilmesAPI\\FilmesAPI\\Data\\Dtos\\ReadSessaoDTO.cs",
+              "RelativeDocumentMoniker": "FilmesAPI\\Data\\Dtos\\ReadSessaoDTO.cs",
+              "ToolTip": "C:\\Users\\linda\\Desktop\\FilmesAPI\\FilmesAPI\\Data\\Dtos\\ReadSessaoDTO.cs",
+              "RelativeToolTip": "FilmesAPI\\Data\\Dtos\\ReadSessaoDTO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-22T22:20:52.252Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ReadCinemaDTO.cs",
+              "DocumentMoniker": "C:\\Users\\linda\\Desktop\\FilmesAPI\\FilmesAPI\\Data\\Dtos\\ReadCinemaDTO.cs",
+              "RelativeDocumentMoniker": "FilmesAPI\\Data\\Dtos\\ReadCinemaDTO.cs",
+              "ToolTip": "C:\\Users\\linda\\Desktop\\FilmesAPI\\FilmesAPI\\Data\\Dtos\\ReadCinemaDTO.cs",
+              "RelativeToolTip": "FilmesAPI\\Data\\Dtos\\ReadCinemaDTO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-22T22:20:46.851Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ReadEnderecoDTO.cs",
+              "DocumentMoniker": "C:\\Users\\linda\\Desktop\\FilmesAPI\\FilmesAPI\\Data\\Dtos\\ReadEnderecoDTO.cs",
+              "RelativeDocumentMoniker": "FilmesAPI\\Data\\Dtos\\ReadEnderecoDTO.cs",
+              "ToolTip": "C:\\Users\\linda\\Desktop\\FilmesAPI\\FilmesAPI\\Data\\Dtos\\ReadEnderecoDTO.cs",
+              "RelativeToolTip": "FilmesAPI\\Data\\Dtos\\ReadEnderecoDTO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-22T22:20:44.901Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ReadFilmeDTO.cs",
+              "DocumentMoniker": "C:\\Users\\linda\\Desktop\\FilmesAPI\\FilmesAPI\\Data\\Dtos\\ReadFilmeDTO.cs",
+              "RelativeDocumentMoniker": "FilmesAPI\\Data\\Dtos\\ReadFilmeDTO.cs",
+              "ToolTip": "C:\\Users\\linda\\Desktop\\FilmesAPI\\FilmesAPI\\Data\\Dtos\\ReadFilmeDTO.cs",
+              "RelativeToolTip": "FilmesAPI\\Data\\Dtos\\ReadFilmeDTO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-22T22:20:33.483Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "EnderecoController.cs",
+              "DocumentMoniker": "C:\\Users\\linda\\Desktop\\FilmesAPI\\FilmesAPI\\Controllers\\EnderecoController.cs",
+              "RelativeDocumentMoniker": "FilmesAPI\\Controllers\\EnderecoController.cs",
+              "ToolTip": "C:\\Users\\linda\\Desktop\\FilmesAPI\\FilmesAPI\\Controllers\\EnderecoController.cs",
+              "RelativeToolTip": "FilmesAPI\\Controllers\\EnderecoController.cs",
+              "ViewState": "AQIAACMAAAAAAAAAAAAwwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-22T22:20:21.672Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

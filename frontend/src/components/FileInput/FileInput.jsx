@@ -9,10 +9,32 @@ export default function FileInput({
   name,
   id,
   multiple = false,
+  directory = false, // se true, adiciona o atributo webkitdirectory para seleção de pasta em navegadores compatíveis
   ariaLabel,
   className = '',
   ...rest
 }) {
+  const inputRef = React.useRef(null);
+
+  React.useEffect(() => {
+    try {
+      if (inputRef.current) {
+        if (directory) {
+          // Set the non-standard attributes directly on the DOM node so browsers honor them
+          inputRef.current.setAttribute('webkitdirectory', '');
+          inputRef.current.setAttribute('directory', '');
+          inputRef.current.setAttribute('mozdirectory', '');
+        } else {
+          // Remove non-standard attributes when not in directory mode
+          inputRef.current.removeAttribute('webkitdirectory');
+          inputRef.current.removeAttribute('directory');
+          inputRef.current.removeAttribute('mozdirectory');
+        }
+      }
+    } catch (e) {
+      // ignore
+    }
+  }, [directory]);
   return (
     <label className={`t2s-file-label ${disabled ? 'disabled' : ''} ${className}`} aria-label={ariaLabel}>
       <input
@@ -20,13 +42,22 @@ export default function FileInput({
         name={name}
         id={id}
         className="t2s-file-input"
+        ref={inputRef}
         onChange={(e) => {
-          const files = multiple ? Array.from(e.target.files) : e.target.files[0] || null;
+          // quando directory=true e multiple=true, e.target.files contém todos os arquivos da pasta
+          const files = multiple || directory ? Array.from(e.target.files) : e.target.files[0] || null;
+          if (Array.isArray(files)) {
+            console.log('FileInput selected files:');
+            files.forEach((f, i) => console.log(i, f.name, f.webkitRelativePath));
+          } else if (files) {
+            console.log('FileInput selected single file:', files.name);
+          }
           onChange && onChange(files);
         }}
         accept={accept}
         disabled={disabled}
-        multiple={multiple}
+        multiple={multiple || directory}
+        // não definimos webkitdirectory via props — definimos no ref para garantir presença
         {...rest}
       />
       <div className="t2s-file-content">

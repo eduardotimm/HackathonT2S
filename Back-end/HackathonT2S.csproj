@@ -22,4 +22,15 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <!-- Exclude uploaded project source files from the build -->
+  <ItemGroup>
+    <Compile Remove="UploadedProjects\**\*.cs" />
+    <None Remove="UploadedProjects\**\*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Prevent uploaded project files from being treated as implicit Content by the SDK -->
+    <Content Remove="UploadedProjects\**\*" />
+  </ItemGroup>
+
 </Project>

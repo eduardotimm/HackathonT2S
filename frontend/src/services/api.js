@@ -19,6 +19,11 @@ async function apiFetch(endpoint, options = {}) {
     },
   };
 
+  // If body is FormData, browsers set the proper Content-Type boundary. Remove any Content-Type header.
+  if (options && options.body && options.body instanceof FormData) {
+    delete config.headers['Content-Type'];
+  }
+
   const response = await fetch(`${BASE_URL}${endpoint}`, config);
 
   if (!response.ok) {
@@ -38,5 +43,6 @@ export const api = {
   login: (email, password) => apiFetch('/ada/user/login', { method: 'POST', body: JSON.stringify({ email, password }) }),
   register: (username, email, password) => apiFetch('/ada/user', { method: 'POST', body: JSON.stringify({ username, email, password }) }),
   createProject: (userId, projectData) => apiFetch(`/ada/users/${userId}/projects`, { method: 'POST', body: JSON.stringify(projectData) }),
+  uploadProjectFolder: (userId, formData) => apiFetch(`/ada/users/${userId}/projects/upload`, { method: 'POST', body: formData, headers: { /* let fetch set Content-Type for multipart */ } }),
   // ... você pode adicionar outras chamadas aqui (getProjects, getReports, etc.)
 };
