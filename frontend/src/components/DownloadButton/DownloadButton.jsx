@@ -2,12 +2,12 @@ import React from 'react';
 import sanitizeFilename from '../../utils/sanitizeFilename';
 import './DownloadButton.css';
 
-export default function DownloadButton({ projectId, projectTitle, apiBase = 'https://localhost:7135' }) {
+export default function DownloadButton({ projectId, projectTitle }) {
   const handle = async (e) => {
     e.stopPropagation();
     const filename = `Relatorio-${sanitizeFilename(projectTitle)}.md`;
     try {
-      const res = await fetch(`${apiBase}/ada/projects/${projectId}/download-md`);
+      const res = await fetch(`/ada/projects/${projectId}/download-md`);
       if (!res.ok) throw new Error(await res.text());
       const text = await res.text();
       const blob = new Blob([text], { type: 'text/markdown' });
@@ -20,8 +20,10 @@ export default function DownloadButton({ projectId, projectTitle, apiBase = 'htt
       a.remove();
       URL.revokeObjectURL(url);
     } catch (err) {
-      console.error('Erro ao baixar .md', err);
-      alert('Erro ao baixar .md: ' + err.message);
+      // A mensagem de erro detalhada vem do backend.
+      const errorMessage = err.message || 'Não foi possível obter detalhes do erro.';
+      console.error('Erro ao baixar .md:', errorMessage);
+      alert('Erro ao baixar o relatório:\n\n' + errorMessage);
     }
   };
 

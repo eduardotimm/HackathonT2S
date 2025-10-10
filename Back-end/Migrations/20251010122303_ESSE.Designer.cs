@@ -3,6 +3,7 @@ using System;
 using HackathonT2S.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HackathonT2S.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251010122303_ESSE")]
+    partial class ESSE
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,37 +59,6 @@ namespace HackathonT2S.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("Projects");
-                });
-
-            modelBuilder.Entity("HackathonT2S.Models.PythonRatingDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Criterion")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("Justification")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("ProjectID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Score")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProjectID");
-
-                    b.ToTable("PythonRatingDetails");
                 });
 
             modelBuilder.Entity("HackathonT2S.Models.Rating", b =>
@@ -246,17 +217,6 @@ namespace HackathonT2S.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("HackathonT2S.Models.PythonRatingDetail", b =>
-                {
-                    b.HasOne("HackathonT2S.Models.Project", "Project")
-                        .WithMany("PythonRatingDetails")
-                        .HasForeignKey("ProjectID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Project");
-                });
-
             modelBuilder.Entity("HackathonT2S.Models.Rating", b =>
                 {
                     b.HasOne("HackathonT2S.Models.Project", "Project")
@@ -281,8 +241,6 @@ namespace HackathonT2S.Migrations
 
             modelBuilder.Entity("HackathonT2S.Models.Project", b =>
                 {
-                    b.Navigation("PythonRatingDetails");
-
                     b.Navigation("Ratings");
 
                     b.Navigation("Reports");

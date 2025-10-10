@@ -1,6 +1,7 @@
 ﻿﻿﻿﻿using Microsoft.AspNetCore.Mvc;
 using HackathonT2S.Data;
 using HackathonT2S.Dtos;
+using HackathonT2S.Dtos;
 using System.Threading.Tasks;
 using HackathonT2S.Models;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Text.Json;
 using System.Net.Http;
 using System.Text;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HackathonT2S.Controllers
 {
@@ -21,12 +23,14 @@ namespace HackathonT2S.Controllers
         private readonly AppDbContext _context;
         private readonly IConfiguration _configuration;
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IServiceScopeFactory _scopeFactory;
 
-        public ProjectController(AppDbContext context, IConfiguration configuration, IHttpClientFactory httpClientFactory)
+        public ProjectController(AppDbContext context, IConfiguration configuration, IHttpClientFactory httpClientFactory, IServiceScopeFactory scopeFactory)
         {
             _context = context;
             _configuration = configuration;
             _httpClientFactory = httpClientFactory;
+            _scopeFactory = scopeFactory;
         }
 
         // Endpoint para upload de pasta (aceita arquivos múltiplos de um input com webkitdirectory)
@@ -95,7 +99,7 @@ namespace HackathonT2S.Controllers
             await _context.SaveChangesAsync();
 
             // Dispara análise
-            _ = Task.Run(() => TriggerPythonAnalysis(Path.Combine(uploadsRoot, localPathRelative), "local", newProject.ProjectID));
+            _ = Task.Run(() => TriggerPythonAnalysis(Path.Combine(uploadsRoot, localPathRelative), "local", newProject.ProjectID)); // Passa o ProjectID
 
             var responseDto = new ProjectResponseDto
             {
@@ -158,7 +162,7 @@ namespace HackathonT2S.Controllers
             // Envia ao analisador python um objeto que contém a fonte e o tipo de fonte
             var source = hasLocal ? newProject.LocalPath : newProject.RepoURL;
             var sourceType = hasLocal ? "local" : "remote";
-            _ = Task.Run(() => TriggerPythonAnalysis(source, sourceType, newProject.ProjectID));
+            _ = Task.Run(() => TriggerPythonAnalysis(source, sourceType, newProject.ProjectID)); // Passa o ProjectID
 
             var responseDto = new ProjectResponseDto
             {
@@ -183,8 +187,8 @@ namespace HackathonT2S.Controllers
                 // URL da nossa nova API Python
                 var pythonApiUrl = "http://localhost:5001/analyze";
 
-                // Chaves de API (ainda hardcoded para simplificar, mas poderiam vir da configuração)
-                var githubToken = "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";
+                // Lê as chaves de API da configuração para evitar hardcoding.
+                var githubToken = _configuration["ApiKeys:GitHubToken"];
                 var googleApiKey = "AIzaSyDF7SRy6wemtyV8CBzv0amkd4LQARXDRUs";
 
                 if (string.IsNullOrEmpty(githubToken) || string.IsNullOrEmpty(googleApiKey))
@@ -199,7 +203,8 @@ namespace HackathonT2S.Controllers
                     source = repoUrl,
                     source_type = sourceType,
                     github_token = githubToken,
-                    google_api_key = googleApiKey
+                    google_api_key = googleApiKey,
+                    project_id = projectId // Adiciona o ProjectID ao payload
                 };
 
                 var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
@@ -211,7 +216,30 @@ namespace HackathonT2S.Controllers
                 {
                     var responseBody = await response.Content.ReadAsStringAsync();
                     Console.WriteLine($"[.NET SUCCESS] Análise recebida para o projeto {projectId}:\n{responseBody}");
-                    // PRÓXIMO PASSO: Desserializar o JSON e salvar no banco de dados.
+                    
+                    // Desserializa o JSON e salva no banco de dados.
+                    var analysisResult = JsonSerializer.Deserialize<PythonAnalysisDto>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                    if (analysisResult != null && analysisResult.Sucesso)
+                    {
+                        // Usamos um novo DbContext aqui porque este método roda em uma thread separada.
+                        using var scope = _scopeFactory.CreateScope();
+                        var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+                        var projectToUpdate = await dbContext.Projects.FindAsync(projectId);
+                        if (projectToUpdate != null)
+                        {
+                            projectToUpdate.Status = "Analisado";
+                            projectToUpdate.LastUpdatedAt = DateTime.UtcNow; // Atualiza o timestamp
+
+                            foreach (var avaliacao in analysisResult.AvaliacoesDetalhadas)
+                            {
+                                projectToUpdate.PythonRatingDetails.Add(new PythonRatingDetail { Criterion = avaliacao.Criterio, Score = avaliacao.Nota, Justification = avaliacao.Justificativa, CreatedAt = DateTime.UtcNow });
+                            }
+                            await dbContext.SaveChangesAsync();
+                            Console.WriteLine($"[.NET SUCCESS] Análise do projeto {projectId} salva no banco de dados.");
+                        }
+                    }
                 }
                 else
                 {
@@ -223,6 +251,40 @@ namespace HackathonT2S.Controllers
             {
                 Console.WriteLine($"[.NET CRITICAL] Falha ao comunicar com a API Python: {ex.Message}");
             }
+        }
+
+        /// <summary>
+        /// Faz o download do relatório Markdown de um projeto.
+        /// </summary>
+        [HttpGet("/ada/projects/{projectId}/download-md")]
+        public async Task<IActionResult> DownloadMarkdownReport(int projectId)
+        {
+            var project = await _context.Projects.FindAsync(projectId);
+            if (project == null)
+            {
+                return NotFound($"Projeto com ID {projectId} não encontrado.");
+            }
+
+            // O relatório é salvo na pasta 'AI/src' do projeto Python
+            // O nome do arquivo é padronizado como 'relatorio_projeto_{projectId}.md'
+            // A forma mais robusta de encontrar a raiz do projeto é subir dois níveis a partir do diretório de execução do assembly.
+            // Ex: Back-end/bin/Debug -> Back-end/bin -> Back-end -> Raiz do Projeto
+            var assemblyPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            var assemblyDir = Path.GetDirectoryName(assemblyPath);
+            // Em desenvolvimento, o diretório de execução pode ser diferente. Usamos uma abordagem mais segura.
+            var projectRoot = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", ".."));
+            var reportPath = Path.Combine(projectRoot, "AI", "src", $"relatorio_projeto_{projectId}.md");
+
+            if (!System.IO.File.Exists(reportPath))
+            {
+                // Se o relatório não existe, pode ser que a análise ainda não terminou ou falhou.
+                return NotFound($"Relatório Markdown para o projeto {projectId} não encontrado em {reportPath}. A análise pode ainda estar em andamento ou ter falhado.");
+            }
+
+            var fileBytes = await System.IO.File.ReadAllBytesAsync(reportPath);
+            var fileName = $"relatorio_projeto_{projectId}.md"; // Nome do arquivo para download
+
+            return File(fileBytes, "text/markdown", fileName);
         }
 
         /// <summary>

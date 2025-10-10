@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿﻿using Microsoft.EntityFrameworkCore;
 using HackathonT2S.Models;
 
 namespace HackathonT2S.Data
@@ -11,6 +11,7 @@ namespace HackathonT2S.Data
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<Rating> Ratings { get; set; } = null!;
         public DbSet<Project> Projects { get; set; } = null!;
+        public DbSet<PythonRatingDetail> PythonRatingDetails { get; set; } = null!;
         public DbSet<Report> Reports { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -33,6 +34,12 @@ namespace HackathonT2S.Data
             modelBuilder.Entity<Project>()
                 .HasMany(p => p.Ratings) // Um projeto pode ter muitas avaliações
                 .WithOne(r => r.Project) // Uma avaliação pertence a um projeto
+                .HasForeignKey(r => r.ProjectID);
+
+            // Configura o relacionamento um-para-muitos: Um Project pode ter vários PythonRatingDetails.
+            modelBuilder.Entity<Project>()
+                .HasMany(p => p.PythonRatingDetails) // Um projeto pode ter muitos detalhes de avaliação da IA
+                .WithOne(r => r.Project) // Um detalhe de avaliação da IA pertence a um projeto
                 .HasForeignKey(r => r.ProjectID);
         }
     }

@@ -1855,31 +1855,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\linda\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Voke\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\linda\\Desktop\\ss\\hackathont2s\\Back-end\\HackathonT2S.csproj",
+      "projectUniqueName": "C:\\UserProfiles\\UNISANTA\\HackathonT2S\\hackathont2s\\back-end\\HackathonT2S.csproj",
       "projectName": "HackathonT2S",
-      "projectPath": "C:\\Users\\linda\\Desktop\\ss\\hackathont2s\\Back-end\\HackathonT2S.csproj",
-      "packagesPath": "C:\\Users\\linda\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\linda\\Desktop\\ss\\hackathont2s\\Back-end\\obj\\",
+      "projectPath": "C:\\UserProfiles\\UNISANTA\\HackathonT2S\\hackathont2s\\back-end\\HackathonT2S.csproj",
+      "packagesPath": "C:\\Users\\Voke\\.nuget\\packages\\",
+      "outputPath": "C:\\UserProfiles\\UNISANTA\\HackathonT2S\\hackathont2s\\back-end\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\linda\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Voke\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1892,13 +1885,7 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.300"
+      }
     },
     "frameworks": {
       "net6.0": {
@@ -1946,7 +1933,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.428\\RuntimeIdentifierGraph.json"
       }
     }
   }

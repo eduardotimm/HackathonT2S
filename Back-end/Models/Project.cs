@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿﻿using System.Collections.Generic;
 
 namespace HackathonT2S.Models
 {
@@ -19,6 +19,7 @@ namespace HackathonT2S.Models
         // Propriedades de navegação
         public User User { get; set; }
         public ICollection<Report> Reports { get; set; } = new List<Report>();
-        public ICollection<Rating> Ratings { get; set; } = new List<Rating>();
+        public ICollection<Rating> Ratings { get; set; } = new List<Rating>(); // Para avaliações manuais
+        public ICollection<PythonRatingDetail> PythonRatingDetails { get; set; } = new List<PythonRatingDetail>(); // Para avaliações da IA
     }
 }

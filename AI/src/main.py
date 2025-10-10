@@ -7,12 +7,12 @@ from analyzer import analisar_projeto
 from rater import executar_avaliacao_completa 
 from reporter import salvar_relatorio, gerar_relatorio_md
 
-def orquestrar_analise_completa(fonte_alvo: str, github_token: str, google_api_key: str):
+def orquestrar_analise_completa(fonte_alvo: str, github_token: str, google_api_key: str, project_id: int):
     """
     Orquestra o fluxo completo de forma genérica e escalável.
     Agora recebe os tokens como parâmetros.
     """
-    print(f"🤖 --- [Python API] Iniciando análise para: {fonte_alvo} --- 🤖", file=sys.stderr)
+    print(f"🤖 --- [Python API] Iniciando análise para: {fonte_alvo} (Project ID: {project_id}) --- 🤖", file=sys.stderr)
 
     # 1. ANALYZER: Coleta todas as métricas brutas necessárias de uma vez.
     metricas_brutas = analisar_projeto(fonte_alvo, github_token)
@@ -26,6 +26,7 @@ def orquestrar_analise_completa(fonte_alvo: str, github_token: str, google_api_k
     
     pontuacao_total = sum(av.get('nota', 0) for av in lista_de_avaliacoes)
     media_final = pontuacao_total / len(lista_de_avaliacoes) if lista_de_avaliacoes else 0
+
 
     #Montagem do JSON a ser enviado
     resultado_json = {
@@ -47,7 +48,7 @@ def orquestrar_analise_completa(fonte_alvo: str, github_token: str, google_api_k
             observacoes.append("\n---")
         
         relatorio_md = gerar_relatorio_md(resumo + observacoes)
-        salvar_relatorio(relatorio_md, f"relatorio_{fonte_alvo.split('/')[-1]}.md")
+        salvar_relatorio(relatorio_md, f"relatorio_projeto_{project_id}.md")
         print(f"✅ Relatório em Markdown também foi salvo.", file=sys.stderr)
     except Exception as e:
         print(f"AVISO: Falha ao gerar relatório .md opcional: {e}", file=sys.stderr)
@@ -65,12 +66,13 @@ def analyze_endpoint():
     source_url = data.get('source')
     github_token = data.get('github_token')
     google_api_key = data.get('google_api_key')
+    project_id = data.get('project_id')
 
-    if not all([source_url, github_token, google_api_key]):
-        return jsonify({"sucesso": False, "erro": "Parâmetros 'source', 'github_token' e 'google_api_key' são obrigatórios."}), 400
+    if not all([source_url, github_token, google_api_key, project_id]):
+        return jsonify({"sucesso": False, "erro": "Parâmetros 'source', 'github_token', 'google_api_key' e 'project_id' são obrigatórios."}), 400
 
     try:
-        resultado = orquestrar_analise_completa(source_url, github_token, google_api_key)
+        resultado = orquestrar_analise_completa(source_url, github_token, google_api_key, project_id)
         if not resultado.get("sucesso"):
             return jsonify(resultado), 500 # Retorna erro 500 se a análise falhou
         return jsonify(resultado), 200 # Retorna 200 apenas em caso de sucesso
