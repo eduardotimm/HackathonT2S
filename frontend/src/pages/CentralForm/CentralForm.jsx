@@ -104,21 +104,21 @@ export default function CentralForm() {
       <TextInput
         value={projectName}
         onChange={setProjectName}
-        placeholder="Digite sua Url"
+        placeholder="URL do repositório GitHub"
         maxLength={200}
       />
 
       <TextInput
         value={description}
         onChange={setDescription}
-        placeholder="Digite o nome do Projeto"
+        placeholder="Nome do projeto"
         maxLength={1000}
       />
 
       <TextInput
         value={url}
         onChange={handleUrlChange}
-        placeholder="Digite a descrição do Projeto"
+        placeholder="Descrição do projeto"
         maxLength={200}
         disabled={!!file}
         className={file ? 'input-disabled' : ''}
@@ -129,18 +129,6 @@ export default function CentralForm() {
         <Button label="OK" onClick={handleOk} />
       </div>
 
-      {showMdPreview && (
-        <div className="md-preview" aria-live="polite">
-          <div dangerouslySetInnerHTML={{ __html: mdToHtml(mdText) }} />
-          <div className="md-actions">
-            <button className="md-copy-btn" onClick={handleCopyMd}>Copiar</button>
-            <button className="md-download-btn" onClick={handleDownloadMd}>Baixar .md</button>
-          </div>
-        </div>
-      )}
-      <Modal show={showModal} onClose={closeModal} title={modalContent.title}>
-        <p>{modalContent.body}</p>
-      </Modal>
     </div>
   );
 }

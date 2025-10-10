@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import TextInput from '../../components/TextInput/TextInput';
+import PasswordInput from '../../components/PasswordInput/PasswordInput';
 import Button from '../../components/Button/Button';
 import LinkText from '../../components/Link/LinkText';
 import './Register.css';
@@ -57,8 +58,7 @@ export default function Register() {
         </label>
         <label>
           Senha:
-          <TextInput
-            type="password"
+          <PasswordInput
             value={password}
             onChange={setPassword}
             placeholder="Mínimo de 6 caracteres"

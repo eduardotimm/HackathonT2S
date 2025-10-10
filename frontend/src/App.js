@@ -3,6 +3,7 @@ import './App.css';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Projects from './pages/Projects/Projects';
+import Dashboard from './pages/Dashboard/Dashboard';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import PublicRoute from './routes/PublicRoute';
 import PrivateRoute from './routes/PrivateRoute';
@@ -37,6 +38,11 @@ function App() {
           <Route path="/projects" element={
             <PrivateRoute>
               <Projects />
+            </PrivateRoute>
+          } />
+          <Route path="/dashboard" element={
+            <PrivateRoute>
+              <Dashboard />
             </PrivateRoute>
           } />
         </Routes>

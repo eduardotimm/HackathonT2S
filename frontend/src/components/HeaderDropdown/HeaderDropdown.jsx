@@ -17,6 +17,15 @@ export default function HeaderDropdown({ items, trigger, offset }) {
   function handleItemClick(item) {
     if (item.disabled) return;
     setOpen(false);
+    
+    // Verificar se o usuário está logado antes de navegar para Dashboard
+    if (item.to === '/dashboard') {
+      const user = localStorage.getItem('user');
+      if (!user) {
+        return navigate('/login');
+      }
+    }
+    
     if (typeof item.onClick === 'function') return item.onClick();
     if (item.to) return navigate(item.to);
   }
