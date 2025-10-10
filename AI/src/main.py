@@ -1,33 +1,28 @@
 # src/main.py
 import os
 import sys
-import json # Usaremos para pretty-print do resultado da IA
-from src.analyzer import analisar_projeto
-from src.rater import executar_avaliacao_completa 
-from src.reporter import salvar_relatorio, gerar_relatorio_md
+import json
+from flask import Flask, request, jsonify
+from analyzer import analisar_projeto
+from rater import executar_avaliacao_completa 
+from reporter import salvar_relatorio, gerar_relatorio_md
 
-# --- DADOS DE ENTRADA E CONFIGURAÇÃO ---
-MEU_TOKEN_GITHUB = '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' 
-GOOGLE_API_KEY ='AIzaSyDF7SRy6wemtyV8CBzv0amkd4LQARXDRUs' 
-NOME_ARQUIVO_SAIDA = "relatorio_de_analise.md"
-
-def orquestrar_analise_completa(fonte_alvo:str):
+def orquestrar_analise_completa(fonte_alvo: str, github_token: str, google_api_key: str):
     """
     Orquestra o fluxo completo de forma genérica e escalável.
+    Agora recebe os tokens como parâmetros.
     """
-    print(f"🤖 --- Lu.AI iniciando análise completa para: {fonte_alvo} --- 🤖")
+    print(f"🤖 --- [Python API] Iniciando análise para: {fonte_alvo} --- 🤖", file=sys.stderr)
 
     # 1. ANALYZER: Coleta todas as métricas brutas necessárias de uma vez.
-    metricas_brutas = analisar_projeto(fonte_alvo, MEU_TOKEN_GITHUB)
+    metricas_brutas = analisar_projeto(fonte_alvo, github_token)
     if not metricas_brutas:
-        print(json.dumps({"sucesso": False, "erro": "O Analyzer não conseguiu coletar as métricas."}))
-        return
+        return {"sucesso": False, "erro": "O Analyzer não conseguiu coletar as métricas."}
 
     # 2. RATER: Executa a avaliação completa usando o prompt mestre.
     lista_de_avaliacoes = executar_avaliacao_completa(metricas_brutas)
     if not lista_de_avaliacoes:
-        print(json.dumps({"sucesso": False, "erro": "O Rater não retornou uma avaliação válida da IA."}))
-        return
+        return {"sucesso": False, "erro": "O Rater não retornou uma avaliação válida da IA."}
     
     pontuacao_total = sum(av.get('nota', 0) for av in lista_de_avaliacoes)
     media_final = pontuacao_total / len(lista_de_avaliacoes) if lista_de_avaliacoes else 0
@@ -40,8 +35,8 @@ def orquestrar_analise_completa(fonte_alvo:str):
         "avaliacoes_detalhadas": lista_de_avaliacoes
     }
 
-    # Para depuração, podemos ver o resultado JSON que recebemos da IA
-    print(json.dumps(resultado_json, indent=2, ensure_ascii=False))
+    # Imprime o resultado no console do servidor Python para depuração
+    print(f"--- [Python API] Resultado da Análise ---\n{json.dumps(resultado_json, indent=2, ensure_ascii=False)}\n--- Fim da Análise ---", file=sys.stderr)
 
     try:
         resumo = [f"# Análise do Projeto: {fonte_alvo.split('/')[-1]}", f"**Pontuação Média Final: {media_final:.1f}/100**\n"]
@@ -56,21 +51,35 @@ def orquestrar_analise_completa(fonte_alvo:str):
         print(f"✅ Relatório em Markdown também foi salvo.", file=sys.stderr)
     except Exception as e:
         print(f"AVISO: Falha ao gerar relatório .md opcional: {e}", file=sys.stderr)
+    
+    return resultado_json
 
+app = Flask(__name__)
+
+@app.route('/analyze', methods=['POST'])
+def analyze_endpoint():
+    data = request.get_json()
+    if not data:
+        return jsonify({"sucesso": False, "erro": "Corpo da requisição inválido ou vazio."}), 400
+
+    source_url = data.get('source')
+    github_token = data.get('github_token')
+    google_api_key = data.get('google_api_key')
+
+    if not all([source_url, github_token, google_api_key]):
+        return jsonify({"sucesso": False, "erro": "Parâmetros 'source', 'github_token' e 'google_api_key' são obrigatórios."}), 400
+
+    try:
+        resultado = orquestrar_analise_completa(source_url, github_token, google_api_key)
+        if not resultado.get("sucesso"):
+            return jsonify(resultado), 500 # Retorna erro 500 se a análise falhou
+        return jsonify(resultado), 200 # Retorna 200 apenas em caso de sucesso
+    except Exception as e:
+        print(f"ERRO INESPERADO NA API: {e}", file=sys.stderr)
+        return jsonify({"sucesso": False, "erro": "Ocorreu um erro interno no servidor de análise."}), 500
 
 if __name__ == "__main__":
-    # 1. Verifica se as chaves de API estão configuradas
-    if not MEU_TOKEN_GITHUB or not GOOGLE_API_KEY:
-        print(json.dumps({"sucesso": False, "erro": "As variáveis de ambiente GITHUB_PAT e/ou GOOGLE_API_KEY não foram encontradas."}))
-        sys.exit(1) # Encerra o script com um código de erro
-
-    # 2. Verifica se a fonte do projeto (URL ou path) foi passada como argumento
-    # sys.argv é a lista de argumentos da linha de comando. O primeiro é o nome do script.
-    if len(sys.argv) < 2:
-        print(json.dumps({"sucesso": False, "erro": "Nenhuma fonte de projeto (URL ou caminho local) foi fornecida como argumento."}))
-        sys.exit(1)
-        
-    fonte_do_projeto = sys.argv[1]
-    
-    # 3. Executa a orquestração
-    orquestrar_analise_completa(fonte_do_projeto)
+    # Inicia o servidor Flask.
+    # host='0.0.0.0' torna a API acessível a partir do seu .NET backend.
+    # A porta 5001 é uma boa escolha para não conflitar com outras aplicações.
+    app.run(host='0.0.0.0', port=5001, debug=True)

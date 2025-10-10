@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "UGq/Gdkl+lls3LrHOF9Iuco8FAqmfsZzbr+OtjcNX2pLgVxrD1BGfq9qxeX5l7rDgw6bg0WjmkGxGHBD6SsZQA==",
+  "dgSpecHash": "0FACM7s3/CIRY2SsUHkbd7f6/pj16/ZCDTF6XnTlmthLP2vGge7wAbXbKXcBEHE4NSX81L9PbczZ6/9844bxZg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\unisanta\\Desktop\\Hack\\hackathont2s\\Back-end\\HackathonT2S.csproj",
+  "projectFilePath": "C:\\Users\\unisanta\\Desktop\\Hack\\hackathont2s\\back-end\\HackathonT2S.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\unisanta\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\unisanta\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
