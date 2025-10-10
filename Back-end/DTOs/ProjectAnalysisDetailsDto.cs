@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 
 namespace HackathonT2S.Dtos
 {
@@ -11,6 +12,8 @@ namespace HackathonT2S.Dtos
         public string? LocalPath { get; set; }
         public string Status { get; set; } = string.Empty;
         public double? AverageScore { get; set; } // Pontuação média da IA
+        public string? UserName { get; set; }
+        public DateTime? SubmittedAt { get; set; }
         public List<AvaliacaoDetalhadaDto> PythonRatingDetails { get; set; } = new(); // Reusing the DTO from PythonAnalysisDto
     }
 }

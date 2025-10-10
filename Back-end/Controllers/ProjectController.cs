@@ -1,4 +1,4 @@
-﻿﻿﻿﻿using Microsoft.AspNetCore.Mvc;
+﻿﻿﻿﻿﻿﻿using Microsoft.AspNetCore.Mvc;
 using HackathonT2S.Data;
 using HackathonT2S.Dtos;
 using HackathonT2S.Dtos;
@@ -408,6 +408,60 @@ namespace HackathonT2S.Controllers
                 .ToListAsync();
 
             return Ok(projects);
+        }
+
+        /// <summary>
+        /// Obtém uma lista de projetos analisados para o ranking, ordenados pela maior nota.
+        /// </summary>
+        [HttpGet("/ada/projects/ranking")] // Rota global para o ranking
+        public async Task<ActionResult<IEnumerable<ProjectAnalysisDetailsDto>>> GetProjectsForRanking()
+        {
+            var projectsForRanking = await _context.Projects
+                .Include(p => p.User)
+                .Include(p => p.PythonRatingDetails)
+                .Where(p => p.Status == "Analisado" && p.PythonRatingDetails.Any()) // Apenas projetos analisados e com notas
+                .Select(p => new ProjectAnalysisDetailsDto
+                {
+                    ProjectID = p.ProjectID,
+                    Name = p.Name,
+                    UserName = p.User.Username,
+                    SubmittedAt = p.SubmittedAt,
+                    Status = p.Status,
+                    // Calcula a média das notas dos critérios para ter a pontuação final
+                    AverageScore = p.PythonRatingDetails.Average(r => r.Score),
+                    // Incluímos os detalhes para possível expansão no frontend
+                    PythonRatingDetails = p.PythonRatingDetails
+                        .Select(r => new AvaliacaoDetalhadaDto { Criterio = r.Criterion, Nota = r.Score, Justificativa = r.Justification })
+                        .ToList()
+                })
+                .OrderByDescending(p => p.AverageScore) // Ordena pela maior nota
+                .ToListAsync();
+
+            return Ok(projectsForRanking);
+        }
+
+        /// <summary>
+        /// [DEBUG] Lista todos os projetos com seu status atual para depuração.
+        /// </summary>
+        [HttpGet("/ada/projects/debug-all")]
+        public async Task<ActionResult<IEnumerable<object>>> GetAllProjectsForDebug()
+        {
+            var allProjects = await _context.Projects
+                .Include(p => p.User)
+                .Select(p => new
+                {
+                    p.ProjectID,
+                    p.Name,
+                    p.Status,
+                    p.SubmittedAt,
+                    p.LastUpdatedAt,
+                    UserName = p.User.Username,
+                    HasRatingDetails = p.PythonRatingDetails.Any()
+                })
+                .OrderByDescending(p => p.SubmittedAt)
+                .ToListAsync();
+
+            return Ok(allProjects);
         }
     }
 }

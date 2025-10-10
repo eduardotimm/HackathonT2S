@@ -1,4 +1,4 @@
-const API_BASE_URL = '/ada'; // Proxy will handle http://localhost:5135
+const API_BASE_URL = 'http://localhost:5135/ada'; // URL completa do backend
 
 async function apiFetch(url, options = {}) {
   const token = localStorage.getItem('token');
@@ -11,7 +11,7 @@ async function apiFetch(url, options = {}) {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  const response = await fetch(`${API_BASE_URL}${url}`, {
+  const response = await fetch(`${API_BASE_URL}${url}`, { // A URL agora será http://localhost:5135/ada/auth/register, etc.
     ...options,
     headers,
   });
@@ -32,18 +32,18 @@ async function apiFetch(url, options = {}) {
 }
 
 export const api = {
-  login: async (username, password) => {
-    return apiFetch('/auth/login', {
+  login: async (email, password) => {
+    return apiFetch('/user/login', {
       method: 'POST',
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ email, password }),
       headers: { 'Content-Type': 'application/json' }
     });
   },
 
-  register: async (username, password) => {
-    return apiFetch('/auth/register', {
+  register: async (username, email, password) => { // Adicionado 'email' para corresponder ao backend
+    return apiFetch('/user', {
       method: 'POST',
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username, email, password }), // Adicionado 'email' ao corpo
       headers: { 'Content-Type': 'application/json' }
     });
   },
