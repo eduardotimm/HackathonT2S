@@ -1,6 +1,6 @@
-# ADA - Assistente de Desempenho de Aplicações
+# ADAS - Analista de Desenvolvimento e Arquitetura de Software
 
-**ADA** é uma ferramenta full-stack projetada para analisar e avaliar a qualidade de projetos de software de forma automatizada. Utilizando a API do Google Gemini, a aplicação analisa repositórios do GitHub ou pastas de projetos locais, fornecendo uma pontuação e um feedback detalhado sobre critérios de Engenharia de Software e Qualidade de Aplicação de IA.
+**ADAS** é uma ferramenta full-stack projetada para analisar e avaliar a qualidade de projetos de software de forma automatizada. Utilizando a API do Google Gemini, a aplicação analisa repositórios do GitHub ou pastas de projetos locais, fornecendo uma pontuação e um feedback detalhado sobre critérios de Engenharia de Software e Qualidade de Aplicação de IA.
 
 ## ✨ Funcionalidades Principais
 
