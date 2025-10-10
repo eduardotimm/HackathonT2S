@@ -267,13 +267,10 @@ namespace HackathonT2S.Controllers
 
             // O relatório é salvo na pasta 'AI/src' do projeto Python
             // O nome do arquivo é padronizado como 'relatorio_projeto_{projectId}.md'
-            // A forma mais robusta de encontrar a raiz do projeto é subir dois níveis a partir do diretório de execução do assembly.
-            // Ex: Back-end/bin/Debug -> Back-end/bin -> Back-end -> Raiz do Projeto
-            var assemblyPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-            var assemblyDir = Path.GetDirectoryName(assemblyPath);
-            // Em desenvolvimento, o diretório de execução pode ser diferente. Usamos uma abordagem mais segura.
-            var projectRoot = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", ".."));
-            var reportPath = Path.Combine(projectRoot, "AI", "src", $"relatorio_projeto_{projectId}.md");
+            // Caminho para a pasta AI/src, assumindo que o backend está na pasta 'Back-end'
+            // e a pasta 'AI' está no mesmo nível da pasta 'Back-end'.
+            var aiSrcPath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", "AI", "src"));
+            var reportPath = Path.Combine(aiSrcPath, $"relatorio_projeto_{projectId}.md");
 
             if (!System.IO.File.Exists(reportPath))
             {
@@ -285,6 +282,45 @@ namespace HackathonT2S.Controllers
             var fileName = $"relatorio_projeto_{projectId}.md"; // Nome do arquivo para download
 
             return File(fileBytes, "text/markdown", fileName);
+        }
+
+        /// <summary>
+        /// Obtém os detalhes da análise de IA para um projeto específico.
+        /// </summary>
+        [HttpGet("/ada/projects/{projectId}/analysis-details")] // Rota global para detalhes da análise
+        public async Task<ActionResult<ProjectAnalysisDetailsDto>> GetProjectAnalysisDetails(int projectId)
+        {
+            var project = await _context.Projects
+                .Include(p => p.PythonRatingDetails) // Inclui os detalhes da avaliação da IA
+                .FirstOrDefaultAsync(p => p.ProjectID == projectId);
+
+            if (project == null)
+            {
+                return NotFound($"Projeto com ID {projectId} não encontrado.");
+            }
+
+            // Calcula a pontuação média se houver avaliações
+            double? averageScore = null;
+            if (project.PythonRatingDetails != null && project.PythonRatingDetails.Any())
+            {
+                averageScore = project.PythonRatingDetails.Average(r => r.Score);
+            }
+
+            var responseDto = new ProjectAnalysisDetailsDto
+            {
+                ProjectID = project.ProjectID,
+                Name = project.Name,
+                Description = project.Description,
+                RepoURL = project.RepoURL,
+                LocalPath = project.LocalPath,
+                Status = project.Status,
+                AverageScore = averageScore,
+                PythonRatingDetails = project.PythonRatingDetails
+                    .Select(r => new AvaliacaoDetalhadaDto { Criterio = r.Criterion, Nota = r.Score, Justificativa = r.Justification })
+                    .ToList()
+            };
+
+            return Ok(responseDto);
         }
 
         /// <summary>

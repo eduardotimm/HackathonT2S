@@ -1,48 +1,62 @@
-const BASE_URL = ''; // O proxy no package.json cuida do resto
+const API_BASE_URL = '/ada'; // Proxy will handle http://localhost:5135
 
-async function apiFetch(endpoint, options = {}) {
+async function apiFetch(url, options = {}) {
   const token = localStorage.getItem('token');
-
-  const defaultHeaders = {
+  const headers = {
     'Content-Type': 'application/json',
+    ...options.headers,
   };
 
   if (token) {
-    defaultHeaders['Authorization'] = `Bearer ${token}`;
+    headers['Authorization'] = `Bearer ${token}`;
   }
 
-  const config = {
+  const response = await fetch(`${API_BASE_URL}${url}`, {
     ...options,
-    headers: {
-      ...defaultHeaders,
-      ...options.headers,
-    },
-  };
-
-  // If body is FormData, browsers set the proper Content-Type boundary. Remove any Content-Type header.
-  if (options && options.body && options.body instanceof FormData) {
-    delete config.headers['Content-Type'];
-  }
-
-  const response = await fetch(`${BASE_URL}${endpoint}`, config);
+    headers,
+  });
 
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(errorText || `Erro na API: ${response.status}`);
+    let errorMessage = errorText;
+    try {
+      const errorJson = JSON.parse(errorText);
+      errorMessage = errorJson.message || errorJson.title || errorText;
+    } catch (e) {
+      // Not a JSON error, use raw text
+    }
+    throw new Error(errorMessage);
   }
 
-  // Se a resposta tiver conteúdo, retorna o JSON, senão retorna a resposta crua
-  const contentType = response.headers.get('content-type');
-  if (contentType && contentType.includes('application/json')) {
-    return response.json();
-  }
-  return response;
+  return response.json();
 }
 
 export const api = {
-  login: (email, password) => apiFetch('/ada/user/login', { method: 'POST', body: JSON.stringify({ email, password }) }),
-  register: (username, email, password) => apiFetch('/ada/user', { method: 'POST', body: JSON.stringify({ username, email, password }) }),
-  createProject: (userId, projectData) => apiFetch(`/ada/users/${userId}/projects`, { method: 'POST', body: JSON.stringify(projectData) }),
-  uploadProjectFolder: (userId, formData) => apiFetch(`/ada/users/${userId}/projects/upload`, { method: 'POST', body: formData, headers: { /* let fetch set Content-Type for multipart */ } }),
-  // ... você pode adicionar outras chamadas aqui (getProjects, getReports, etc.)
+  login: async (username, password) => {
+    return apiFetch('/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ username, password }),
+      headers: { 'Content-Type': 'application/json' }
+    });
+  },
+
+  register: async (username, password) => {
+    return apiFetch('/auth/register', {
+      method: 'POST',
+      body: JSON.stringify({ username, password }),
+      headers: { 'Content-Type': 'application/json' }
+    });
+  },
+
+  createProject: async (userId, payload) => {
+    return apiFetch(`/users/${userId}/projects`, { method: 'POST', body: JSON.stringify(payload) });
+  },
+
+  uploadProjectFolder: async (userId, formData) => {
+    return apiFetch(`/users/${userId}/projects/upload`, { method: 'POST', body: formData, headers: {} }); // headers: {} para que o browser defina Content-Type automaticamente para FormData
+  },
+
+  getProjectAnalysisDetails: async (projectId) => {
+    return apiFetch(`/projects/${projectId}/analysis-details`);
+  }
 };

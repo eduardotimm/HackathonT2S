@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 import './CentralForm.css';
 import TextInput from '../../components/TextInput/TextInput';
@@ -8,11 +8,17 @@ import { api } from '../../services/api';
 
 export default function CentralForm() {
   const navigate = useNavigate();
-  const [projectName, setProjectName] = React.useState('');
-  const [description, setDescription] = React.useState('');
-  const [url, setUrl] = React.useState("");
-  const [file, setFile] = React.useState(null);
-  const [supportsDirectory, setSupportsDirectory] = React.useState(true);
+  const [projectName, setProjectName] = useState('');
+  const [description, setDescription] = useState('');
+  const [url, setUrl] = useState("");
+  const [file, setFile] = useState(null);
+  const [supportsDirectory, setSupportsDirectory] = useState(true);
+
+  // New states for analysis
+  const [isLoading, setIsLoading] = useState(false);
+  const [analysisResult, setAnalysisResult] = useState(null);
+  const [createdProjectId, setCreatedProjectId] = useState(null);
+  const pollingIntervalIdRef = useRef(null); // Usar useRef para o ID do intervalo
 
   const handleUrlChange = (value) => {
     setUrl(value);
@@ -25,7 +31,7 @@ export default function CentralForm() {
     if (f) setUrl('');
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     try {
       const input = document.createElement('input');
       setSupportsDirectory('webkitdirectory' in input || 'mozdirectory' in input || 'directory' in input);
@@ -33,6 +39,95 @@ export default function CentralForm() {
       setSupportsDirectory(false);
     }
   }, []);
+
+  // Helper to group ratings for display
+  const groupRatings = (ratings) => {
+    const engineeringCriteria = [
+      "Adequação Funcional", "Manutenibilidade", "Confiabilidade",
+      "Usabilidade (Clareza)", "Desempenho"
+    ];
+    const iaCriteria = [
+      "Origem e Tratamento dos Dados", "Técnicas Aplicadas",
+      "Estratégia de Validação e Escolha de Modelos",
+      "Métricas de Avaliação, Custo e Desempenho",
+      "Segurança e Governança",
+      "Qualidade de Aplicação de IA" // Include the main criterion if AI returns it
+    ];
+
+    const grouped = {
+      engineering: [],
+      ia: [],
+      other: [] // For any criteria not explicitly mapped
+    };
+
+    ratings.forEach(rating => {
+      if (engineeringCriteria.includes(rating.criterio)) {
+        grouped.engineering.push(rating);
+      } else if (iaCriteria.includes(rating.criterio)) {
+        grouped.ia.push(rating);
+      } else {
+        // If a criterion doesn't fit, put it in 'other'
+        grouped.other.push(rating);
+      }
+    });
+    return grouped;
+  };
+
+  // New function to fetch and check analysis status
+  const fetchAnalysisStatus = useCallback(async (projectId) => {
+    try {
+      const result = await api.getProjectAnalysisDetails(projectId);
+      if (result.status === "Analisado" && result.pythonRatingDetails && result.pythonRatingDetails.length > 0) {
+        setAnalysisResult(result);
+        setIsLoading(false);
+        if (pollingIntervalIdRef.current) {
+          clearInterval(pollingIntervalIdRef.current);
+          pollingIntervalIdRef.current = null;
+        }
+        return true; // Analysis complete
+      } else if (result.status === "Erro") {
+        setAnalysisResult({ error: "Análise falhou no backend. Verifique os logs do servidor." });
+        setIsLoading(false);
+        if (pollingIntervalIdRef.current) {
+          clearInterval(pollingIntervalIdRef.current);
+          pollingIntervalIdRef.current = null;
+        }
+        return true; // Analysis failed
+      }
+      return false; // Analysis still pending
+    } catch (err) {
+      console.error("Erro ao buscar status da análise:", err);
+      setAnalysisResult({ error: "Erro ao buscar status da análise. Verifique a conexão ou logs." });
+      setIsLoading(false);
+      if (pollingIntervalIdRef.current) {
+        clearInterval(pollingIntervalIdRef.current);
+        pollingIntervalIdRef.current = null;
+      }
+      return true; // Stop polling on error
+    }
+  }, []);
+
+
+  useEffect(() => {
+    if (createdProjectId && !analysisResult && isLoading) { // Only start polling if project created, no result yet, and loading is true
+      const interval = setInterval(async () => {
+        const finished = await fetchAnalysisStatus(createdProjectId);
+        if (finished) {
+          clearInterval(interval);
+          pollingIntervalIdRef.current = null;
+        }
+      }, 5000); // Poll every 5 seconds
+      pollingIntervalIdRef.current = interval;
+    }
+
+    // Cleanup on unmount or if createdProjectId changes
+    return () => {
+      if (pollingIntervalIdRef.current) {
+        clearInterval(pollingIntervalIdRef.current);
+        pollingIntervalIdRef.current = null;
+      }
+    };
+  }, [createdProjectId, analysisResult, isLoading, fetchAnalysisStatus]); // Adiciona fetchAnalysisStatus como dependência
 
   const handleOk = async () => {
     console.log({ projectName, description, url, file });
@@ -48,6 +143,10 @@ export default function CentralForm() {
     const user = JSON.parse(userString);
     const userId = user.userID; // Usa o ID do usuário logado
 
+    setIsLoading(true); // Start loading indicator
+    setAnalysisResult(null); // Clear previous results
+    setCreatedProjectId(null); // Clear previous project ID
+
     // Só aceita URL preenchida e não arquivo
     if (url && !file) {
       const payload = {
@@ -57,10 +156,11 @@ export default function CentralForm() {
       };
 
       try {
-        const data = await api.createProject(userId, payload);
-        console.log('Projeto criado:', data);
-        navigate('/', { state: { message: `Projeto "${data.name}" criado com sucesso!` } });
+        const response = await api.createProject(userId, payload);
+        console.log('Projeto criado:', response);
+        setCreatedProjectId(response.projectID); // Store the created project ID to trigger polling
       } catch (err) {
+        setIsLoading(false); // Stop loading on error
         console.error('Erro ao criar projeto:', err);
         alert('Erro ao criar projeto: ' + err.message);
       }
@@ -86,18 +186,19 @@ export default function CentralForm() {
           const userString = localStorage.getItem('user');
           const user = JSON.parse(userString);
           const userId = user.userID;
-          const response = await api.uploadProjectFolder(userId, formData);
-          console.log('Upload criado:', response);
-          navigate('/', { state: { message: `Projeto "${response.name}" criado com sucesso!` } });
+          const uploadResponse = await api.uploadProjectFolder(userId, formData);
+          console.log('Upload criado:', uploadResponse);
+          setCreatedProjectId(uploadResponse.projectID); // Store the created project ID to trigger polling
         } catch (err) {
+          setIsLoading(false); // Stop loading on error
           console.error('Erro ao enviar pasta:', err);
           alert('Erro ao enviar pasta: ' + err.message);
         }
-        return;
+        // The polling useEffect will handle setting analysisResult and isLoading(false)
       }
 
-      // comportamento padrão quando não tem URL nem arquivos
-      navigate('/');
+      // Não navega mais imediatamente, espera a análise.
+      // O comportamento de navegação foi removido para permitir que o polling funcione.
     }
   };
 
@@ -139,6 +240,60 @@ export default function CentralForm() {
         )}
         <Button label="OK" onClick={handleOk} />
       </div>
+
+      {/* Loading indicator */}
+      {isLoading && (
+          <div className="loading-indicator">
+              <div className="spinner"></div>
+              <p>Analisando projeto com IA... Isso pode levar alguns segundos.</p>
+          </div>
+      )}
+
+      {/* Analysis Results */}
+      {analysisResult && !analysisResult.error && (
+          <div className="analysis-results">
+              <h3>Resultados da Análise de IA</h3>
+              <p><strong>Pontuação Média Final: {analysisResult.averageScore?.toFixed(1)}/100</strong></p>
+
+              {analysisResult.pythonRatingDetails && analysisResult.pythonRatingDetails.length > 0 && (
+                  <>
+                      <h4>Qualidade de Engenharia de Software</h4>
+                      {groupRatings(analysisResult.pythonRatingDetails).engineering.map((rating, index) => (
+                          <div key={index} className="rating-item">
+                              <h5>{rating.criterio} - Nota: {rating.nota}/100</h5>
+                              <p>{rating.justificativa}</p>
+                          </div>
+                      ))}
+
+                      <h4>Qualidade de Aplicação de IA</h4>
+                      {groupRatings(analysisResult.pythonRatingDetails).ia.map((rating, index) => (
+                          <div key={index} className="rating-item">
+                              <h5>{rating.criterio} - Nota: {rating.nota}/100</h5>
+                              <p>{rating.justificativa}</p>
+                          </div>
+                      ))}
+                      {groupRatings(analysisResult.pythonRatingDetails).other.length > 0 && (
+                          <>
+                              <h4>Outros Critérios</h4>
+                              {groupRatings(analysisResult.pythonRatingDetails).other.map((rating, index) => (
+                                  <div key={index} className="rating-item">
+                                      <h5>{rating.criterio} - Nota: {rating.nota}/100</h5>
+                                      <p>{rating.justificativa}</p>
+                                  </div>
+                              ))}
+                          </>
+                      )}
+                  </>
+              )}
+          </div>
+      )}
+
+      {/* Error Message for Analysis */}
+      {analysisResult && analysisResult.error && (
+          <div className="error-message">
+              <p>Erro na análise: {analysisResult.error}</p>
+          </div>
+      )}
     </div>
   );
 }

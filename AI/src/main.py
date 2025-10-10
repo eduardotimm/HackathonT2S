@@ -23,14 +23,19 @@ def orquestrar_analise_completa(fonte_alvo: str, github_token: str, google_api_k
     lista_de_avaliacoes = executar_avaliacao_completa(metricas_brutas)
     if not lista_de_avaliacoes:
         return {"sucesso": False, "erro": "O Rater não retornou uma avaliação válida da IA."}
-    
-    pontuacao_total = sum(av.get('nota', 0) for av in lista_de_avaliacoes)
-    media_final = pontuacao_total / len(lista_de_avaliacoes) if lista_de_avaliacoes else 0
+
+    # A IA já retorna a lista de avaliações. Agora calculamos a média e montamos o objeto final.
+    try:
+        pontuacao_total = sum(av.get('nota', 0) for av in lista_de_avaliacoes)
+        media_final = float(pontuacao_total) / len(lista_de_avaliacoes) if lista_de_avaliacoes else 0.0
+    except (TypeError, AttributeError):
+        # Se a IA retornar algo que não é uma lista de dicionários, o erro será capturado aqui.
+        return {"sucesso": False, "erro": "A resposta da IA não está no formato de lista de avaliações esperado."}
 
 
     #Montagem do JSON a ser enviado
     resultado_json = {
-        "sucesso" : True,
+        "sucesso": True,
         "projeto_analisado":fonte_alvo.split('/')[-1],
         "pontuacao_media": round(media_final,1),
         "avaliacoes_detalhadas": lista_de_avaliacoes

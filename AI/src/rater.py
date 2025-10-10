@@ -74,24 +74,12 @@ def executar_avaliacao_completa(metricas_brutas: dict) -> list:
         Se atente também para seguir a numeração dos tópicos de forma correta.
 
         ## RETORNOS
-        - Sua resposta completa DEVE ser um array JSON válido (Uma lista de objetos)
-        - Cada objeto no array deve ter 3 chaves: "critério"(string) "nota"(integer) e "justificativa"(string)
+        - Sua resposta completa DEVE ser um array JSON válido (uma lista de objetos) e NADA MAIS.
+        - Não inclua marcadores de markdown como ```json ou ```.
+        - Cada objeto no array DEVE ter exatamente 3 chaves, todas em minúsculas: "criterio" (string), "nota" (integer), e "justificativa" (string).
         - As respostas devem estar em pt-br
-        -Não inclua nenhum texto ou formato fora do JSON
-
-        ##Exemplo de retorno JSON 
-        [
-         {{
-            "criterio":"Confiabilidade (Testes)",
-            "nota":85,
-            "justificativa": "🏆 A proporção de arquivos de teste em relação ao total é excelente, indicando um forte compromisso com a qualidade e robustez do código."
-         }},
-         {{
-            "criterio": "Usabilidade(Clareza da Documentação)",
-            "nota":70,
-            "justificativa":"✅ O README.md fornece instruções de instalação, mas poderia ser mais detalhado na explicação da arquitetura e modo de uso."
-         }}
-        ]
+        - O json deve conter SOMENTE os dois critérios citados, Qualidade de Engenharia de Software e Qualidade de Aplicação de IA.
+        - A justificativa deve conter uma breve explicação sobre cada um dos subcritérios, e por que recebeu a nota.
 
         ATENÇÃO caso um dos pontos não esteja presente na avaliação, aponte o que está faltando, mostre os malefícios dessa ausência e as razões pela qual ela DEVE ser implementada.
 
